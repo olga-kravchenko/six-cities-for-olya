@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import MainPage from "../main-page/main_page";
 
 const App = (props) => {
@@ -6,6 +7,10 @@ const App = (props) => {
   return (
     <MainPage apartmentQuantity= {apartmentQuantity}/>
   );
+};
+
+App.propTypes = {
+  apartmentQuantity: PropTypes.number.isRequired,
 };
 
 export default App;

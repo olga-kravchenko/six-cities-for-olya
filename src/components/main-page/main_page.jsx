@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import ApartmentCard from "../apartment-card/apartment_card";
 
 const showApartmentCards = (apartmentQuantity, apartmentCard) => {
@@ -11,7 +12,6 @@ const showApartmentCards = (apartmentQuantity, apartmentCard) => {
 
 const MainPage = (props) => {
   const {apartmentQuantity} = props;
-
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -107,6 +107,10 @@ const MainPage = (props) => {
       </main>
     </div>
   );
+};
+
+MainPage.propTypes = {
+  apartmentQuantity: PropTypes.number.isRequired,
 };
 
 export default MainPage;

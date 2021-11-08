@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from "./components/app/app";
 
 const Setting = {
-  APARTMENT_QUANTITY: 6,
+  APARTMENT_QUANTITY: 5,
 };
 
 ReactDOM.render(
