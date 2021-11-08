@@ -11,5 +11,6 @@ Thumbs.db
 *.log*
 node_modules/
 
+# Files resulting from the Webpack build
 public/bundle.js
 public/bundle.js.map
