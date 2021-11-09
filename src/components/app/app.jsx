@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import MainPage from "../main-page/main_page";
+import MainPage from "../main-page/main-page";
 
 const App = (props) => {
   const {apartmentQuantity} = props;

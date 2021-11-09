@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import ApartmentCard from "../apartment-card/apartment_card";
+import ApartmentCard from "../apartment-card/appartment";
 
 const showApartmentCards = (apartmentQuantity, apartmentCard) => {
   const apartments = [];
