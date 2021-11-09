@@ -1,12 +1,16 @@
-# Файлы и папки операционной системы
+# Operating system files and folders
 .DS_Store
 Thumbs.db
 
-# Файлы редактора
+# Editor Files
 .idea
 *.sublime*
 .vscode
 
-# Вспомогательные файлы
+# Supporting files
 *.log*
 node_modules/
+
+# Files resulting from the Webpack build
+public/bundle.js
+public/bundle.js.map
