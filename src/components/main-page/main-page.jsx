@@ -2,16 +2,9 @@ import React from "react";
 import PropTypes from 'prop-types';
 import ApartmentCard from "../apartment-card/appartment";
 
-const showApartmentCards = (apartmentQuantity, apartmentCard) => {
-  const apartments = [];
-  for (let i = 0; i < apartmentQuantity; i++) {
-    apartments.push(apartmentCard);
-  }
-  return apartments;
-};
-
 const MainPage = (props) => {
   const {apartmentQuantity} = props;
+  const apartments = new Array(apartmentQuantity).fill();
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -96,7 +89,7 @@ const MainPage = (props) => {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {showApartmentCards(apartmentQuantity, <ApartmentCard/>)}
+                {apartments.map((_, i) => <ApartmentCard key = {i}/>)}
               </div>
             </section>
             <div className="cities__right-section">
