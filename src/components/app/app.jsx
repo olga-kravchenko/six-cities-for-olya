@@ -1,16 +1,16 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import MainPage from "../main-page/main-page";
+import Main from "../main/main";
 
 const App = (props) => {
-  const {apartmentQuantity} = props;
+  const {roomQuantity} = props;
   return (
-    <MainPage apartmentQuantity= {apartmentQuantity}/>
+    <Main roomQuantity= {roomQuantity}/>
   );
 };
 
 App.propTypes = {
-  apartmentQuantity: PropTypes.number.isRequired,
+  roomQuantity: PropTypes.number.isRequired,
 };
 
 export default App;

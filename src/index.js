@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import App from "./components/app/app";
 
 const Setting = {
-  APARTMENT_QUANTITY: 5,
+  ROOM_QUANTITY: 5,
 };
 
 ReactDOM.render(
-    <App apartmentQuantity={Setting.APARTMENT_QUANTITY}/>,
+    <App roomQuantity={Setting.ROOM_QUANTITY}/>,
     document.querySelector(`#root`)
 );
