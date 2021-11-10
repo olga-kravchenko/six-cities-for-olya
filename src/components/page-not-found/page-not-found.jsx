@@ -27,7 +27,12 @@ const PageNotFound = () => {
       </header>
 
       <main>
-        <h1>404 Page Not Found</h1>
+        <h1 style={{
+          textAlign: `center`,
+          color: `#4481c3`,
+          marginTop: `100px`,
+          marginBottom: `100px`,
+        }}>404 Page Not Found</h1>
       </main>
 
       <footer className="footer container">
