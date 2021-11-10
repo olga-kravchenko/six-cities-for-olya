@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import RoomCard from "../room/room-card";
+import RoomCard from "../room-card/room-card";
 
 const Main = (props) => {
   const {roomQuantity} = props;
