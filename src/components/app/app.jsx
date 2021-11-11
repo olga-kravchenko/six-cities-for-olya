@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Main from "../main/main";
-import SignIn from "../sign-in/sign-in";
+import Login from "../login/login";
 import Favorites from "../favorites/favorites";
-import Room from "../room/room";
-import PageNotFound from "../page-not-found/page-not-found";
+import Offer from "../offer/offer";
+import PageNotFound from "../404/404";
 
 const App = (props) => {
   const {roomQuantity} = props;
@@ -15,17 +15,17 @@ const App = (props) => {
         <Route path="/" exact>
           <Main roomQuantity= {roomQuantity}/>
         </Route>
-        <Route exact path="/login">
-          <SignIn />
+        <Route path="/login" exact>
+          <Login/>
         </Route>
-        <Route exact path="/favorites">
-          <Favorites />
+        <Route path="/favorites" exact>
+          <Favorites/>
         </Route>
-        <Route exact path="/offer/:id">
-          <Room />
+        <Route path="/offer/:id" exact>
+          <Offer/>
         </Route>
         <Route>
-          <PageNotFound />
+          <PageNotFound/>
         </Route>
       </Switch>
     </BrowserRouter>

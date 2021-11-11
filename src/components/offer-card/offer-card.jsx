@@ -1,6 +1,6 @@
 import React from "react";
 
-const RoomCard = () => {
+const OfferCard = () => {
   return (
     <article className="cities__place-card place-card">
       <div className="cities__image-wrapper place-card__image-wrapper">
@@ -36,4 +36,4 @@ const RoomCard = () => {
   );
 };
 
-export default RoomCard;
+export default OfferCard;
