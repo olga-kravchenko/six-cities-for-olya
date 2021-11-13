@@ -5,7 +5,7 @@ import Header from "../header/header";
 
 const Main = (props) => {
   const {roomQuantity} = props;
-  const rooms = new Array(roomQuantity).fill();
+  const rooms = new Array(roomQuantity).fill(null);
   return (
     <div className="page page--gray page--main">
       <Header/>
