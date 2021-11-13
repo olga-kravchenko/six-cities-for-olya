@@ -1,4 +1,5 @@
 import {nanoid} from "nanoid";
+import dayjs from "dayjs";
 
 const DESCRIPTION = [
   `Contrary to popular belief, Lorem Ipsum is not simply random text.`,
@@ -46,6 +47,7 @@ const MIN_PRICE = 10;
 const MAX_PRICE = 1000;
 const MAX_RATING = 10;
 const RANDOM_OFFER_QUANTITY = 4;
+const MAX_COMMENT_QUANTITY = 5;
 
 const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min) + min);
 
@@ -59,8 +61,8 @@ const generateRandomArray = (array) => {
   return randomArray;
 };
 
-const getRandomRating = (max) => {
-  return (Math.random() * max).toFixed(1);
+const getRandomRating = () => {
+  return (Math.random() * MAX_RATING).toFixed(1);
 };
 
 const generateOffer = () => {
@@ -95,9 +97,24 @@ const generateOffer = () => {
     "max_adults": getRandomNumber(MIN_ADULT_QUANTITY, MAX_ADULT_QUANTITY),
     "preview_image": SMALL_PHOTO_ROOMS[getRandomNumber(MIN_ARRAY_QUANTITY, SMALL_PHOTO_ROOMS.length)],
     "price": getRandomNumber(MIN_PRICE, MAX_PRICE),
-    "rating": getRandomRating(MAX_RATING),
+    "rating": getRandomRating(),
     "title": DESCRIPTION[getRandomNumber(MIN_ARRAY_QUANTITY, DESCRIPTION.length)].substring(0, 100),
     "type": TYPE_NAMES[getRandomNumber(MIN_ARRAY_QUANTITY, OFFER_TYPES.length)]
+  };
+};
+
+const generateComment = () => {
+  return {
+    "comment": DESCRIPTION[getRandomNumber(MIN_ARRAY_QUANTITY, DESCRIPTION.length)],
+    "date": dayjs().toDate(),
+    "id": nanoid(),
+    "rating": getRandomRating(),
+    "user": {
+      "avatar_url": AVATARS[getRandomNumber(MIN_ARRAY_QUANTITY, AVATARS.length)],
+      "id": nanoid(),
+      "is_pro": STATES[getRandomRating(MIN_ARRAY_QUANTITY, STATES.length)],
+      "name": NAMES[getRandomNumber(MIN_ARRAY_QUANTITY, NAMES.length)]
+    }
   };
 };
 
@@ -105,5 +122,9 @@ const offers = new Array(RANDOM_OFFER_QUANTITY)
   .fill(null)
   .map(generateOffer);
 
-export default offers;
+const comments = new Array(getRandomNumber(MIN_ARRAY_QUANTITY, MAX_COMMENT_QUANTITY))
+  .fill(null)
+  .map(generateComment);
+
+export {offers, comments};
 
