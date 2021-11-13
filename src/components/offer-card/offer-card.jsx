@@ -1,20 +1,26 @@
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 
 const OfferCard = ({offer, place}) => {
+  const [cardHover, setCardMouseOver] = useState({id: ``});
   const {price, title, type, preview_image, id, is_favorite} = offer;
   const isCities = place === `cities` ? `${place}__place-card` : `${place}__card`;
   const isCitiesImageWidth = place === `cities` ? `260` : `150`;
   const isCitiesImageHeight = place === `cities` ? `200` : `110`;
   const isFavorites = place === `favorites` ? `favorites__card-info place-card__info` : `place-card__info`;
   const isCitiesStarsWidth = place === `cities` ? `80%` : `100%`;
-
   return (
-    <article className={`${isCities} place-card`} id={id}>
+    <article className={`${isCities} place-card`} id={id}
+      onMouseOver={({target}) => {
+        const hoverElementId = target.closest(`article`).id;
+        setCardMouseOver({...cardHover, id: hoverElementId});
+      }}>
       <div className={`${place}__image-wrapper place-card__image-wrapper`}>
-        <a href="#">
-          <img className="place-card__image" src={preview_image} width={isCitiesImageWidth} height={isCitiesImageHeight} alt="Place image"/>
-        </a>
+        <Link to={`/offer/${id}`}>
+          <img className="place-card__image" src={preview_image} width={isCitiesImageWidth} height={isCitiesImageHeight}
+            alt="Place image"/>
+        </Link>
       </div>
       <div className={isFavorites}>
         <div className="place-card__price-wrapper">
