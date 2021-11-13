@@ -23,7 +23,10 @@ const App = (props) => {
           <Login/>
         </Route>
         <Route path="/favorites" exact>
-          <Favorites place={favorites}/>
+          <Favorites
+            offers={offers}
+            place={favorites}
+          />
         </Route>
         <Route path="/offer/:id" offers={offers} comments={comments} exact>
           <Offer/>

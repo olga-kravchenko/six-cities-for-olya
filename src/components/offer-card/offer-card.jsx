@@ -1,16 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const OfferCard = ({offer}) => {
+const OfferCard = ({offer, place}) => {
   const {price, title, type, preview_image, id, is_favorite} = offer;
+  const isCities = place === `cities` ? `${place}__place-card` : `${place}__card`;
+  const isCitiesImageWidth = place === `cities` ? `260` : `150`;
+  const isCitiesImageHeight = place === `cities` ? `200` : `110`;
+  const isFavorites = place === `favorites` ? `favorites__card-info place-card__info` : `place-card__info`;
+  const isCitiesStarsWidth = place === `cities` ? `80%` : `100%`;
+
   return (
-    <article className="cities__place-card place-card" id={id}>
-      <div className="cities__image-wrapper place-card__image-wrapper">
+    <article className={`${isCities} place-card`} id={id}>
+      <div className={`${place}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
-          <img className="place-card__image" src={preview_image} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={preview_image} width={isCitiesImageWidth} height={isCitiesImageHeight} alt="Place image"/>
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={isFavorites}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -31,7 +37,7 @@ const OfferCard = ({offer}) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `80%`}}/>
+            <span style={{width: `${isCitiesStarsWidth}`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -45,7 +51,7 @@ const OfferCard = ({offer}) => {
 };
 
 OfferCard.propTypes = {
-  offer: PropTypes.PropTypes.shape({
+  offer: PropTypes.shape({
     price: PropTypes.number,
     title: PropTypes.string,
     type: PropTypes.string,
@@ -53,6 +59,7 @@ OfferCard.propTypes = {
     id: PropTypes.string,
     is_favorite: PropTypes.bool
   }),
+  place: PropTypes.string
 };
 
 export default OfferCard;
