@@ -4,7 +4,7 @@ import Offers from "../offers/offers";
 import Header from "../header/header";
 
 const Main = (props) => {
-  const {roomQuantity, offers} = props;
+  const {roomQuantity, offers, place} = props;
   return (
     <div className="page page--gray page--main">
       <Header/>
@@ -67,7 +67,7 @@ const Main = (props) => {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <Offers offers={offers}/>
+              <Offers offers={offers} place={place}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"/>
@@ -82,6 +82,7 @@ const Main = (props) => {
 Main.propTypes = {
   roomQuantity: PropTypes.number.isRequired,
   offers: PropTypes.array,
+  place: PropTypes.string
 };
 
 export default Main;

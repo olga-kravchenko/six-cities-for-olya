@@ -1,8 +1,10 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 import Header from "../header/header";
+import PropTypes from "prop-types";
 
-const Favorites = () => {
+const Favorites = ({place}) => {
+  console.log(place)
   return (
     <div className="page">
       <Header/>
@@ -146,6 +148,10 @@ const Favorites = () => {
       </footer>
     </div>
   );
+};
+
+Favorites.propTypes = {
+  place: PropTypes.string
 };
 
 export default Favorites;
