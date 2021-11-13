@@ -16,9 +16,9 @@ const NAMES = [`Angelina`, `Badim`, `Mark`, `Bengamin`, `Elena`, `Alex`];
 const OFFER_TYPES = [`apartment`, `room`, `house`, `hotel`];
 const TYPE_NAMES = [`Apartment`, `Private Room`, `House`, `Hotel`];
 const STATES = [true, false];
-const AVATARS = [`avatar.svg`, `avatar-angelina.jpg`, `avatar-max.jpg`];
-const PHOTO_ROOMS = [`room.jpg`, `apartment-01.jpg`, `apartment-02.jpg`, `apartment-03.jpg`];
-const SMALL_PHOTO_ROOMS = [`room-small.jpg`, `apartment-small-03.jpg`, `apartment-small-03.jpg`];
+const AVATARS = [`img/avatar.svg`, `img/avatar-angelina.jpg`, `img/avatar-max.jpg`];
+const PHOTO_ROOMS = [`img/room.jpg`, `img/apartment-01.jpg`, `img/apartment-02.jpg`, `img/apartment-03.jpg`];
+const SMALL_PHOTO_ROOMS = [`img/room-small.jpg`, `img/apartment-small-03.jpg`, `img/apartment-small-03.jpg`];
 const LOCATIONS = [
   {
     latitude: 52.370216,
@@ -46,7 +46,6 @@ const MAX_ADULT_QUANTITY = 10;
 const MIN_PRICE = 10;
 const MAX_PRICE = 1000;
 const MAX_RATING = 10;
-const RANDOM_OFFER_QUANTITY = 4;
 const MAX_COMMENT_QUANTITY = 5;
 
 const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min) + min);
@@ -95,10 +94,10 @@ const generateOffer = () => {
       "zoom": 8
     },
     "max_adults": getRandomNumber(MIN_ADULT_QUANTITY, MAX_ADULT_QUANTITY),
-    "preview_image": SMALL_PHOTO_ROOMS[getRandomNumber(MIN_ARRAY_QUANTITY, SMALL_PHOTO_ROOMS.length)],
+    "preview_image": PHOTO_ROOMS[getRandomNumber(MIN_ARRAY_QUANTITY, PHOTO_ROOMS.length)],
     "price": getRandomNumber(MIN_PRICE, MAX_PRICE),
     "rating": getRandomRating(),
-    "title": DESCRIPTION[getRandomNumber(MIN_ARRAY_QUANTITY, DESCRIPTION.length)].substring(0, 100),
+    "title": DESCRIPTION[getRandomNumber(MIN_ARRAY_QUANTITY, DESCRIPTION.length)].substring(0, 40) + `.`,
     "type": TYPE_NAMES[getRandomNumber(MIN_ARRAY_QUANTITY, OFFER_TYPES.length)]
   };
 };
@@ -118,13 +117,9 @@ const generateComment = () => {
   };
 };
 
-const offers = new Array(RANDOM_OFFER_QUANTITY)
-  .fill(null)
-  .map(generateOffer);
-
 const comments = new Array(getRandomNumber(MIN_ARRAY_QUANTITY, MAX_COMMENT_QUANTITY))
   .fill(null)
   .map(generateComment);
 
-export {offers, comments};
+export {generateOffer, comments};
 

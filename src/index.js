@@ -1,15 +1,14 @@
 import React from "react";
 import ReactDOM from 'react-dom';
-import {offers, comments} from "./mocks/offers";
+import {generateOffer, comments} from "./mocks/offers";
 import App from "./components/app/app";
 
-const Setting = {
-  ROOM_QUANTITY: 5,
-};
+const ROOM_QUANTITY = 5;
+const offers = new Array(ROOM_QUANTITY).fill(null).map(generateOffer);
 
 ReactDOM.render(
     <App
-      roomQuantity={Setting.ROOM_QUANTITY}
+      roomQuantity={ROOM_QUANTITY}
       offers={offers}
       comments={comments}
     />,

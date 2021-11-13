@@ -4,8 +4,7 @@ import OfferCard from "../offer-card/offer-card";
 import Header from "../header/header";
 
 const Main = (props) => {
-  const {roomQuantity} = props;
-  const rooms = new Array(roomQuantity).fill(null);
+  const {roomQuantity, offers} = props;
   return (
     <div className="page page--gray page--main">
       <Header/>
@@ -69,7 +68,9 @@ const Main = (props) => {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {rooms.map((_, i) => <OfferCard key = {i}/>)}
+                {offers.map((offer, i) => {
+                  return <OfferCard key = {i} offer = {offer}/>;
+                })}
               </div>
             </section>
             <div className="cities__right-section">
@@ -84,6 +85,7 @@ const Main = (props) => {
 
 Main.propTypes = {
   roomQuantity: PropTypes.number.isRequired,
+  offers: PropTypes.array,
 };
 
 export default Main;
