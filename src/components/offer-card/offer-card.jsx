@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const OfferCard = ({offer}) => {
-  const {price, title, type, preview_image} = offer;
+  const {price, title, type, preview_image, id, is_favorite} = offer;
   return (
-    <article className="cities__place-card place-card">
+    <article className="cities__place-card place-card" id={id}>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
           <img className="place-card__image" src={preview_image} width="260" height="200" alt="Place image"/>
@@ -16,7 +16,13 @@ const OfferCard = ({offer}) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
+          <button
+            className={
+              is_favorite ?
+                `place-card__bookmark-button place-card__bookmark-button--active button` :
+                `place-card__bookmark-button button`}
+            type="button"
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>
             </svg>
@@ -39,11 +45,13 @@ const OfferCard = ({offer}) => {
 };
 
 OfferCard.propTypes = {
-  offer: PropTypes. PropTypes.shape({
+  offer: PropTypes.PropTypes.shape({
     price: PropTypes.number,
     title: PropTypes.string,
     type: PropTypes.string,
-    preview_image: PropTypes.string
+    preview_image: PropTypes.string,
+    id: PropTypes.string,
+    is_favorite: PropTypes.bool
   }),
 };
 
