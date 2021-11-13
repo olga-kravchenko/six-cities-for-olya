@@ -9,6 +9,7 @@ const place = {
   cities: `cities`,
   favorites: `favorites`
 };
+const logged = true;
 
 ReactDOM.render(
     <App
@@ -16,6 +17,7 @@ ReactDOM.render(
       offers={offers}
       comments={comments}
       place={place}
+      logged={logged}
     />,
     document.querySelector(`#root`)
 );

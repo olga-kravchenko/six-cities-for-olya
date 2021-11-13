@@ -8,7 +8,7 @@ import Offer from "../offer/offer";
 import PageNotFound from "../404/404";
 
 const App = (props) => {
-  const {roomQuantity, offers, comments, place: {cities, favorites}} = props;
+  const {roomQuantity, offers, comments, place: {cities, favorites}, logged} = props;
   return (
     <BrowserRouter>
       <Switch>
@@ -17,22 +17,28 @@ const App = (props) => {
             roomQuantity={roomQuantity}
             offers={offers}
             place={cities}
+            logged={logged}
           />
         </Route>
         <Route path="/login" exact>
-          <Login/>
+          <Login logged={logged}/>
         </Route>
         <Route path="/favorites" exact>
           <Favorites
             offers={offers}
             place={favorites}
+            logged={logged}
           />
         </Route>
-        <Route path="/offer/:id" offers={offers} comments={comments} exact>
-          <Offer/>
+        <Route path="/offer/:id" exact>
+          <Offer
+            offers={offers}
+            comments={comments}
+            logged={logged}
+          />
         </Route>
         <Route>
-          <PageNotFound/>
+          <PageNotFound logged={logged}/>
         </Route>
       </Switch>
     </BrowserRouter>
@@ -46,7 +52,8 @@ App.propTypes = {
   place: PropTypes.shape({
     cities: PropTypes.string,
     favorites: PropTypes.string
-  })
+  }),
+  logged: PropTypes.bool
 };
 
 export default App;

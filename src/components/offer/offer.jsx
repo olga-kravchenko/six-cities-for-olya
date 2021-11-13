@@ -1,10 +1,11 @@
 import React from "react";
 import Header from "../header/header";
+import PropTypes from "prop-types";
 
-const Offer = () => {
+const Offer = ({logged}) => {
   return (
     <div className="page">
-      <Header/>
+      <Header logged={logged}/>
 
       <main className="page__main page__main--property">
         <section className="property">
@@ -320,6 +321,10 @@ const Offer = () => {
       </main>
     </div>
   );
+};
+
+Offer.propTypes = {
+  logged: PropTypes.bool
 };
 
 export default Offer;

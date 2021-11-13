@@ -5,12 +5,12 @@ import PropTypes from "prop-types";
 import Offers from "../offers/offers";
 import FavoritesEmpty from "../favorites-empty/favorites-empty";
 
-const Favorites = ({offers, place}) => {
+const Favorites = ({offers, place, logged}) => {
   const favoriteOffers = offers.filter((offer) => offer.is_favorite);
   const isEmptyOffers = favoriteOffers.length === 0;
   return (
     <div className="page">
-      <Header/>
+      <Header logged={logged}/>
       {isEmptyOffers ?
         <FavoritesEmpty/> :
         <main className="page__main page__main--favorites">
@@ -45,7 +45,8 @@ const Favorites = ({offers, place}) => {
 
 Favorites.propTypes = {
   offers: PropTypes.array,
-  place: PropTypes.string
+  place: PropTypes.string,
+  logged: PropTypes.bool
 };
 
 export default Favorites;

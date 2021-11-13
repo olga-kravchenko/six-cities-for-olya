@@ -4,10 +4,10 @@ import Offers from "../offers/offers";
 import Header from "../header/header";
 
 const Main = (props) => {
-  const {roomQuantity, offers, place} = props;
+  const {roomQuantity, offers, place, logged} = props;
   return (
     <div className="page page--gray page--main">
-      <Header/>
+      <Header logged={logged}/>
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
@@ -82,7 +82,8 @@ const Main = (props) => {
 Main.propTypes = {
   roomQuantity: PropTypes.number.isRequired,
   offers: PropTypes.array,
-  place: PropTypes.string
+  place: PropTypes.string,
+  logged: PropTypes.bool
 };
 
 export default Main;
