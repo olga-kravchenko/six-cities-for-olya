@@ -4,7 +4,6 @@ import OfferCard from "../offer-card/offer-card";
 
 const Offers = ({offers, place}) => {
   const [cardHover, setCardMouseOver] = useState({id: ``});
-  const placeCities = place === `cities` ? `cities__places-list places__list tabs__content` : `favorites__places`;
   return (
     <div className="cities__places-list places__list tabs__content"
       onMouseOver={({target}) => {
