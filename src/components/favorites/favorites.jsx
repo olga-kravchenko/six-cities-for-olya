@@ -2,8 +2,8 @@ import React from "react";
 import {Link} from 'react-router-dom';
 import Header from "../header/header";
 import PropTypes from "prop-types";
-import Offers from "../offers/offers";
 import FavoritesEmpty from "../favorites-empty/favorites-empty";
+import OfferCard from "../offer-card/offer-card";
 
 const Favorites = ({offers, place, logged}) => {
   const favoriteOffers = offers.filter((offer) => offer.is_favorite);
@@ -26,7 +26,9 @@ const Favorites = ({offers, place, logged}) => {
                       </a>
                     </div>
                   </div>
-                  <Offers offers={favoriteOffers} place={place}/>
+                  <div className="favorites__places">
+                    {favoriteOffers.map((offer, i) => <OfferCard key = {i} offer = {offer} place={place}/>)}
+                  </div>
                 </li>
               </ul>
             </section>
