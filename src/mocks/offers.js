@@ -45,7 +45,7 @@ const MIN_ADULT_QUANTITY = 2;
 const MAX_ADULT_QUANTITY = 10;
 const MIN_PRICE = 10;
 const MAX_PRICE = 1000;
-const MAX_RATING = 10;
+const MAX_RATING = 5;
 const MAX_COMMENT_QUANTITY = 5;
 
 const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min) + min);

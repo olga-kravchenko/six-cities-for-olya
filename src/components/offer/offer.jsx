@@ -2,13 +2,15 @@ import React from "react";
 import Header from "../header/header";
 import PropTypes from "prop-types";
 import CommentForm from "../comment-form/comment-form";
+import Comment from "../comment/comment";
+import {convertRatingToPercent} from "../../utils/utils";
 
-const Offer = ({logged, offers}) => {
+const Offer = ({logged, offers, comments}) => {
   const offer = offers[0];
-  console.log(offer)
   const {bedrooms, max_adults, goods, price, description, title, type, preview_image, id, is_favorite, is_premium, rating, host} = offer;
   const {avatar_url, is_pro, name} = host;
   const isProHost = is_pro ? `property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper` : `property__avatar-wrapper user__avatar-wrapper`;
+  const percent = convertRatingToPercent(rating);
 
   return (
     <div className="page">
@@ -58,7 +60,7 @@ const Offer = ({logged, offers}) => {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `80%`}}/>
+                  <span style={{width: `${percent}`}}/>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{rating}</span>
@@ -104,33 +106,12 @@ const Offer = ({logged, offers}) => {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-                <ul className="reviews__list">
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54"
-                          alt="Reviews avatar"/>
-                      </div>
-                      <span className="reviews__user-name">
-                        Max
-                      </span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span style={{width: `80%`}}/>
-                          <span className="visually-hidden">Rating</span>
-                        </div>
-                      </div>
-                      <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
-                        The building is green and from 18th century.
-                      </p>
-                      <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
-                    </div>
-                  </li>
-                </ul>
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+                {comments.length ?
+                  <ul className="reviews__list">
+                    {comments.map((comment, i) => <Comment key={i} comment={comment}/>)}
+                  </ul> :
+                  ``}
                 <CommentForm/>
               </section>
             </div>
@@ -248,6 +229,7 @@ const Offer = ({logged, offers}) => {
 };
 
 Offer.propTypes = {
+  comments: PropTypes.array,
   offers: PropTypes.array,
   offer: PropTypes.shape({
     price: PropTypes.number,
