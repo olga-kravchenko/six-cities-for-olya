@@ -3,10 +3,20 @@ import Header from "../header/header";
 import PropTypes from "prop-types";
 import CommentForm from "../comment-form/comment-form";
 import Comment from "../comment/comment";
+import {Redirect} from "react-router-dom";
 import {convertRatingToPercent} from "../../utils/utils";
+import {useHistory} from "react-router-dom";
 
 const Offer = ({logged, offers, comments, onSubmitComment}) => {
-  const offer = offers[0];
+  const history = useHistory();
+  const offerId = history.location.pathname.substring(7);
+  let index = offers.findIndex((offer) => offer.id === offerId);
+  if (index === -1) {
+    return (
+      <Redirect to="/" />
+    );
+  }
+  const offer = offers[index];
   const {
     bedrooms,
     max_adults,
