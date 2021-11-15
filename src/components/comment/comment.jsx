@@ -1,9 +1,12 @@
 import React from "react";
+import dayjs from "dayjs";
 import PropTypes from "prop-types";
 import {convertRatingToPercent} from "../../utils/utils";
 
 const Comment = ({comment}) => {
-  const {comment: text, date, id, rating, user: {avatar_url, is_pro, name}} = comment;
+  const {comment: text, date, id, rating, user: {avatar_url, name}} = comment;
+  const commentDate = dayjs(date).format(`MMMM YYYY`);
+  const dateTimeFormat = dayjs(date).format(`YYYY-MM-DD`);
   const percent = convertRatingToPercent(rating);
 
   return (
@@ -25,7 +28,7 @@ const Comment = ({comment}) => {
         <p className="reviews__text">
           {text}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
+        <time className="reviews__time" dateTime={dateTimeFormat}>{commentDate}</time>
       </div>
     </li>
   );

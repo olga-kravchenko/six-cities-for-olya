@@ -7,8 +7,22 @@ import {convertRatingToPercent} from "../../utils/utils";
 
 const Offer = ({logged, offers, comments}) => {
   const offer = offers[0];
-  const {bedrooms, max_adults, goods, price, description, title, type, preview_image, id, is_favorite, is_premium, rating, host} = offer;
-  const {avatar_url, is_pro, name} = host;
+  const {
+    bedrooms,
+    max_adults,
+    goods,
+    price,
+    description,
+    title,
+    type,
+    images,
+    id,
+    is_favorite,
+    is_premium,
+    rating,
+    host
+  } = offer;
+  const {avatar_url, is_pro, name, id: hostId} = host;
   const isProHost = is_pro ? `property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper` : `property__avatar-wrapper user__avatar-wrapper`;
   const percent = convertRatingToPercent(rating);
 
@@ -17,27 +31,12 @@ const Offer = ({logged, offers, comments}) => {
       <Header logged={logged}/>
 
       <main className="page__main page__main--property">
-        <section className="property">
+        <section className="property" id={id}>
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/room.jpg" alt="Photo studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-02.jpg" alt="Photo studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-03.jpg" alt="Photo studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/studio-01.jpg" alt="Photo studio"/>
-              </div>
-              <div className="property__image-wrapper">
-                <img className="property__image" src="img/apartment-01.jpg" alt="Photo studio"/>
-              </div>
+              {images.map((image, i) => <div key={i} className="property__image-wrapper">
+                <img className="property__image" src={image} alt="Photo studio"/>
+              </div>)}
             </div>
           </div>
           <div className="property__container container">
@@ -51,7 +50,11 @@ const Offer = ({logged, offers, comments}) => {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+                <button className={
+                  is_favorite ?
+                    `property__bookmark-button button property__bookmark-button--active` :
+                    `property__bookmark-button button`}
+                type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"/>
                   </svg>
@@ -83,12 +86,12 @@ const Offer = ({logged, offers, comments}) => {
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {goods.map((good, i) =><li className="property__inside-item" key = {i}>
+                  {goods.map((good, i) => <li className="property__inside-item" key={i}>
                     {good}
                   </li>)}
                 </ul>
               </div>
-              <div className="property__host">
+              <div className="property__host" id={hostId}>
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className={isProHost}>
@@ -106,7 +109,8 @@ const Offer = ({logged, offers, comments}) => {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+                <h2 className="reviews__title">Reviews &middot; <span
+                  className="reviews__amount">{comments.length}</span></h2>
                 {comments.length ?
                   <ul className="reviews__list">
                     {comments.map((comment, i) => <Comment key={i} comment={comment}/>)}

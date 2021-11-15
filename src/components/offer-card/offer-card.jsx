@@ -60,7 +60,7 @@ OfferCard.propTypes = {
     preview_image: PropTypes.string,
     id: PropTypes.string,
     is_favorite: PropTypes.bool,
-    rating: PropTypes.number
+    rating: PropTypes.string
   }),
   place: PropTypes.string
 };
