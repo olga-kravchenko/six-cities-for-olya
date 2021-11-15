@@ -1,6 +1,7 @@
 import React, {useState} from "react";
+import PropTypes from "prop-types";
 
-const CommentForm = () => {
+const CommentForm = ({onSubmitComment}) => {
   const [userForm, setUserForm] = useState({
     comment: ``,
     rating: ``
@@ -8,6 +9,7 @@ const CommentForm = () => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    onSubmitComment(userForm);
   };
 
   const handleFieldChange = (evt) => {
@@ -66,6 +68,10 @@ const CommentForm = () => {
       </div>
     </form>
   );
+};
+
+CommentForm.propTypes = {
+  onSubmitComment: PropTypes.func.isRequired
 };
 
 export default CommentForm;

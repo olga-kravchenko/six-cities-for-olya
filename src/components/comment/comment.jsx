@@ -42,7 +42,6 @@ Comment.propTypes = {
     rating: PropTypes.string.isRequired,
     user: PropTypes.shape({
       avatar_url: PropTypes.string.isRequired,
-      is_pro: PropTypes.bool.isRequired,
       name: PropTypes.string.isRequired
     })
   })

@@ -35,6 +35,7 @@ const App = (props) => {
             offers={offers}
             comments={comments}
             logged={logged}
+            onSubmitComment={() => {}}
           />
         </Route>
         <Route>

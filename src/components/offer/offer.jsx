@@ -5,7 +5,7 @@ import CommentForm from "../comment-form/comment-form";
 import Comment from "../comment/comment";
 import {convertRatingToPercent} from "../../utils/utils";
 
-const Offer = ({logged, offers, comments}) => {
+const Offer = ({logged, offers, comments, onSubmitComment}) => {
   const offer = offers[0];
   const {
     bedrooms,
@@ -116,7 +116,7 @@ const Offer = ({logged, offers, comments}) => {
                     {comments.map((comment, i) => <Comment key={i} comment={comment}/>)}
                   </ul> :
                   ``}
-                <CommentForm/>
+                <CommentForm onSubmitComment={onSubmitComment}/>
               </section>
             </div>
           </div>
@@ -233,6 +233,7 @@ const Offer = ({logged, offers, comments}) => {
 };
 
 Offer.propTypes = {
+  onSubmitComment: PropTypes.func.isRequired,
   comments: PropTypes.array.isRequired,
   offers: PropTypes.array.isRequired,
   offer: PropTypes.shape({
