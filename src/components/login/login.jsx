@@ -2,10 +2,10 @@ import React from "react";
 import Header from "../header/header";
 import PropTypes from "prop-types";
 
-const Login = ({logged}) => {
+const Login = ({isLogged}) => {
   return (
     <div className="page page--gray page--login">
-      <Header logged={logged}/>
+      <Header isLogged={isLogged}/>
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">
@@ -38,7 +38,7 @@ const Login = ({logged}) => {
 };
 
 Login.propTypes = {
-  logged: PropTypes.bool.isRequired
+  isLogged: PropTypes.bool.isRequired
 };
 
 export default Login;

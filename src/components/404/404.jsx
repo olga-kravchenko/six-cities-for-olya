@@ -2,10 +2,10 @@ import React from "react";
 import Header from "../header/header";
 import PropTypes from "prop-types";
 
-const PageNotFound = ({logged}) => {
+const PageNotFound = ({isLogged}) => {
   return (
     <div className="page">
-      <Header logged={logged}/>
+      <Header isLogged={isLogged}/>
       <main>
         <h1 style={{
           textAlign: `center`,
@@ -18,7 +18,7 @@ const PageNotFound = ({logged}) => {
 };
 
 PageNotFound.propTypes = {
-  logged: PropTypes.bool.isRequired
+  isLogged: PropTypes.bool.isRequired
 };
 
 export default PageNotFound;

@@ -3,21 +3,21 @@ import ReactDOM from 'react-dom';
 import {generateOffer, comments} from "./mocks/offers";
 import App from "./components/app/app";
 
-const ROOM_QUANTITY = 5;
-const offers = new Array(ROOM_QUANTITY).fill(null).map(generateOffer);
+const OFFER_QUANTITY = 5;
+const offers = new Array(OFFER_QUANTITY).fill(null).map(generateOffer);
 const place = {
   cities: `cities`,
   favorites: `favorites`
 };
-const logged = true;
+const isLogged = true;
 
 ReactDOM.render(
     <App
-      roomQuantity={ROOM_QUANTITY}
+      offerQuantity={OFFER_QUANTITY}
       offers={offers}
       comments={comments}
       place={place}
-      logged={logged}
+      isLogged={isLogged}
     />,
     document.querySelector(`#root`)
 );

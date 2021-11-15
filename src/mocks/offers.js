@@ -18,7 +18,6 @@ const TYPE_NAMES = [`Apartment`, `Private Room`, `House`, `Hotel`];
 const STATES = [true, false];
 const AVATARS = [`img/avatar.svg`, `img/avatar-angelina.jpg`, `img/avatar-max.jpg`];
 const PHOTO_ROOMS = [`img/room.jpg`, `img/apartment-01.jpg`, `img/apartment-02.jpg`, `img/apartment-03.jpg`];
-const SMALL_PHOTO_ROOMS = [`img/room-small.jpg`, `img/apartment-small-03.jpg`, `img/apartment-small-03.jpg`];
 const LOCATIONS = [
   {
     latitude: 52.370216,

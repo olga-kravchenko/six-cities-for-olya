@@ -4,10 +4,10 @@ import Offers from "../offers/offers";
 import Header from "../header/header";
 
 const Main = (props) => {
-  const {roomQuantity, offers, place, logged} = props;
+  const {offerQuantity, offers, place, isLogged} = props;
   return (
     <div className="page page--gray page--main">
-      <Header logged={logged}/>
+      <Header isLogged={isLogged}/>
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
@@ -51,7 +51,7 @@ const Main = (props) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{roomQuantity} places to stay in Amsterdam</b>
+              <b className="places__found">{offerQuantity} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -80,10 +80,10 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  roomQuantity: PropTypes.number.isRequired,
+  offerQuantity: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired,
   place: PropTypes.string.isRequired,
-  logged: PropTypes.bool.isRequired
+  isLogged: PropTypes.bool.isRequired
 };
 
 export default Main;

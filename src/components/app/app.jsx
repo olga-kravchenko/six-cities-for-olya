@@ -8,38 +8,39 @@ import Offer from "../offer/offer";
 import PageNotFound from "../404/404";
 
 const App = (props) => {
-  const {roomQuantity, offers, comments, place: {cities, favorites}, logged} = props;
+  const {offerQuantity, offers, comments, place: {cities, favorites}, isLogged} = props;
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact>
           <Main
-            roomQuantity={roomQuantity}
+            offerQuantity={offerQuantity}
             offers={offers}
             place={cities}
-            logged={logged}
+            isLogged={isLogged}
           />
         </Route>
         <Route path="/login" exact>
-          <Login logged={logged}/>
+          <Login isLogged={isLogged}/>
         </Route>
         <Route path="/favorites" exact>
           <Favorites
             offers={offers}
             place={favorites}
-            logged={logged}
+            isLogged={isLogged}
           />
         </Route>
         <Route path="/offer/:id" exact>
           <Offer
             offers={offers}
             comments={comments}
-            logged={logged}
+            place={cities}
+            isLogged={isLogged}
             onSubmitComment={() => {}}
           />
         </Route>
         <Route>
-          <PageNotFound logged={logged}/>
+          <PageNotFound isLogged={isLogged}/>
         </Route>
       </Switch>
     </BrowserRouter>
@@ -47,14 +48,14 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  roomQuantity: PropTypes.number.isRequired,
+  isLogged: PropTypes.bool.isRequired,
+  offerQuantity: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired,
   comments: PropTypes.array.isRequired,
   place: PropTypes.shape({
     cities: PropTypes.string.isRequired,
     favorites: PropTypes.string.isRequired
-  }),
-  logged: PropTypes.bool.isRequired
+  })
 };
 
 export default App;

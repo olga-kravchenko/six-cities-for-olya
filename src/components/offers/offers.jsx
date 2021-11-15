@@ -14,7 +14,7 @@ const Offers = ({offers, place}) => {
         setCardMouseOver({...cardHover, id: hoverElementId});
       }}
     >
-      {offers.map((offer, i) => <OfferCard key = {i} offer = {offer} place={place}/>)}
+      {offers.map((offer, i) => <OfferCard key = {i} offer={offer} place={place}/>)}
     </div>
   );
 };

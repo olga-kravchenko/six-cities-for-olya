@@ -4,7 +4,7 @@ import HeaderSignIn from "../header-sign-in/header-sign-in";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 
-const Header = ({logged}) => {
+const Header = ({isLogged}) => {
   return (
     <header className="header">
       <div className="container">
@@ -17,7 +17,7 @@ const Header = ({logged}) => {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                {logged ? <HeaderMail/> : <HeaderSignIn/>}
+                {isLogged ? <HeaderMail/> : <HeaderSignIn/>}
               </li>
             </ul>
           </nav>
@@ -28,7 +28,7 @@ const Header = ({logged}) => {
 };
 
 Header.propTypes = {
-  logged: PropTypes.bool.isRequired
+  isLogged: PropTypes.bool.isRequired
 };
 
 export default Header;
