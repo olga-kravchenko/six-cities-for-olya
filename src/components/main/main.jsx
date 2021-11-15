@@ -81,9 +81,9 @@ const Main = (props) => {
 
 Main.propTypes = {
   roomQuantity: PropTypes.number.isRequired,
-  offers: PropTypes.array,
-  place: PropTypes.string,
-  logged: PropTypes.bool
+  offers: PropTypes.array.isRequired,
+  place: PropTypes.string.isRequired,
+  logged: PropTypes.bool.isRequired
 };
 
 export default Main;

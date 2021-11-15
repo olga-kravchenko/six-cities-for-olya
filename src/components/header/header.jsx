@@ -28,7 +28,7 @@ const Header = ({logged}) => {
 };
 
 Header.propTypes = {
-  logged: PropTypes.bool
+  logged: PropTypes.bool.isRequired
 };
 
 export default Header;

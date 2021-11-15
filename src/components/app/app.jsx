@@ -47,13 +47,13 @@ const App = (props) => {
 
 App.propTypes = {
   roomQuantity: PropTypes.number.isRequired,
-  offers: PropTypes.array,
-  comments: PropTypes.array,
+  offers: PropTypes.array.isRequired,
+  comments: PropTypes.array.isRequired,
   place: PropTypes.shape({
-    cities: PropTypes.string,
-    favorites: PropTypes.string
+    cities: PropTypes.string.isRequired,
+    favorites: PropTypes.string.isRequired
   }),
-  logged: PropTypes.bool
+  logged: PropTypes.bool.isRequired
 };
 
 export default App;

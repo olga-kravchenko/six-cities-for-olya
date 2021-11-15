@@ -20,8 +20,8 @@ const Offers = ({offers, place}) => {
 };
 
 Offers.propTypes = {
-  offers: PropTypes.array,
-  place: PropTypes.string
+  offers: PropTypes.array.isRequired,
+  place: PropTypes.string.isRequired
 };
 
 export default Offers;

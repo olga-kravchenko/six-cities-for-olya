@@ -38,7 +38,7 @@ const Login = ({logged}) => {
 };
 
 Login.propTypes = {
-  logged: PropTypes.bool
+  logged: PropTypes.bool.isRequired
 };
 
 export default Login;

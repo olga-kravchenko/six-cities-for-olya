@@ -18,7 +18,7 @@ const PageNotFound = ({logged}) => {
 };
 
 PageNotFound.propTypes = {
-  logged: PropTypes.bool
+  logged: PropTypes.bool.isRequired
 };
 
 export default PageNotFound;

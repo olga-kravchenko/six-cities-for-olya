@@ -54,15 +54,15 @@ const OfferCard = ({offer, place}) => {
 
 OfferCard.propTypes = {
   offer: PropTypes.shape({
-    price: PropTypes.number,
-    title: PropTypes.string,
-    type: PropTypes.string,
-    preview_image: PropTypes.string,
-    id: PropTypes.string,
-    is_favorite: PropTypes.bool,
-    rating: PropTypes.string
+    price: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    preview_image: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    is_favorite: PropTypes.bool.isRequired,
+    rating: PropTypes.string.isRequired
   }),
-  place: PropTypes.string
+  place: PropTypes.string.isRequired
 };
 
 export default OfferCard;
