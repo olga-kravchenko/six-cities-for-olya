@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const CommentForm = ({onSubmitComment}) => {
   const [userForm, setUserForm] = useState({
-    comment: ``,
+    review: ``,
     rating: ``
   });
 
@@ -35,7 +35,7 @@ const CommentForm = ({onSubmitComment}) => {
           </svg>
         </label>
 
-        <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio" onChange={handleFieldChange}/>
+        <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio"/>
         <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"/>

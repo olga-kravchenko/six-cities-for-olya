@@ -13,7 +13,7 @@ const OfferCard = ({offer, pageType}) => {
   const history = useHistory();
   const pathToOffer = `/offer/${id}`;
 
-  const handleClickTitle = (evt) => {
+  const onTitleClick = (evt) => {
     evt.preventDefault();
     history.push(pathToOffer);
     window.scrollTo(0, 0);
@@ -53,7 +53,7 @@ const OfferCard = ({offer, pageType}) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a onClick={handleClickTitle} href={pathToOffer}>{title}</a>
+          <a onClick={onTitleClick} href={pathToOffer}>{title}</a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
