@@ -6,7 +6,6 @@ import FavoritesEmpty from "../favorites-empty/favorites-empty";
 import OfferCard from "../offer-card/offer-card";
 
 const Favorites = ({offers, isLogged}) => {
-  const pageType = `favorites`;
   const isEmptyOffers = offers.length === 0;
   return (
     <div className="page">
@@ -27,7 +26,7 @@ const Favorites = ({offers, isLogged}) => {
                     </div>
                   </div>
                   <div className="favorites__places">
-                    {offers.map((offer, i) => <OfferCard key = {i} offer = {offer} pageType={pageType}/>)}
+                    {offers.map((offer, i) => <OfferCard key = {i} offer = {offer} pageType="favorites"/>)}
                   </div>
                 </li>
               </ul>

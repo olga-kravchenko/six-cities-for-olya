@@ -10,12 +10,11 @@ const DESCRIPTION = [
   `Various versions have evolved over the years, sometimes by accident.`,
   `The standard chunk of Lorem Ipsum used since the 1500s.`,
 ];
-const GOODS = [`Wi-fi`, `Heating`, `Kitchen`, `"Cable TV`, `Washing machine`,
+const GOODS = [`Wi-fi`, `Heating`, `Kitchen`, `Cable TV`, `Washing machine`,
   `Coffee machine`, `Coffee machine`, `Dishwasher`, `Fridge`, `Towels`, `Baby seat`];
-const CITIES = [`Amsterdam`, `Paris`, `Cologne`, `Brussels`, `Hamburg`, `Dusseldorf`];
-const NAMES = [`Angelina`, `Badim`, `Mark`, `Bengamin`, `Elena`, `Alex`];
-const OFFER_TYPES = [`apartment`, `room`, `house`, `hotel`];
-const TYPES = [`Apartment`, `Private Room`, `House`, `Hotel`];
+const CITY_NAMES = [`Amsterdam`, `Paris`, `Cologne`, `Brussels`, `Hamburg`, `Dusseldorf`];
+const OWNER_NAMES = [`Angelina`, `Vadim`, `Mark`, `Benjamin`, `Elena`, `Alex`];
+const TYPE_NAMES = [`Apartment`, `Private Room`, `House`, `Hotel`];
 const STATES = [true, false];
 const AVATARS = [`img/avatar.svg`, `img/avatar-angelina.jpg`, `img/avatar-max.jpg`];
 const PHOTO_ROOMS = [`img/room.jpg`, `img/apartment-01.jpg`, `img/apartment-02.jpg`, `img/apartment-03.jpg`];
@@ -47,9 +46,10 @@ const MAX_PRICE = 1000;
 const MAX_RATING = 5;
 
 const getRandomRating = () => (Math.random() * MAX_RATING).toFixed(1);
+const getRandomValue = (array) => array[getRandomNumber(0, array.length)];
 
 const generateOffer = () => {
-  const randomLocation = LOCATIONS[getRandomNumber(0, LOCATIONS.length)];
+  const randomLocation = getRandomValue(LOCATIONS);
   return {
     "bedrooms": getRandomNumber(MIN_ROOM_QUANTITY, MAX_ROOM_QUANTITY),
     "city": {
@@ -58,45 +58,45 @@ const generateOffer = () => {
         "longitude": 4.895168,
         "zoom": 10
       },
-      "name": CITIES[getRandomNumber(0, CITIES.length)]
+      "name": getRandomValue(CITY_NAMES)
     },
-    "description": DESCRIPTION[getRandomNumber(0, DESCRIPTION.length)],
+    "description": getRandomValue(DESCRIPTION),
     "goods": generateRandomArray(GOODS),
     "host": {
-      "avatar_url": AVATARS[getRandomNumber(0, AVATARS.length)],
+      "avatar_url": getRandomValue(AVATARS),
       "id": nanoid(),
-      "is_pro": STATES[getRandomNumber(0, STATES.length)],
-      "name": NAMES[getRandomNumber(0, NAMES.length)]
+      "is_pro": getRandomValue(STATES),
+      "name": getRandomValue(OWNER_NAMES)
     },
     "id": nanoid(),
     "images": generateRandomArray(PHOTO_ROOMS),
-    "is_favorite": STATES[getRandomNumber(0, STATES.length)],
-    "is_premium": STATES[getRandomNumber(0, STATES.length)],
+    "is_favorite": getRandomValue(STATES),
+    "is_premium": getRandomValue(STATES),
     "location": {
       "latitude": randomLocation.latitude,
       "longitude": randomLocation.longitude,
       "zoom": 8
     },
     "max_adults": getRandomNumber(MIN_ADULT_QUANTITY, MAX_ADULT_QUANTITY),
-    "preview_image": PHOTO_ROOMS[getRandomNumber(0, PHOTO_ROOMS.length)],
+    "preview_image": getRandomValue(PHOTO_ROOMS),
     "price": getRandomNumber(MIN_PRICE, MAX_PRICE),
     "rating": getRandomRating(),
-    "title": DESCRIPTION[getRandomNumber(0, DESCRIPTION.length)].substring(0, 40) + `.`,
-    "type": TYPES[getRandomNumber(0, OFFER_TYPES.length)]
+    "title": getRandomValue(DESCRIPTION).substring(0, 40) + `.`,
+    "type": getRandomValue(TYPE_NAMES)
   };
 };
 
 const generateComment = () => {
   return {
-    "comment": DESCRIPTION[getRandomNumber(0, DESCRIPTION.length)],
+    "comment": getRandomValue(DESCRIPTION),
     "date": dayjs().toDate(),
     "id": nanoid(),
     "rating": getRandomRating(),
     "user": {
-      "avatar_url": AVATARS[getRandomNumber(0, AVATARS.length)],
+      "avatar_url": getRandomValue(AVATARS),
       "id": nanoid(),
-      "is_pro": STATES[getRandomRating(0, STATES.length)],
-      "name": NAMES[getRandomNumber(0, NAMES.length)]
+      "is_pro": getRandomValue(STATES),
+      "name": getRandomValue(OWNER_NAMES)
     }
   };
 };

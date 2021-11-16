@@ -7,8 +7,7 @@ import Favorites from "../favorites/favorites";
 import Offer from "../offer/offer";
 import PageNotFound from "../404/404";
 
-const App = (props) => {
-  const {offerQuantity, offers, isLogged} = props;
+const App = ({offerQuantity, offers, isLogged}) => {
   const favoriteOffers = offers.filter((offer) => offer.is_favorite);
   return (
     <BrowserRouter>

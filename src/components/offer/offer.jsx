@@ -13,12 +13,11 @@ const Offer = ({isLogged, offers, onSubmitComment}) => {
   const comments = new Array(getRandomNumber(0, MAX_COMMENT_QUANTITY))
     .fill(null)
     .map(generateComment);
-  const pageType = `cities`;
   const {id} = useParams();
   const index = offers.findIndex((offer) => offer.id === id);
   if (index === -1) {
     return (
-      <Redirect to="/page_not_found" />
+      <Redirect to="/page-not-found" />
     );
   }
   const nearOffers = [...offers].filter((offer) => offer.id !== id).slice(-3);
@@ -127,7 +126,7 @@ const Offer = ({isLogged, offers, onSubmitComment}) => {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearOffers.map((o, i) => <OfferCard key = {i} offer={o} pageType={pageType}/>)}
+              {nearOffers.map((o, i) => <OfferCard key = {i} offer={o} pageType="cities"/>)}
             </div>
           </section>
         </div>

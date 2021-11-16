@@ -4,7 +4,6 @@ import Header from "../header/header";
 import Offers from "../offers/offers";
 
 const Main = ({offerQuantity, offers, isLogged}) => {
-  const pageType = `cities`;
   return (
     <div className="page page--gray page--main">
       <Header isLogged={isLogged}/>
@@ -67,7 +66,7 @@ const Main = ({offerQuantity, offers, isLogged}) => {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <Offers offers={offers} pageType={pageType}/>
+              <Offers offers={offers} pageType="cities"/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"/>
