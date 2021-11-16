@@ -1,6 +1,6 @@
 import React from "react";
-import dayjs from "dayjs";
 import PropTypes from "prop-types";
+import dayjs from "dayjs";
 import {convertRatingToPercent} from "../../utils/utils";
 
 const Comment = ({comment}) => {

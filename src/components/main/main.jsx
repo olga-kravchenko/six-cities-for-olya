@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import Offers from "../offers/offers";
 import Header from "../header/header";
+import Offers from "../offers/offers";
 
 const Main = ({offerQuantity, offers, isLogged}) => {
   const pageType = `cities`;

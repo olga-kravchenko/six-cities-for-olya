@@ -1,45 +1,29 @@
 import React from "react";
-import Header from "../header/header";
 import PropTypes from "prop-types";
+import {Redirect, useParams} from "react-router-dom";
+import Header from "../header/header";
 import CommentForm from "../comment-form/comment-form";
 import Comment from "../comment/comment";
-import {Redirect} from "react-router-dom";
-import {convertRatingToPercent} from "../../utils/utils";
-import {useHistory} from "react-router-dom";
 import OfferCard from "../offer-card/offer-card";
+import {convertRatingToPercent, getRandomNumber} from "../../utils/utils";
 import {generateComment} from "../../mocks/offers";
-import {getRandomNumber} from "../../utils/utils";
-
-const MAX_COMMENT_QUANTITY = 5;
 
 const Offer = ({isLogged, offers, onSubmitComment}) => {
+  const MAX_COMMENT_QUANTITY = 5;
+  const comments = new Array(getRandomNumber(0, MAX_COMMENT_QUANTITY))
+    .fill(null)
+    .map(generateComment);
   const pageType = `cities`;
-  const comments = new Array(getRandomNumber(0, MAX_COMMENT_QUANTITY)).fill(null).map(generateComment);
-  const history = useHistory();
-  const offerId = history.location.pathname.substring(7);
-  let index = offers.findIndex((offer) => offer.id === offerId);
+  const {id} = useParams();
+  const index = offers.findIndex((offer) => offer.id === id);
   if (index === -1) {
     return (
       <Redirect to="/page_not_found" />
     );
   }
-  const nearOffers = [...offers].filter((offer) => offer.id !== offerId).slice(-3);
+  const nearOffers = [...offers].filter((offer) => offer.id !== id).slice(-3);
   const offer = offers[index];
-  const {
-    bedrooms,
-    max_adults,
-    goods,
-    price,
-    description,
-    title,
-    type,
-    images,
-    id,
-    is_favorite,
-    is_premium,
-    rating,
-    host
-  } = offer;
+  const {bedrooms, max_adults, goods, price, description, title, type, images, is_favorite, is_premium, rating, host} = offer;
   const {avatar_url, is_pro, name, id: hostId} = host;
   const isProHost = is_pro ? `property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper` : `property__avatar-wrapper user__avatar-wrapper`;
   const percent = convertRatingToPercent(rating);
@@ -47,7 +31,6 @@ const Offer = ({isLogged, offers, onSubmitComment}) => {
   return (
     <div className="page">
       <Header isLogged={isLogged}/>
-
       <main className="page__main page__main--property">
         <section className="property" id={id}>
           <div className="property__gallery-container container">

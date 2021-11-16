@@ -1,7 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {Link} from 'react-router-dom';
 import Header from "../header/header";
-import PropTypes from "prop-types";
 import FavoritesEmpty from "../favorites-empty/favorites-empty";
 import OfferCard from "../offer-card/offer-card";
 

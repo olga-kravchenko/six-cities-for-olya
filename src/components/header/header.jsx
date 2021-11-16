@@ -1,8 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 import HeaderMail from "../header-mail/header-mail";
 import HeaderSignIn from "../header-sign-in/header-sign-in";
-import {Link} from "react-router-dom";
-import PropTypes from "prop-types";
 
 const Header = ({isLogged}) => {
   return (
