@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import Offers from "../offers/offers";
 import Header from "../header/header";
 
-const Main = (props) => {
-  const {offerQuantity, offers, place, isLogged} = props;
+const Main = ({offerQuantity, offers, place, isLogged}) => {
   return (
     <div className="page page--gray page--main">
       <Header isLogged={isLogged}/>

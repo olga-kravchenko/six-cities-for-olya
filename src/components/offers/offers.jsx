@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import OfferCard from "../offer-card/offer-card";
 
 const Offers = ({offers, place}) => {
-  const [cardHover, setCardMouseOver] = useState({id: ``});
+  const [activeOfferId, setActiveOfferId] = useState({activeOfferId: ``});
   return (
     <div className="cities__places-list places__list tabs__content"
       onMouseOver={({target}) => {
@@ -11,8 +11,9 @@ const Offers = ({offers, place}) => {
           return;
         }
         const hoverElementId = target.closest(`article`).id;
-        setCardMouseOver({...cardHover, id: hoverElementId});
+        setActiveOfferId({...activeOfferId, activeOfferId: hoverElementId});
       }}
+      onMouseLeave={() => setActiveOfferId({...activeOfferId, activeOfferId: ``})}
     >
       {offers.map((offer, i) => <OfferCard key = {i} offer={offer} place={place}/>)}
     </div>
