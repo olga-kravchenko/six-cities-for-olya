@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import Offers from "../offers/offers";
 import Header from "../header/header";
 
-const Main = ({offerQuantity, offers, place, isLogged}) => {
+const Main = ({offerQuantity, offers, isLogged}) => {
+  const pageType = `cities`;
   return (
     <div className="page page--gray page--main">
       <Header isLogged={isLogged}/>
@@ -66,7 +67,7 @@ const Main = ({offerQuantity, offers, place, isLogged}) => {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <Offers offers={offers} place={place}/>
+              <Offers offers={offers} place={pageType}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"/>
@@ -81,7 +82,6 @@ const Main = ({offerQuantity, offers, place, isLogged}) => {
 Main.propTypes = {
   offerQuantity: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired,
-  place: PropTypes.string.isRequired,
   isLogged: PropTypes.bool.isRequired
 };
 

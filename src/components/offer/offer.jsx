@@ -12,7 +12,8 @@ import {getRandomNumber} from "../../utils/utils";
 
 const MAX_COMMENT_QUANTITY = 5;
 
-const Offer = ({isLogged, offers, onSubmitComment, place}) => {
+const Offer = ({isLogged, offers, onSubmitComment}) => {
+  const pageType = `cities`;
   const comments = new Array(getRandomNumber(0, MAX_COMMENT_QUANTITY)).fill(null).map(generateComment);
   const history = useHistory();
   const offerId = history.location.pathname.substring(7);
@@ -143,7 +144,7 @@ const Offer = ({isLogged, offers, onSubmitComment, place}) => {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearOffers.map((o, i) => <OfferCard key = {i} offer={o} place={place}/>)}
+              {nearOffers.map((o, i) => <OfferCard key = {i} offer={o} place={pageType}/>)}
             </div>
           </section>
         </div>
@@ -164,7 +165,6 @@ Offer.propTypes = {
     is_favorite: PropTypes.bool.isRequired
   }),
   isLogged: PropTypes.bool.isRequired,
-  place: PropTypes.string.isRequired
 };
 
 export default Offer;

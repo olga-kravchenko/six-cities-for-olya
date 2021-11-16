@@ -8,7 +8,7 @@ import Offer from "../offer/offer";
 import PageNotFound from "../404/404";
 
 const App = (props) => {
-  const {offerQuantity, offers, place: {cities, favorites}, isLogged} = props;
+  const {offerQuantity, offers, isLogged} = props;
   return (
     <BrowserRouter>
       <Switch>
@@ -16,7 +16,6 @@ const App = (props) => {
           <Main
             offerQuantity={offerQuantity}
             offers={offers}
-            place={cities}
             isLogged={isLogged}
           />
         </Route>
@@ -26,14 +25,12 @@ const App = (props) => {
         <Route path="/favorites" exact>
           <Favorites
             offers={offers}
-            place={favorites}
             isLogged={isLogged}
           />
         </Route>
         <Route path="/offer/:id" exact>
           <Offer
             offers={offers}
-            place={cities}
             isLogged={isLogged}
             onSubmitComment={() => {}}
           />

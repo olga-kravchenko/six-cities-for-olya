@@ -5,7 +5,8 @@ import PropTypes from "prop-types";
 import FavoritesEmpty from "../favorites-empty/favorites-empty";
 import OfferCard from "../offer-card/offer-card";
 
-const Favorites = ({offers, place, isLogged}) => {
+const Favorites = ({offers, isLogged}) => {
+  const pageType = `favorites`;
   const favoriteOffers = offers.filter((offer) => offer.is_favorite);
   const isEmptyOffers = favoriteOffers.length === 0;
   return (
@@ -27,7 +28,7 @@ const Favorites = ({offers, place, isLogged}) => {
                     </div>
                   </div>
                   <div className="favorites__places">
-                    {favoriteOffers.map((offer, i) => <OfferCard key = {i} offer = {offer} place={place}/>)}
+                    {favoriteOffers.map((offer, i) => <OfferCard key = {i} offer = {offer} place={pageType}/>)}
                   </div>
                 </li>
               </ul>
@@ -47,7 +48,6 @@ const Favorites = ({offers, place, isLogged}) => {
 
 Favorites.propTypes = {
   offers: PropTypes.array.isRequired,
-  place: PropTypes.string.isRequired,
   isLogged: PropTypes.bool.isRequired
 };
 
