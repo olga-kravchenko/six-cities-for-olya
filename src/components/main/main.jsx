@@ -1,14 +1,12 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import OfferCard from "../offer-card/offer-card";
 import Header from "../header/header";
+import Offers from "../offers/offers";
 
-const Main = (props) => {
-  const {roomQuantity} = props;
-  const rooms = new Array(roomQuantity).fill();
+const Main = ({offerQuantity, offers, isLogged}) => {
   return (
     <div className="page page--gray page--main">
-      <Header/>
+      <Header isLogged={isLogged}/>
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
@@ -52,7 +50,7 @@ const Main = (props) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{roomQuantity} places to stay in Amsterdam</b>
+              <b className="places__found">{offerQuantity} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -68,9 +66,7 @@ const Main = (props) => {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {rooms.map((_, i) => <OfferCard key = {i}/>)}
-              </div>
+              <Offers offers={offers} pageType="cities"/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"/>
@@ -83,7 +79,9 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  roomQuantity: PropTypes.number.isRequired,
+  offerQuantity: PropTypes.number.isRequired,
+  offers: PropTypes.array.isRequired,
+  isLogged: PropTypes.bool.isRequired
 };
 
 export default Main;

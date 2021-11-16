@@ -7,25 +7,36 @@ import Favorites from "../favorites/favorites";
 import Offer from "../offer/offer";
 import PageNotFound from "../404/404";
 
-const App = (props) => {
-  const {roomQuantity} = props;
+const App = ({offerQuantity, offers, isLogged}) => {
+  const favoriteOffers = offers.filter((offer) => offer.is_favorite);
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact>
-          <Main roomQuantity= {roomQuantity}/>
+          <Main
+            offerQuantity={offerQuantity}
+            offers={offers}
+            isLogged={isLogged}
+          />
         </Route>
         <Route path="/login" exact>
-          <Login/>
+          <Login isLogged={isLogged}/>
         </Route>
         <Route path="/favorites" exact>
-          <Favorites/>
+          <Favorites
+            offers={favoriteOffers}
+            isLogged={isLogged}
+          />
         </Route>
         <Route path="/offer/:id" exact>
-          <Offer/>
+          <Offer
+            offers={offers}
+            isLogged={isLogged}
+            onSubmitComment={() => {}}
+          />
         </Route>
         <Route>
-          <PageNotFound/>
+          <PageNotFound isLogged={isLogged}/>
         </Route>
       </Switch>
     </BrowserRouter>
@@ -33,7 +44,13 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  roomQuantity: PropTypes.number.isRequired,
+  isLogged: PropTypes.bool.isRequired,
+  offerQuantity: PropTypes.number.isRequired,
+  offers: PropTypes.array.isRequired,
+  place: PropTypes.shape({
+    cities: PropTypes.string.isRequired,
+    favorites: PropTypes.string.isRequired
+  })
 };
 
 export default App;

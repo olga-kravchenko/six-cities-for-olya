@@ -13,6 +13,10 @@ parserOptions:
 
 plugins: ['react']
 
+rules: {
+  "camelcase": "off",
+}
+
 settings:
   react:
     version: '16'

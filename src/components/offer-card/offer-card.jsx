@@ -1,20 +1,45 @@
 import React from "react";
+import PropTypes from "prop-types";
+import {useHistory} from "react-router-dom";
+import {convertRatingToPercent} from "../../utils/utils";
 
-const OfferCard = () => {
+const OfferCard = ({offer, pageType}) => {
+  const {price, title, type, preview_image, id, is_favorite, rating} = offer;
+  const isCities = pageType === `cities` ? `${pageType}__place-card` : `${pageType}__card`;
+  const isCitiesImageWidth = pageType === `cities` ? `260` : `150`;
+  const isCitiesImageHeight = pageType === `cities` ? `200` : `110`;
+  const isFavorites = pageType === `favorites` ? `favorites__card-info place-card__info` : `place-card__info`;
+  const percent = convertRatingToPercent(rating);
+  const history = useHistory();
+  const pathToOffer = `/offer/${id}`;
+
+  const onTitleClick = (evt) => {
+    evt.preventDefault();
+    history.push(pathToOffer);
+    window.scrollTo(0, 0);
+  };
+
   return (
-    <article className="cities__place-card place-card">
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
-          <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image"/>
+    <article className={`${isCities} place-card`} id={id}>
+      <div className={`${pageType}__image-wrapper place-card__image-wrapper`}>
+        <a>
+          <img className="place-card__image" src={preview_image} width={isCitiesImageWidth} height={isCitiesImageHeight}
+            alt="Place image"/>
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={isFavorites}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;80</b>
+            <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
+          <button
+            className={
+              is_favorite ?
+                `place-card__bookmark-button place-card__bookmark-button--active button` :
+                `place-card__bookmark-button button`}
+            type="button"
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>
             </svg>
@@ -23,17 +48,30 @@ const OfferCard = () => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `80%`}}/>
+            <span style={{width: `${percent}`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">Wood and stone place</a>
+          <a onClick={onTitleClick} href={pathToOffer}>{title}</a>
         </h2>
-        <p className="place-card__type">Private room</p>
+        <p className="place-card__type">{type}</p>
       </div>
     </article>
   );
+};
+
+OfferCard.propTypes = {
+  offer: PropTypes.shape({
+    price: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    preview_image: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    is_favorite: PropTypes.bool.isRequired,
+    rating: PropTypes.string.isRequired
+  }),
+  pageType: PropTypes.string.isRequired
 };
 
 export default OfferCard;

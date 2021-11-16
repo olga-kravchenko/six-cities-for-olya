@@ -1,12 +1,17 @@
 import React from "react";
 import ReactDOM from 'react-dom';
+import {generateOffer} from "./mocks/offers";
 import App from "./components/app/app";
 
-const Setting = {
-  ROOM_QUANTITY: 5,
-};
+const OFFER_QUANTITY = 5;
+const offers = new Array(OFFER_QUANTITY).fill(null).map(generateOffer);
+const isLogged = true;
 
 ReactDOM.render(
-    <App roomQuantity={Setting.ROOM_QUANTITY}/>,
+    <App
+      offerQuantity={OFFER_QUANTITY}
+      offers={offers}
+      isLogged={isLogged}
+    />,
     document.querySelector(`#root`)
 );
