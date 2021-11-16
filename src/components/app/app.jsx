@@ -9,6 +9,7 @@ import PageNotFound from "../404/404";
 
 const App = (props) => {
   const {offerQuantity, offers, isLogged} = props;
+  const favoriteOffers = offers.filter((offer) => offer.is_favorite);
   return (
     <BrowserRouter>
       <Switch>
@@ -24,7 +25,7 @@ const App = (props) => {
         </Route>
         <Route path="/favorites" exact>
           <Favorites
-            offers={offers}
+            offers={favoriteOffers}
             isLogged={isLogged}
           />
         </Route>

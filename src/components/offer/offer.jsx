@@ -20,7 +20,7 @@ const Offer = ({isLogged, offers, onSubmitComment}) => {
   let index = offers.findIndex((offer) => offer.id === offerId);
   if (index === -1) {
     return (
-      <Redirect to="/" />
+      <Redirect to="/page_not_found" />
     );
   }
   const nearOffers = [...offers].filter((offer) => offer.id !== offerId).slice(-3);
@@ -144,7 +144,7 @@ const Offer = ({isLogged, offers, onSubmitComment}) => {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearOffers.map((o, i) => <OfferCard key = {i} offer={o} place={pageType}/>)}
+              {nearOffers.map((o, i) => <OfferCard key = {i} offer={o} pageType={pageType}/>)}
             </div>
           </section>
         </div>

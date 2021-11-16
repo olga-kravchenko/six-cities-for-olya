@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 import OfferCard from "../offer-card/offer-card";
 
-const Offers = ({offers, place}) => {
+const Offers = ({offers, pageType}) => {
   const [activeOfferId, setActiveOfferId] = useState({activeOfferId: ``});
   return (
     <div className="cities__places-list places__list tabs__content"
@@ -15,14 +15,14 @@ const Offers = ({offers, place}) => {
       }}
       onMouseLeave={() => setActiveOfferId({...activeOfferId, activeOfferId: ``})}
     >
-      {offers.map((offer, i) => <OfferCard key = {i} offer={offer} place={place}/>)}
+      {offers.map((offer, i) => <OfferCard key = {i} offer={offer} pageType={pageType}/>)}
     </div>
   );
 };
 
 Offers.propTypes = {
   offers: PropTypes.array.isRequired,
-  place: PropTypes.string.isRequired
+  pageType: PropTypes.string.isRequired
 };
 
 export default Offers;

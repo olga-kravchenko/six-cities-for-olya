@@ -67,7 +67,7 @@ const Main = ({offerQuantity, offers, isLogged}) => {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <Offers offers={offers} place={pageType}/>
+              <Offers offers={offers} pageType={pageType}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"/>

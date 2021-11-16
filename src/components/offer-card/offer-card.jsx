@@ -1,22 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {convertRatingToPercent} from "../../utils/utils";
 
-const OfferCard = ({offer, place}) => {
+const OfferCard = ({offer, pageType}) => {
   const {price, title, type, preview_image, id, is_favorite, rating} = offer;
-  const isCities = place === `cities` ? `${place}__place-card` : `${place}__card`;
-  const isCitiesImageWidth = place === `cities` ? `260` : `150`;
-  const isCitiesImageHeight = place === `cities` ? `200` : `110`;
-  const isFavorites = place === `favorites` ? `favorites__card-info place-card__info` : `place-card__info`;
+  const isCities = pageType === `cities` ? `${pageType}__place-card` : `${pageType}__card`;
+  const isCitiesImageWidth = pageType === `cities` ? `260` : `150`;
+  const isCitiesImageHeight = pageType === `cities` ? `200` : `110`;
+  const isFavorites = pageType === `favorites` ? `favorites__card-info place-card__info` : `place-card__info`;
   const percent = convertRatingToPercent(rating);
+  const history = useHistory();
+  const pathToOffer = `/offer/${id}`;
+
+  const handleClickTitle = (evt) => {
+    evt.preventDefault();
+    history.push(pathToOffer);
+    window.scrollTo(0, 0);
+  };
+
   return (
     <article className={`${isCities} place-card`} id={id}>
-      <div className={`${place}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`/offer/${id}`}>
+      <div className={`${pageType}__image-wrapper place-card__image-wrapper`}>
+        <a>
           <img className="place-card__image" src={preview_image} width={isCitiesImageWidth} height={isCitiesImageHeight}
             alt="Place image"/>
-        </Link>
+        </a>
       </div>
       <div className={isFavorites}>
         <div className="place-card__price-wrapper">
@@ -44,7 +53,7 @@ const OfferCard = ({offer, place}) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${id}`}>{title}</Link>
+          <a onClick={handleClickTitle} href={pathToOffer}>{title}</a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -62,7 +71,7 @@ OfferCard.propTypes = {
     is_favorite: PropTypes.bool.isRequired,
     rating: PropTypes.string.isRequired
   }),
-  place: PropTypes.string.isRequired
+  pageType: PropTypes.string.isRequired
 };
 
 export default OfferCard;
