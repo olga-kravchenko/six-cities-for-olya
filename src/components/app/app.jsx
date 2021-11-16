@@ -8,7 +8,7 @@ import Offer from "../offer/offer";
 import PageNotFound from "../404/404";
 
 const App = (props) => {
-  const {offerQuantity, offers, comments, place: {cities, favorites}, isLogged} = props;
+  const {offerQuantity, offers, place: {cities, favorites}, isLogged} = props;
   return (
     <BrowserRouter>
       <Switch>
@@ -33,7 +33,6 @@ const App = (props) => {
         <Route path="/offer/:id" exact>
           <Offer
             offers={offers}
-            comments={comments}
             place={cities}
             isLogged={isLogged}
             onSubmitComment={() => {}}
@@ -51,7 +50,6 @@ App.propTypes = {
   isLogged: PropTypes.bool.isRequired,
   offerQuantity: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired,
-  comments: PropTypes.array.isRequired,
   place: PropTypes.shape({
     cities: PropTypes.string.isRequired,
     favorites: PropTypes.string.isRequired

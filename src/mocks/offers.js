@@ -1,5 +1,6 @@
 import {nanoid} from "nanoid";
 import dayjs from "dayjs";
+import {getRandomNumber, generateRandomArray} from "../utils/utils";
 
 const DESCRIPTION = [
   `Contrary to popular belief, Lorem Ipsum is not simply random text.`,
@@ -14,7 +15,7 @@ const GOODS = [`Wi-fi`, `Heating`, `Kitchen`, `"Cable TV`, `Washing machine`,
 const CITIES = [`Amsterdam`, `Paris`, `Cologne`, `Brussels`, `Hamburg`, `Dusseldorf`];
 const NAMES = [`Angelina`, `Badim`, `Mark`, `Bengamin`, `Elena`, `Alex`];
 const OFFER_TYPES = [`apartment`, `room`, `house`, `hotel`];
-const TYPE_NAMES = [`Apartment`, `Private Room`, `House`, `Hotel`];
+const TYPES = [`Apartment`, `Private Room`, `House`, `Hotel`];
 const STATES = [true, false];
 const AVATARS = [`img/avatar.svg`, `img/avatar-angelina.jpg`, `img/avatar-max.jpg`];
 const PHOTO_ROOMS = [`img/room.jpg`, `img/apartment-01.jpg`, `img/apartment-02.jpg`, `img/apartment-03.jpg`];
@@ -37,7 +38,6 @@ const LOCATIONS = [
   },
 ];
 
-const MIN_ARRAY_QUANTITY = 0;
 const MIN_ROOM_QUANTITY = 1;
 const MAX_ROOM_QUANTITY = 5;
 const MIN_ADULT_QUANTITY = 2;
@@ -45,26 +45,11 @@ const MAX_ADULT_QUANTITY = 10;
 const MIN_PRICE = 10;
 const MAX_PRICE = 1000;
 const MAX_RATING = 5;
-const MAX_COMMENT_QUANTITY = 5;
 
-const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min) + min);
-
-const generateRandomArray = (array) => {
-  const randomArray = [];
-  const randomNumber = getRandomNumber(1, array.length);
-  for (let i = 0; i < randomNumber; i++) {
-    const good = array[i];
-    randomArray.push(good);
-  }
-  return randomArray;
-};
-
-const getRandomRating = () => {
-  return (Math.random() * MAX_RATING).toFixed(1);
-};
+const getRandomRating = () => (Math.random() * MAX_RATING).toFixed(1);
 
 const generateOffer = () => {
-  const randomLocation = LOCATIONS[getRandomNumber(MIN_ARRAY_QUANTITY, LOCATIONS.length)];
+  const randomLocation = LOCATIONS[getRandomNumber(0, LOCATIONS.length)];
   return {
     "bedrooms": getRandomNumber(MIN_ROOM_QUANTITY, MAX_ROOM_QUANTITY),
     "city": {
@@ -73,52 +58,48 @@ const generateOffer = () => {
         "longitude": 4.895168,
         "zoom": 10
       },
-      "name": CITIES[getRandomNumber(MIN_ARRAY_QUANTITY, CITIES.length)]
+      "name": CITIES[getRandomNumber(0, CITIES.length)]
     },
-    "description": DESCRIPTION[getRandomNumber(MIN_ARRAY_QUANTITY, DESCRIPTION.length)],
+    "description": DESCRIPTION[getRandomNumber(0, DESCRIPTION.length)],
     "goods": generateRandomArray(GOODS),
     "host": {
-      "avatar_url": AVATARS[getRandomNumber(MIN_ARRAY_QUANTITY, AVATARS.length)],
+      "avatar_url": AVATARS[getRandomNumber(0, AVATARS.length)],
       "id": nanoid(),
-      "is_pro": STATES[getRandomNumber(MIN_ARRAY_QUANTITY, STATES.length)],
-      "name": NAMES[getRandomNumber(MIN_ARRAY_QUANTITY, NAMES.length)]
+      "is_pro": STATES[getRandomNumber(0, STATES.length)],
+      "name": NAMES[getRandomNumber(0, NAMES.length)]
     },
     "id": nanoid(),
     "images": generateRandomArray(PHOTO_ROOMS),
-    "is_favorite": STATES[getRandomNumber(MIN_ARRAY_QUANTITY, STATES.length)],
-    "is_premium": STATES[getRandomNumber(MIN_ARRAY_QUANTITY, STATES.length)],
+    "is_favorite": STATES[getRandomNumber(0, STATES.length)],
+    "is_premium": STATES[getRandomNumber(0, STATES.length)],
     "location": {
       "latitude": randomLocation.latitude,
       "longitude": randomLocation.longitude,
       "zoom": 8
     },
     "max_adults": getRandomNumber(MIN_ADULT_QUANTITY, MAX_ADULT_QUANTITY),
-    "preview_image": PHOTO_ROOMS[getRandomNumber(MIN_ARRAY_QUANTITY, PHOTO_ROOMS.length)],
+    "preview_image": PHOTO_ROOMS[getRandomNumber(0, PHOTO_ROOMS.length)],
     "price": getRandomNumber(MIN_PRICE, MAX_PRICE),
     "rating": getRandomRating(),
-    "title": DESCRIPTION[getRandomNumber(MIN_ARRAY_QUANTITY, DESCRIPTION.length)].substring(0, 40) + `.`,
-    "type": TYPE_NAMES[getRandomNumber(MIN_ARRAY_QUANTITY, OFFER_TYPES.length)]
+    "title": DESCRIPTION[getRandomNumber(0, DESCRIPTION.length)].substring(0, 40) + `.`,
+    "type": TYPES[getRandomNumber(0, OFFER_TYPES.length)]
   };
 };
 
 const generateComment = () => {
   return {
-    "comment": DESCRIPTION[getRandomNumber(MIN_ARRAY_QUANTITY, DESCRIPTION.length)],
+    "comment": DESCRIPTION[getRandomNumber(0, DESCRIPTION.length)],
     "date": dayjs().toDate(),
     "id": nanoid(),
     "rating": getRandomRating(),
     "user": {
-      "avatar_url": AVATARS[getRandomNumber(MIN_ARRAY_QUANTITY, AVATARS.length)],
+      "avatar_url": AVATARS[getRandomNumber(0, AVATARS.length)],
       "id": nanoid(),
-      "is_pro": STATES[getRandomRating(MIN_ARRAY_QUANTITY, STATES.length)],
-      "name": NAMES[getRandomNumber(MIN_ARRAY_QUANTITY, NAMES.length)]
+      "is_pro": STATES[getRandomRating(0, STATES.length)],
+      "name": NAMES[getRandomNumber(0, NAMES.length)]
     }
   };
 };
 
-const comments = new Array(getRandomNumber(MIN_ARRAY_QUANTITY, MAX_COMMENT_QUANTITY))
-  .fill(null)
-  .map(generateComment);
-
-export {generateOffer, comments};
+export {generateOffer, generateComment};
 

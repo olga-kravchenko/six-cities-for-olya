@@ -7,8 +7,13 @@ import {Redirect} from "react-router-dom";
 import {convertRatingToPercent} from "../../utils/utils";
 import {useHistory} from "react-router-dom";
 import OfferCard from "../offer-card/offer-card";
+import {generateComment} from "../../mocks/offers";
+import {getRandomNumber} from "../../utils/utils";
 
-const Offer = ({isLogged, offers, comments, onSubmitComment, place}) => {
+const MAX_COMMENT_QUANTITY = 5;
+
+const Offer = ({isLogged, offers, onSubmitComment, place}) => {
+  const comments = new Array(getRandomNumber(0, MAX_COMMENT_QUANTITY)).fill(null).map(generateComment);
   const history = useHistory();
   const offerId = history.location.pathname.substring(7);
   let index = offers.findIndex((offer) => offer.id === offerId);
@@ -149,7 +154,6 @@ const Offer = ({isLogged, offers, comments, onSubmitComment, place}) => {
 
 Offer.propTypes = {
   onSubmitComment: PropTypes.func.isRequired,
-  comments: PropTypes.array.isRequired,
   offers: PropTypes.array.isRequired,
   offer: PropTypes.shape({
     price: PropTypes.number.isRequired,
