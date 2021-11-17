@@ -7,6 +7,7 @@ import Comment from "../comment/comment";
 import OfferCard from "../offer-card/offer-card";
 import {convertRatingToPercent, getRandomNumber} from "../../utils/utils";
 import {generateComment} from "../../mocks/offers";
+import OfferProp from "./offer.prop";
 
 const Offer = ({isLogged, offers, onSubmitComment}) => {
   const MAX_COMMENT_QUANTITY = 5;
@@ -138,14 +139,7 @@ const Offer = ({isLogged, offers, onSubmitComment}) => {
 Offer.propTypes = {
   onSubmitComment: PropTypes.func.isRequired,
   offers: PropTypes.array.isRequired,
-  offer: PropTypes.shape({
-    price: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    preview_image: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    is_favorite: PropTypes.bool.isRequired
-  }),
+  offer: OfferProp,
   isLogged: PropTypes.bool.isRequired,
 };
 

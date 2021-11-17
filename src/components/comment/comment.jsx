@@ -1,7 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import dayjs from "dayjs";
 import {convertRatingToPercent} from "../../utils/utils";
+import CommentProp from "./comment.prop";
 
 const Comment = ({comment}) => {
   const {comment: text, date, id, rating, user: {avatar_url, name}} = comment;
@@ -35,16 +35,7 @@ const Comment = ({comment}) => {
 };
 
 Comment.propTypes = {
-  comment: PropTypes.shape({
-    comment: PropTypes.string.isRequired,
-    date: PropTypes.object.isRequired,
-    id: PropTypes.string.isRequired,
-    rating: PropTypes.string.isRequired,
-    user: PropTypes.shape({
-      avatar_url: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired
-    })
-  })
+  comment: CommentProp
 };
 
 export default Comment;

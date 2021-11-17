@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {useHistory} from "react-router-dom";
 import {convertRatingToPercent} from "../../utils/utils";
+import OfferProp from "../offer/offer.prop";
 
 const OfferCard = ({offer, pageType}) => {
   const {price, title, type, preview_image, id, is_favorite, rating} = offer;
@@ -62,15 +63,7 @@ const OfferCard = ({offer, pageType}) => {
 };
 
 OfferCard.propTypes = {
-  offer: PropTypes.shape({
-    price: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    preview_image: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    is_favorite: PropTypes.bool.isRequired,
-    rating: PropTypes.string.isRequired
-  }),
+  offer: OfferProp,
   pageType: PropTypes.string.isRequired
 };
 
