@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Redirect, useParams} from "react-router-dom";
-import Header from "../header/header";
-import CommentForm from "../comment-form/comment-form";
-import Comment from "../comment/comment";
-import OfferCard from "../offer-card/offer-card";
+import OfferProp from "./offer.prop";
 import {convertRatingToPercent, getRandomNumber} from "../../utils/utils";
 import {generateComment} from "../../mocks/offers";
-import OfferProp from "./offer.prop";
+import Header from "../header/header";
+import CommentForm from "../comment-form/comment-form";
+import OfferCard from "../offer-card/offer-card";
 import Map from "../map/map";
+import Comments from "../comments/comments";
 
 const Offer = ({isLogged, offers, onSubmitComment}) => {
   const MAX_COMMENT_QUANTITY = 5;
@@ -116,11 +116,7 @@ const Offer = ({isLogged, offers, onSubmitComment}) => {
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span
                   className="reviews__amount">{comments.length}</span></h2>
-                {comments.length ?
-                  <ul className="reviews__list">
-                    {comments.map((comment, i) => <Comment key={i} comment={comment}/>)}
-                  </ul> :
-                  ``}
+                {comments.length ? <Comments comments={comments}/> : ``}
                 <CommentForm onSubmitComment={onSubmitComment}/>
               </section>
             </div>
