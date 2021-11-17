@@ -2,8 +2,12 @@ import React from "react";
 import PropTypes from 'prop-types';
 import Header from "../header/header";
 import Offers from "../offers/offers";
+import Map from "../map/map";
 
 const Main = ({offerQuantity, offers, isLogged}) => {
+  const city = offers[0].city.location;
+  const points = offers.map((offer) => offer.location);
+
   return (
     <div className="page page--gray page--main">
       <Header isLogged={isLogged}/>
@@ -69,7 +73,9 @@ const Main = ({offerQuantity, offers, isLogged}) => {
               <Offers offers={offers} pageType="cities"/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"/>
+              <section className="cities__map map">
+                <Map city={city} points={points}/>
+              </section>
             </div>
           </div>
         </div>
