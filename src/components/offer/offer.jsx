@@ -8,6 +8,7 @@ import OfferCard from "../offer-card/offer-card";
 import {convertRatingToPercent, getRandomNumber} from "../../utils/utils";
 import {generateComment} from "../../mocks/offers";
 import OfferProp from "./offer.prop";
+import Map from "../map/map";
 
 const Offer = ({isLogged, offers, onSubmitComment}) => {
   const MAX_COMMENT_QUANTITY = 5;
@@ -27,6 +28,9 @@ const Offer = ({isLogged, offers, onSubmitComment}) => {
   const {avatar_url, is_pro, name, id: hostId} = host;
   const isProHost = is_pro ? `property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper` : `property__avatar-wrapper user__avatar-wrapper`;
   const percent = convertRatingToPercent(rating);
+
+  const city = offer.city.location;
+  const points = offers.map((o) => o.location);
 
   return (
     <div className="page">
@@ -121,7 +125,9 @@ const Offer = ({isLogged, offers, onSubmitComment}) => {
               </section>
             </div>
           </div>
-          <section className="property__map map"/>
+          <section className="property__map map">
+            <Map city={city} points={points} style={{height: `100%`, width: `1144px`, margin: `0 auto`}}/>
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">

@@ -74,7 +74,7 @@ const Main = ({offerQuantity, offers, isLogged}) => {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={city} points={points}/>
+                <Map city={city} points={points} style={{height: `100%`}}/>
               </section>
             </div>
           </div>

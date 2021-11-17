@@ -3,7 +3,7 @@ import leaflet from 'leaflet';
 import "leaflet/dist/leaflet.css";
 import PropTypes from "prop-types";
 
-const Map = ({city, points}) => {
+const Map = ({city, points, style}) => {
   const mapRef = useRef();
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const Map = ({city, points}) => {
   }, []);
 
   return (
-    <div id="map" style={{height: `100%`}} ref={mapRef}/>
+    <div id="map" style={style}/>
   );
 };
 
@@ -57,7 +57,8 @@ Map.propTypes = {
     latitude: PropTypes.number.isRequired,
     longitude: PropTypes.number.isRequired,
     zoom: PropTypes.number.isRequired,
-  }))
+  })),
+  style: PropTypes.object.isRequired
 };
 
 export default Map;
