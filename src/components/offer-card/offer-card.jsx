@@ -6,7 +6,8 @@ import OfferProp from "../offer/offer.prop";
 
 const OfferCard = ({offer, pageType}) => {
   const {price, title, type, preview_image, id, is_favorite, rating} = offer;
-  const isFavoritesPage = pageType === `favorites` ? `${pageType}__card` : `${pageType}__place-card`;
+  const isCitiesPage = pageType === `cities` ? `cities__place-card` : `near-places__card`;
+  const isFavoritesPage = pageType === `favorites` ? `favorites__card` : isCitiesPage;
   const isCitiesImageWidth = pageType === `favorites` ? `150` : `260`;
   const isCitiesImageHeight = pageType === `favorites` ? `110` : `200`;
   const isFavorites = pageType === `favorites` ? `favorites__card-info place-card__info` : `place-card__info`;
