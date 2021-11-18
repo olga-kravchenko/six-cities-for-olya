@@ -6,9 +6,9 @@ import OfferProp from "../offer/offer.prop";
 
 const OfferCard = ({offer, pageType}) => {
   const {price, title, type, preview_image, id, is_favorite, rating} = offer;
-  const isCities = pageType === `cities` ? `${pageType}__place-card` : `${pageType}__card`;
-  const isCitiesImageWidth = pageType === `cities` ? `260` : `150`;
-  const isCitiesImageHeight = pageType === `cities` ? `200` : `110`;
+  const isFavoritesPage = pageType === `favorites` ? `${pageType}__card` : `${pageType}__place-card`;
+  const isCitiesImageWidth = pageType === `favorites` ? `150` : `260`;
+  const isCitiesImageHeight = pageType === `favorites` ? `110` : `200`;
   const isFavorites = pageType === `favorites` ? `favorites__card-info place-card__info` : `place-card__info`;
   const percent = convertRatingToPercent(rating);
   const history = useHistory();
@@ -21,7 +21,7 @@ const OfferCard = ({offer, pageType}) => {
   };
 
   return (
-    <article className={`${isCities} place-card`} id={id}>
+    <article className={`${isFavoritesPage} place-card`} id={id}>
       <div className={`${pageType}__image-wrapper place-card__image-wrapper`}>
         <a>
           <img className="place-card__image" src={preview_image} width={isCitiesImageWidth} height={isCitiesImageHeight}

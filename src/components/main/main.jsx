@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Header from "../header/header";
 import Offers from "../offers/offers";
 import Map from "../map/map";
+import HeaderSignIn from "../header-sign-in/header-sign-in";
+import HeaderMail from "../header-mail/header-mail";
 
 const Main = ({offerQuantity, offers, isLogged}) => {
   const city = offers[0].city.location;
@@ -10,7 +12,7 @@ const Main = ({offerQuantity, offers, isLogged}) => {
 
   return (
     <div className="page page--gray page--main">
-      <Header isLogged={isLogged}/>
+      <Header render={() => (isLogged ? <HeaderMail/> : <HeaderSignIn/>)}/>
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>

@@ -9,6 +9,8 @@ import CommentForm from "../comment-form/comment-form";
 import OfferCard from "../offer-card/offer-card";
 import Map from "../map/map";
 import Comments from "../comments/comments";
+import HeaderSignIn from "../header-sign-in/header-sign-in";
+import HeaderMail from "../header-mail/header-mail";
 
 const Offer = ({isLogged, offers, onSubmitComment}) => {
   const MAX_COMMENT_QUANTITY = 5;
@@ -30,11 +32,11 @@ const Offer = ({isLogged, offers, onSubmitComment}) => {
   const percent = convertRatingToPercent(rating);
 
   const city = offer.city.location;
-  const points = offers.map((o) => o.location);
+  const points = nearOffers.map((o) => o.location);
 
   return (
     <div className="page">
-      <Header isLogged={isLogged}/>
+      <Header render={() => (isLogged ? <HeaderMail/> : <HeaderSignIn/>)}/>
       <main className="page__main page__main--property">
         <section className="property" id={id}>
           <div className="property__gallery-container container">
@@ -129,7 +131,7 @@ const Offer = ({isLogged, offers, onSubmitComment}) => {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearOffers.map((o, i) => <OfferCard key = {i} offer={o} pageType="cities"/>)}
+              {nearOffers.map((o, i) => <OfferCard key = {i} offer={o} pageType="near"/>)}
             </div>
           </section>
         </div>

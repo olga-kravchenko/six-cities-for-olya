@@ -4,12 +4,14 @@ import {Link} from 'react-router-dom';
 import Header from "../header/header";
 import FavoritesEmpty from "../favorites-empty/favorites-empty";
 import OfferCard from "../offer-card/offer-card";
+import HeaderSignIn from "../header-sign-in/header-sign-in";
+import HeaderMail from "../header-mail/header-mail";
 
 const Favorites = ({offers, isLogged}) => {
   const isEmptyOffers = offers.length === 0;
   return (
     <div className="page">
-      <Header isLogged={isLogged}/>
+      <Header render={() => (isLogged ? <HeaderMail/> : <HeaderSignIn/>)}/>
       {isEmptyOffers ?
         <FavoritesEmpty/> :
         <main className="page__main page__main--favorites">

@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Header from "../header/header";
+import HeaderSignIn from "../header-sign-in/header-sign-in";
+import HeaderMail from "../header-mail/header-mail";
 
 const Login = ({isLogged}) => {
   return (
     <div className="page page--gray page--login">
-      <Header isLogged={isLogged}/>
+      <Header render={() => (isLogged ? <HeaderMail/> : <HeaderSignIn/>)}/>
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">
