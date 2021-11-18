@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import OfferProp from "../offer/offer.prop";
 import {useHistory} from "react-router-dom";
 import {convertRatingToPercent} from "../../utils/utils";
-import OfferProp from "../offer/offer.prop";
 
 const OfferCard = ({offer, pageType}) => {
   const {price, title, type, preview_image, id, is_favorite, rating} = offer;

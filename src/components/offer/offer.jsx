@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Redirect, useParams} from "react-router-dom";
 import OfferProp from "./offer.prop";
+import {Redirect, useParams} from "react-router-dom";
 import {convertRatingToPercent, getRandomNumber} from "../../utils/utils";
 import {generateComment} from "../../mocks/offers";
 import Header from "../header/header";

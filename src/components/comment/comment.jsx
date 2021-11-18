@@ -1,7 +1,7 @@
 import React from "react";
+import CommentProp from "./comment.prop";
 import dayjs from "dayjs";
 import {convertRatingToPercent} from "../../utils/utils";
-import CommentProp from "./comment.prop";
 
 const Comment = ({comment}) => {
   const {comment: text, date, id, rating, user: {avatar_url, name}} = comment;

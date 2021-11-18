@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
+import PropTypes from "prop-types";
 import leaflet from 'leaflet';
 import "leaflet/dist/leaflet.css";
-import PropTypes from "prop-types";
 
 const Map = ({city, points, style}) => {
   const mapRef = useRef();
