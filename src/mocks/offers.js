@@ -20,20 +20,20 @@ const AVATARS = [`img/avatar.svg`, `img/avatar-angelina.jpg`, `img/avatar-max.jp
 const PHOTO_ROOMS = [`img/room.jpg`, `img/apartment-01.jpg`, `img/apartment-02.jpg`, `img/apartment-03.jpg`];
 const LOCATIONS = [
   {
-    latitude: 52.370216,
-    longitude: 4.895168,
+    latitude: 52.3909553943508,
+    longitude: 4.85309666406198,
   },
   {
-    latitude: 52.355149,
-    longitude: 4.673878,
+    latitude: 52.369553943508,
+    longitude: 4.85309666406198,
   },
   {
-    latitude: 52.359670,
-    longitude: 4.666953,
+    latitude: 52.3909553943508,
+    longitude: 4.929309666406198,
   },
   {
-    latitude: 52.369094,
-    longitude: 4.647568,
+    latitude: 52.3809553943508,
+    longitude: 4.939309666406198,
   },
 ];
 

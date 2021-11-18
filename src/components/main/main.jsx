@@ -2,11 +2,17 @@ import React from "react";
 import PropTypes from 'prop-types';
 import Header from "../header/header";
 import Offers from "../offers/offers";
+import Map from "../map/map";
+import HeaderSignIn from "../header-sign-in/header-sign-in";
+import HeaderMail from "../header-mail/header-mail";
 
 const Main = ({offerQuantity, offers, isLogged}) => {
+  const city = offers[0].city.location;
+  const points = offers.map((offer) => offer.location);
+
   return (
     <div className="page page--gray page--main">
-      <Header isLogged={isLogged}/>
+      <Header render={() => (isLogged ? <HeaderMail/> : <HeaderSignIn/>)}/>
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
@@ -69,7 +75,9 @@ const Main = ({offerQuantity, offers, isLogged}) => {
               <Offers offers={offers} pageType="cities"/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"/>
+              <section className="cities__map map">
+                <Map city={city} points={points} style={{height: `100%`}}/>
+              </section>
             </div>
           </div>
         </div>

@@ -46,11 +46,7 @@ const App = ({offerQuantity, offers, isLogged}) => {
 App.propTypes = {
   isLogged: PropTypes.bool.isRequired,
   offerQuantity: PropTypes.number.isRequired,
-  offers: PropTypes.array.isRequired,
-  place: PropTypes.shape({
-    cities: PropTypes.string.isRequired,
-    favorites: PropTypes.string.isRequired
-  })
+  offers: PropTypes.array.isRequired
 };
 
 export default App;

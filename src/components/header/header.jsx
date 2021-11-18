@@ -1,10 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
-import HeaderMail from "../header-mail/header-mail";
-import HeaderSignIn from "../header-sign-in/header-sign-in";
 
-const Header = ({isLogged}) => {
+const Header = ({render}) => {
   return (
     <header className="header">
       <div className="container">
@@ -17,7 +15,7 @@ const Header = ({isLogged}) => {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                {isLogged ? <HeaderMail/> : <HeaderSignIn/>}
+                {render()}
               </li>
             </ul>
           </nav>
@@ -28,7 +26,7 @@ const Header = ({isLogged}) => {
 };
 
 Header.propTypes = {
-  isLogged: PropTypes.bool.isRequired
+  render: PropTypes.func.isRequired,
 };
 
 export default Header;

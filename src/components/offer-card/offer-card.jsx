@@ -1,13 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+import OfferProp from "../offer/offer.prop";
 import {useHistory} from "react-router-dom";
 import {convertRatingToPercent} from "../../utils/utils";
 
 const OfferCard = ({offer, pageType}) => {
   const {price, title, type, preview_image, id, is_favorite, rating} = offer;
-  const isCities = pageType === `cities` ? `${pageType}__place-card` : `${pageType}__card`;
-  const isCitiesImageWidth = pageType === `cities` ? `260` : `150`;
-  const isCitiesImageHeight = pageType === `cities` ? `200` : `110`;
+  const isCitiesPage = pageType === `cities` ? `cities__place-card` : `near-places__card`;
+  const isFavoritesPage = pageType === `favorites` ? `favorites__card` : isCitiesPage;
+  const isCitiesImageWidth = pageType === `favorites` ? `150` : `260`;
+  const isCitiesImageHeight = pageType === `favorites` ? `110` : `200`;
   const isFavorites = pageType === `favorites` ? `favorites__card-info place-card__info` : `place-card__info`;
   const percent = convertRatingToPercent(rating);
   const history = useHistory();
@@ -20,7 +22,7 @@ const OfferCard = ({offer, pageType}) => {
   };
 
   return (
-    <article className={`${isCities} place-card`} id={id}>
+    <article className={`${isFavoritesPage} place-card`} id={id}>
       <div className={`${pageType}__image-wrapper place-card__image-wrapper`}>
         <a>
           <img className="place-card__image" src={preview_image} width={isCitiesImageWidth} height={isCitiesImageHeight}
@@ -62,15 +64,7 @@ const OfferCard = ({offer, pageType}) => {
 };
 
 OfferCard.propTypes = {
-  offer: PropTypes.shape({
-    price: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    preview_image: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    is_favorite: PropTypes.bool.isRequired,
-    rating: PropTypes.string.isRequired
-  }),
+  offer: OfferProp,
   pageType: PropTypes.string.isRequired
 };
 

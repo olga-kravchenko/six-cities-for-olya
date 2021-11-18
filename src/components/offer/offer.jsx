@@ -1,12 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
+import OfferProp from "./offer.prop";
 import {Redirect, useParams} from "react-router-dom";
-import Header from "../header/header";
-import CommentForm from "../comment-form/comment-form";
-import Comment from "../comment/comment";
-import OfferCard from "../offer-card/offer-card";
 import {convertRatingToPercent, getRandomNumber} from "../../utils/utils";
 import {generateComment} from "../../mocks/offers";
+import Header from "../header/header";
+import CommentForm from "../comment-form/comment-form";
+import OfferCard from "../offer-card/offer-card";
+import Map from "../map/map";
+import Comments from "../comments/comments";
+import HeaderSignIn from "../header-sign-in/header-sign-in";
+import HeaderMail from "../header-mail/header-mail";
 
 const Offer = ({isLogged, offers, onSubmitComment}) => {
   const MAX_COMMENT_QUANTITY = 5;
@@ -27,9 +31,12 @@ const Offer = ({isLogged, offers, onSubmitComment}) => {
   const isProHost = is_pro ? `property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper` : `property__avatar-wrapper user__avatar-wrapper`;
   const percent = convertRatingToPercent(rating);
 
+  const city = offer.city.location;
+  const points = nearOffers.map((o) => o.location);
+
   return (
     <div className="page">
-      <Header isLogged={isLogged}/>
+      <Header render={() => (isLogged ? <HeaderMail/> : <HeaderSignIn/>)}/>
       <main className="page__main page__main--property">
         <section className="property" id={id}>
           <div className="property__gallery-container container">
@@ -111,22 +118,20 @@ const Offer = ({isLogged, offers, onSubmitComment}) => {
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span
                   className="reviews__amount">{comments.length}</span></h2>
-                {comments.length ?
-                  <ul className="reviews__list">
-                    {comments.map((comment, i) => <Comment key={i} comment={comment}/>)}
-                  </ul> :
-                  ``}
+                {comments.length ? <Comments comments={comments}/> : ``}
                 <CommentForm onSubmitComment={onSubmitComment}/>
               </section>
             </div>
           </div>
-          <section className="property__map map"/>
+          <section className="property__map map">
+            <Map city={city} points={points} style={{height: `100%`, width: `1144px`, margin: `0 auto`}}/>
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearOffers.map((o, i) => <OfferCard key = {i} offer={o} pageType="cities"/>)}
+              {nearOffers.map((o, i) => <OfferCard key = {i} offer={o} pageType="near"/>)}
             </div>
           </section>
         </div>
@@ -138,14 +143,7 @@ const Offer = ({isLogged, offers, onSubmitComment}) => {
 Offer.propTypes = {
   onSubmitComment: PropTypes.func.isRequired,
   offers: PropTypes.array.isRequired,
-  offer: PropTypes.shape({
-    price: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    preview_image: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    is_favorite: PropTypes.bool.isRequired
-  }),
+  offer: OfferProp,
   isLogged: PropTypes.bool.isRequired,
 };
 
