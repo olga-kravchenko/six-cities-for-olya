@@ -13,7 +13,7 @@ const initialState = {
     },
     "name": `Amsterdam`,
   },
-  offerList: offers,
+  offerList: [...offers].filter((e) => e.city.name === `Amsterdam`),
 };
 
 const reducer = (state = initialState, action) => {
