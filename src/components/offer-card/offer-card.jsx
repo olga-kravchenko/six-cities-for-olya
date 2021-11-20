@@ -8,8 +8,8 @@ const OfferCard = ({offer, pageType}) => {
   const {price, title, type, preview_image, id, is_favorite, rating} = offer;
   const isCitiesPage = pageType === `cities` ? `cities__place-card` : `near-places__card`;
   const isFavoritesPage = pageType === `favorites` ? `favorites__card` : isCitiesPage;
-  const isCitiesImageWidth = pageType === `favorites` ? `150` : `260`;
-  const isCitiesImageHeight = pageType === `favorites` ? `110` : `200`;
+  const isFavoritesImageWidth = pageType === `favorites` ? `150` : `260`;
+  const isFavoritesImageHeight = pageType === `favorites` ? `110` : `200`;
   const isFavorites = pageType === `favorites` ? `favorites__card-info place-card__info` : `place-card__info`;
   const percent = convertRatingToPercent(rating);
   const history = useHistory();
@@ -25,7 +25,7 @@ const OfferCard = ({offer, pageType}) => {
     <article className={`${isFavoritesPage} place-card`} id={id}>
       <div className={`${pageType}__image-wrapper place-card__image-wrapper`}>
         <a>
-          <img className="place-card__image" src={preview_image} width={isCitiesImageWidth} height={isCitiesImageHeight}
+          <img className="place-card__image" src={preview_image} width={isFavoritesImageWidth} height={isFavoritesImageHeight}
             alt="Place image"/>
         </a>
       </div>

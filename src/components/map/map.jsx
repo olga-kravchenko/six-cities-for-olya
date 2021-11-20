@@ -12,7 +12,7 @@ const Map = ({city, points, style}) => {
         lat: city.latitude,
         lng: city.longitude
       },
-      zoom: city.zoom
+      zoom: 12,
     });
 
     leaflet

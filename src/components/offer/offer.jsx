@@ -14,6 +14,7 @@ import HeaderMail from "../header-mail/header-mail";
 
 const Offer = ({isLogged, offers, onSubmitComment}) => {
   const MAX_COMMENT_QUANTITY = 5;
+  const SHOWN_OFFER_QUANTITY = -3;
   const comments = new Array(getRandomNumber(0, MAX_COMMENT_QUANTITY))
     .fill(null)
     .map(generateComment);
@@ -24,7 +25,7 @@ const Offer = ({isLogged, offers, onSubmitComment}) => {
       <Redirect to="/page-not-found" />
     );
   }
-  const nearOffers = [...offers].filter((offer) => offer.id !== id).slice(-3);
+  const nearOffers = [...offers].filter((offer) => offer.id !== id).slice(SHOWN_OFFER_QUANTITY);
   const offer = offers[index];
   const {bedrooms, max_adults, goods, price, description, title, type, images, is_favorite, is_premium, rating, host} = offer;
   const {avatar_url, is_pro, name, id: hostId} = host;
