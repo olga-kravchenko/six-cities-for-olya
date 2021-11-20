@@ -12,7 +12,7 @@ const DESCRIPTION = [
 ];
 const GOODS = [`Wi-fi`, `Heating`, `Kitchen`, `Cable TV`, `Washing machine`,
   `Coffee machine`, `Coffee machine`, `Dishwasher`, `Fridge`, `Towels`, `Baby seat`];
-const CITY_NAMES = [`Amsterdam`, `Paris`, `Cologne`, `Brussels`, `Hamburg`, `Dusseldorf`];
+const CITY_NAMES = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
 const OWNER_NAMES = [`Angelina`, `Vadim`, `Mark`, `Benjamin`, `Elena`, `Alex`];
 const TYPE_NAMES = [`Apartment`, `Private Room`, `House`, `Hotel`];
 const STATES = [true, false];
