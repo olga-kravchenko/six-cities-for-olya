@@ -5,8 +5,11 @@ import Offers from "../offers/offers";
 import Map from "../map/map";
 import HeaderSignIn from "../header-sign-in/header-sign-in";
 import HeaderMail from "../header-mail/header-mail";
+import Cities from "../cities/cities";
 
 const Main = ({offerQuantity, offers, isLogged}) => {
+  const CITY_NAMES = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
+  const offersByCity = [...offers].filter((e) => e.city.name === `Amsterdam`);
   const city = offers[0].city.location;
   const points = offers.map((offer) => offer.location);
 
@@ -18,38 +21,7 @@ const Main = ({offerQuantity, offers, isLogged}) => {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
+            <Cities cities={CITY_NAMES}/>
           </section>
         </div>
         <div className="cities">
