@@ -1,25 +1,41 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {ActionCreator} from "../../store/action";
+import {connect} from "react-redux";
 
-const Cities = ({cities}) => {
+const Cities = ({cities, onCityClick, city}) => {
   return (
     <ul className="locations__list tabs__list">
-      {cities.map((city, i) => <li className="locations__item" key={i}>
-        <a className="locations__item-link tabs__item" href="#">
-          <span>{city}</span>
-        </a>
-      </li>)}
-      <li className="locations__item">
-        <a className="locations__item-link tabs__item tabs__item--active">
-          <span>Amsterdam</span>
-        </a>
-      </li>
+      {cities.map((cityName, i) => {
+        const isCityActive = city === cityName ? `locations__item-link tabs__item tabs__item--active` : `locations__item-link tabs__item`;
+        return (
+          <li className="locations__item" key={i}>
+            <a className={isCityActive} href="#"
+              onClick={onCityClick}>
+              <span>{cityName}</span>
+            </a>
+          </li>
+        );
+      })}
     </ul>
   );
 };
 
 Cities.propTypes = {
-  cities: PropTypes.array.isRequired
+  cities: PropTypes.array.isRequired,
+  city: PropTypes.string,
+  onCityClick: PropTypes.func,
 };
 
-export default Cities;
+const mapStateToProps = (state) => ({
+  city: state.city,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onCityClick(evt) {
+    const cityName = evt.target.textContent;
+    dispatch(ActionCreator.cityChange(cityName));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cities);
