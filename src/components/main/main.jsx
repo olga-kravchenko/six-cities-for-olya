@@ -7,23 +7,24 @@ import HeaderSignIn from "../header-sign-in/header-sign-in";
 import HeaderMail from "../header-mail/header-mail";
 import Cities from "../cities/cities";
 import {connect} from "react-redux";
+import EmptyMain from "../empty-main/empty-main";
 
 const Main = ({city, offerList, isLogged}) => {
   const CITY_NAMES = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
-  const cityInfo = offerList.find((e) => e.city.location).city;
+  const isEmptyOffer = offerList.length ? `page__main page__main--index` : `page__main page__main--index page__main--index-empty`;
 
   return (
     <div className="page page--gray page--main">
       <Header render={() => (isLogged ? <HeaderMail/> : <HeaderSignIn/>)}/>
 
-      <main className="page__main page__main--index">
+      <main className={isEmptyOffer}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
             <Cities cities={CITY_NAMES}/>
           </section>
         </div>
-        <div className="cities">
+        {offerList.length ? <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
@@ -47,11 +48,12 @@ const Main = ({city, offerList, isLogged}) => {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map cityInfo={cityInfo} offerList={offerList} style={{height: `100%`}}/>
+                <Map offerList={offerList} style={{height: `100%`}}/>
               </section>
             </div>
           </div>
-        </div>
+        </div> :
+          <EmptyMain/>}
       </main>
     </div>
   );
@@ -69,4 +71,5 @@ const mapStateToProps = (state) => ({
   city: state.city
 });
 
+export {Main};
 export default connect(mapStateToProps)(Main);

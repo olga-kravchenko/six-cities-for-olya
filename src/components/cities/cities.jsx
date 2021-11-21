@@ -33,10 +33,12 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onCityClick(evt) {
+    evt.preventDefault();
     const cityName = evt.target.textContent;
     dispatch(ActionCreator.cityChange(cityName));
     dispatch(ActionCreator.offerFilling(cityName));
   },
 });
 
+export {Cities};
 export default connect(mapStateToProps, mapDispatchToProps)(Cities);

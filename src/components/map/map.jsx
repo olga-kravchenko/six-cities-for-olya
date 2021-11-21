@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 import leaflet from 'leaflet';
 import "leaflet/dist/leaflet.css";
 
-const Map = ({cityInfo, offerList, style}) => {
+const Map = ({offerList, style}) => {
   const mapRef = useRef();
+  const cityInfo = offerList.find((e) => e.city.location).city;
   const {location} = cityInfo;
   const points = offerList.map((offer) => offer.location);
 
@@ -51,19 +52,6 @@ const Map = ({cityInfo, offerList, style}) => {
 
 Map.propTypes = {
   offerList: PropTypes.array.isRequired,
-  cityInfo: PropTypes.shape({
-    location: PropTypes.shape({
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired,
-      zoom: PropTypes.number.isRequired,
-    }),
-    name: PropTypes.string.isRequired
-  }),
-  points: PropTypes.arrayOf(PropTypes.shape({
-    latitude: PropTypes.number.isRequired,
-    longitude: PropTypes.number.isRequired,
-    zoom: PropTypes.number.isRequired,
-  })),
   style: PropTypes.object.isRequired
 };
 
