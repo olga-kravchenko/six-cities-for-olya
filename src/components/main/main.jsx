@@ -6,12 +6,11 @@ import Map from "../map/map";
 import HeaderSignIn from "../header-sign-in/header-sign-in";
 import HeaderMail from "../header-mail/header-mail";
 import Cities from "../cities/cities";
+import {connect} from "react-redux";
 
-const Main = ({offerQuantity, offers, isLogged}) => {
+const Main = ({city, offerList, isLogged}) => {
   const CITY_NAMES = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
-  const offersByCity = [...offers].filter((e) => e.city.name === `Amsterdam`);
-  const city = offers[0].city.location;
-  const points = offers.map((offer) => offer.location);
+  const cityInfo = offerList.find((e) => e.city.location).city;
 
   return (
     <div className="page page--gray page--main">
@@ -28,7 +27,7 @@ const Main = ({offerQuantity, offers, isLogged}) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offerQuantity} places to stay in Amsterdam</b>
+              <b className="places__found">{offerList.length} places to stay in {city}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -44,11 +43,11 @@ const Main = ({offerQuantity, offers, isLogged}) => {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <Offers offers={offers} pageType="cities"/>
+              <Offers pageType="cities" offers={offerList}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={city} points={points} style={{height: `100%`}}/>
+                <Map cityInfo={cityInfo} offerList={offerList} style={{height: `100%`}}/>
               </section>
             </div>
           </div>
@@ -60,8 +59,14 @@ const Main = ({offerQuantity, offers, isLogged}) => {
 
 Main.propTypes = {
   offerQuantity: PropTypes.number.isRequired,
-  offers: PropTypes.array.isRequired,
+  city: PropTypes.string.isRequired,
+  offerList: PropTypes.array.isRequired,
   isLogged: PropTypes.bool.isRequired
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  offerList: state.offerList,
+  city: state.city
+});
+
+export default connect(mapStateToProps)(Main);

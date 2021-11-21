@@ -3,14 +3,16 @@ import PropTypes from "prop-types";
 import leaflet from 'leaflet';
 import "leaflet/dist/leaflet.css";
 
-const Map = ({city, points, style}) => {
+const Map = ({cityInfo, offerList, style}) => {
   const mapRef = useRef();
+  const {location} = cityInfo;
+  const points = offerList.map((offer) => offer.location);
 
   useEffect(() => {
     mapRef.current = leaflet.map(`map`, {
       center: {
-        lat: city.latitude,
-        lng: city.longitude
+        lat: location.latitude,
+        lng: location.longitude
       },
       zoom: 12,
     });
@@ -48,10 +50,14 @@ const Map = ({city, points, style}) => {
 };
 
 Map.propTypes = {
-  city: PropTypes.shape({
-    latitude: PropTypes.number.isRequired,
-    longitude: PropTypes.number.isRequired,
-    zoom: PropTypes.number.isRequired,
+  offerList: PropTypes.array.isRequired,
+  cityInfo: PropTypes.shape({
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
+    }),
+    name: PropTypes.string.isRequired
   }),
   points: PropTypes.arrayOf(PropTypes.shape({
     latitude: PropTypes.number.isRequired,

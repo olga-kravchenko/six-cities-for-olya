@@ -35,6 +35,7 @@ const mapDispatchToProps = (dispatch) => ({
   onCityClick(evt) {
     const cityName = evt.target.textContent;
     dispatch(ActionCreator.cityChange(cityName));
+    dispatch(ActionCreator.offerFilling(cityName));
   },
 });
 

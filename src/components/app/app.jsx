@@ -15,7 +15,6 @@ const App = ({offerQuantity, offers, isLogged}) => {
         <Route path="/" exact>
           <Main
             offerQuantity={offerQuantity}
-            offers={offers}
             isLogged={isLogged}
           />
         </Route>
