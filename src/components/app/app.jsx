@@ -29,7 +29,6 @@ const App = ({offerQuantity, offers, isLogged}) => {
         </Route>
         <Route path="/offer/:id" exact>
           <Offer
-            offers={offers}
             isLogged={isLogged}
             onSubmitComment={() => {}}
           />
