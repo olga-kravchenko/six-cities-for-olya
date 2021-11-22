@@ -1,14 +1,9 @@
 import {ActionType} from "./action";
-import {generateOffer} from "../mocks/offers";
-
-const OFFER_QUANTITY = 15;
-const offers = new Array(OFFER_QUANTITY).fill(null).map(generateOffer);
-const offersParis = [...offers].filter((e) => e.city.name === `Paris`);
-const offersCologne = [...offers].filter((e) => e.city.name === `Cologne`);
+import {offers} from "../mocks/offers";
 
 const initialState = {
   city: `Paris`,
-  offerList: offers.filter((e) => e.city.name === `Paris`),
+  offerList: offers.filter((e) => e.city.name === `Paris`)
 };
 
 const reducer = (state = initialState, action) => {

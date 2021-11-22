@@ -7,14 +7,13 @@ import Favorites from "../favorites/favorites";
 import Offer from "../offer/offer";
 import PageNotFound from "../404/404";
 
-const App = ({offerQuantity, offers, isLogged}) => {
+const App = ({offers, isLogged}) => {
   const favoriteOffers = offers.filter((offer) => offer.is_favorite);
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact>
           <Main
-            offerQuantity={offerQuantity}
             isLogged={isLogged}
           />
         </Route>
@@ -43,7 +42,6 @@ const App = ({offerQuantity, offers, isLogged}) => {
 
 App.propTypes = {
   isLogged: PropTypes.bool.isRequired,
-  offerQuantity: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired
 };
 

@@ -60,7 +60,6 @@ const Main = ({city, offerList, isLogged}) => {
 };
 
 Main.propTypes = {
-  offerQuantity: PropTypes.number.isRequired,
   city: PropTypes.string.isRequired,
   offerList: PropTypes.array.isRequired,
   isLogged: PropTypes.bool.isRequired

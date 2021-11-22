@@ -144,5 +144,8 @@ const generateComment = () => {
   };
 };
 
-export {generateOffer, generateComment};
+const OFFER_QUANTITY = 15;
+const offers = new Array(OFFER_QUANTITY).fill(null).map(generateOffer);
+
+export {offers, generateComment};
 
