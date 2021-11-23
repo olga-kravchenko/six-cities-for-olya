@@ -1,11 +1,10 @@
 import {ActionType} from "./action";
 import {offers} from "../mocks/offers";
-import {SortingType} from "./action";
 
 const initialState = {
   city: `Paris`,
+  offers,
   offerList: offers.filter((e) => e.city.name === `Paris`),
-  sorting: SortingType.POPULAR,
 };
 
 const reducer = (state = initialState, action) => {
@@ -14,10 +13,7 @@ const reducer = (state = initialState, action) => {
       return {...state, city: action.payload};
 
     case ActionType.OFFER_FILLING:
-      return {...state, offerList: offers.filter((e) => e.city.name === action.payload)};
-
-    case ActionType.CHANGE_SORTING:
-      return {...state, sorting: action.payload};
+      return {...state, offerList: offers.filter((e) => e.city.name === state.city)};
 
     default:
       return state;
