@@ -1,10 +1,11 @@
 import {ActionType} from "./action";
 import {offers} from "../mocks/offers";
+import {SortingType} from "./action";
 
 const initialState = {
   city: `Paris`,
   offerList: offers.filter((e) => e.city.name === `Paris`),
-  sorting: `popular`,
+  sorting: SortingType.POPULAR,
 };
 
 const reducer = (state = initialState, action) => {
