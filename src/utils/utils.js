@@ -20,12 +20,22 @@ const generateRandomArray = (array) => {
 };
 
 const sortOffersByRating = (offerA, offerB) => {
-  return (offerA.rating - offerB.rating);
+  return (offerB.rating - offerA.rating);
 };
 
-const sortOffersByPrice = (offerA, offerB) => {
+const sortOffersByPriceLowToHigh = (offerA, offerB) => {
   return (offerA.price - offerB.price);
 };
 
+const sortOffersByPriceHighToLow = (offerA, offerB) => {
+  return (offerB.price - offerA.price);
+};
 
-export {convertRatingToPercent, getRandomNumber, generateRandomArray, sortOffersByRating, sortOffersByPrice};
+export {
+  convertRatingToPercent,
+  getRandomNumber,
+  generateRandomArray,
+  sortOffersByRating,
+  sortOffersByPriceLowToHigh,
+  sortOffersByPriceHighToLow
+};

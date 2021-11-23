@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {ActionCreator} from "../../store/action";
+import {connect} from "react-redux";
 
-const SortingOptions = () => {
+const SortingOptions = ({sorting, onSortingClick}) => {
   const types = [`Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`];
 
   return (
@@ -15,9 +17,9 @@ const SortingOptions = () => {
       </span>
       <ul className="places__options places__options--custom places__options--opened">
         {types.map((type, i) => {
-          const isActiveSorting = type === `Popular` ? `places__option places__option--active` : `places__option`;
+          const isActiveSorting = type === sorting ? `places__option places__option--active` : `places__option`;
           return (
-            <li className={isActiveSorting} tabIndex="0" key={i}>
+            <li className={isActiveSorting} tabIndex="0" key={i} onClick={onSortingClick}>
               {type}
             </li>);
         })}
@@ -30,4 +32,18 @@ SortingOptions.propTypes = {
   onSortingClick: PropTypes.func,
 };
 
-export default SortingOptions;
+const mapStateToProps = (state) => ({
+  sorting: state.sorting,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onSortingClick(evt) {
+    evt.preventDefault();
+    const sortingType = evt.target.textContent;
+    dispatch(ActionCreator.changeSorting(sortingType));
+    dispatch(ActionCreator.offerFilling(sortingType));
+  },
+});
+
+export {SortingOptions};
+export default connect(mapStateToProps, mapDispatchToProps)(SortingOptions);
