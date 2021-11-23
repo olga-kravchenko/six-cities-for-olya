@@ -2,8 +2,9 @@ import React, {useEffect, useRef} from 'react';
 import PropTypes from "prop-types";
 import leaflet from 'leaflet';
 import "leaflet/dist/leaflet.css";
+import {connect} from "react-redux";
 
-const Map = ({offerList, style}) => {
+const Map = ({offerList, style, city}) => {
   const mapRef = useRef();
   const cityInfo = offerList.find((e) => e.city.location).city;
   const {location} = cityInfo;
@@ -38,21 +39,26 @@ const Map = ({offerList, style}) => {
         icon: customIcon
       })
         .addTo(mapRef.current);
-
-      return () => {
-        mapRef.current.remove();
-      };
     });
-  }, []);
+    return () => {
+      mapRef.current.remove();
+    };
+  }, [city]);
 
   return (
-    <div id="map" style={style}/>
+    <div id="map" style={style} ref={mapRef}/>
   );
 };
 
 Map.propTypes = {
   offerList: PropTypes.array.isRequired,
-  style: PropTypes.object.isRequired
+  style: PropTypes.object.isRequired,
+  city: PropTypes.string
 };
 
-export default Map;
+const mapStateToProps = (state) => ({
+  city: state.city,
+});
+
+export {Map};
+export default connect(mapStateToProps)(Map);
