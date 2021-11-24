@@ -4,7 +4,7 @@ import leaflet from 'leaflet';
 import "leaflet/dist/leaflet.css";
 import {connect} from "react-redux";
 
-const Map = ({offerList, style, city}) => {
+const Map = ({offerList, style, city, activeOfferId}) => {
   const mapRef = useRef();
   const cityInfo = offerList.find((e) => e.city.location).city;
   const {location} = cityInfo;
@@ -25,8 +25,10 @@ const Map = ({offerList, style, city}) => {
       .addTo(mapRef.current);
 
     offerList.forEach((offer) => {
+      const isActivePin = activeOfferId === offer.id ? `./img/pin-active.svg` : `./img/pin.svg`;
+
       const customIcon = leaflet.icon({
-        iconUrl: `./img/pin.svg`,
+        iconUrl: isActivePin,
         iconSize: [27, 39]
       });
 
@@ -43,7 +45,7 @@ const Map = ({offerList, style, city}) => {
     return () => {
       mapRef.current.remove();
     };
-  }, [city]);
+  }, [city, activeOfferId]);
 
   return (
     <div id="map" style={style} ref={mapRef}/>
@@ -53,11 +55,13 @@ const Map = ({offerList, style, city}) => {
 Map.propTypes = {
   offerList: PropTypes.array.isRequired,
   style: PropTypes.object.isRequired,
-  city: PropTypes.string
+  city: PropTypes.string,
+  activeOfferId: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
+  activeOfferId: state.activeOfferId
 });
 
 export {Map};
