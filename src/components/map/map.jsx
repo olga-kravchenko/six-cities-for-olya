@@ -65,4 +65,4 @@ const mapStateToProps = (state) => ({
 });
 
 export {Map};
-export default connect(mapStateToProps)(Map);
+export default connect(mapStateToProps, null)(Map);

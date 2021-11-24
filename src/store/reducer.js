@@ -15,17 +15,17 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_CITY:
       return {...state, city: action.payload};
 
-    case ActionType.OFFER_FILLING:
+    case ActionType.FILL_WITH_OFFERS:
       return {
         ...state, offerList: action.payload ?
-          offers.filter((e) => e.city.name === state.city).slice().sort(action.payload) :
+          [...offers.filter((e) => e.city.name === state.city)].sort(action.payload) :
           offers.filter((e) => e.city.name === state.city)
       };
 
     case ActionType.CHANGE_SORTING:
       return {...state, sorting: action.payload};
 
-    case ActionType.OFFER_HOVER:
+    case ActionType.HOVER_ON_OFFER:
       return {...state, activeOfferId: action.payload};
 
     default:

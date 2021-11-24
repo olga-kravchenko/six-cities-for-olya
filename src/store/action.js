@@ -1,52 +1,53 @@
 import {sortOffersByRating, sortOffersByPriceLowToHigh, sortOffersByPriceHighToLow} from "../utils/utils";
-export const ActionType = {
+
+const ActionType = {
   CHANGE_CITY: `city/cityChange`,
-  OFFER_FILLING: `city/offerFilling`,
+  FILL_WITH_OFFERS: `city/offerFilling`,
   CHANGE_SORTING: `city/sortingChange`,
-  OFFER_HOVER: `city/offerHover`,
+  HOVER_ON_OFFER: `city/offerHover`,
 };
 
-export const SortingType = {
+const SortingType = {
   POPULAR: `Popular`,
   PRICE_LOW_TO_HIGH: `Price: low to high`,
   PRICE_HIGH_TO_LOW: `Price: high to low`,
   TOP_RATED_FIRST: `Top rated first`,
 };
 
-export const ActionCreator = {
+const ActionCreator = {
   changeCity: (city) => ({
     type: ActionType.CHANGE_CITY,
     payload: city,
   }),
-  offerFilling: (sortingType = SortingType.POPULAR) => {
-    let sortingCallBack;
-
+  fillWithOffers: (sortingType = SortingType.POPULAR) => {
+    let sortingCallback;
     switch (sortingType) {
       case SortingType.POPULAR:
-        sortingCallBack = false;
+        sortingCallback = false;
         break;
       case SortingType.PRICE_LOW_TO_HIGH:
-        sortingCallBack = sortOffersByPriceLowToHigh;
+        sortingCallback = sortOffersByPriceLowToHigh;
         break;
       case SortingType.PRICE_HIGH_TO_LOW:
-        sortingCallBack = sortOffersByPriceHighToLow;
+        sortingCallback = sortOffersByPriceHighToLow;
         break;
       case SortingType.TOP_RATED_FIRST:
-        sortingCallBack = sortOffersByRating;
+        sortingCallback = sortOffersByRating;
         break;
     }
-
     return ({
-      type: ActionType.OFFER_FILLING,
-      payload: sortingCallBack
+      type: ActionType.FILL_WITH_OFFERS,
+      payload: sortingCallback
     });
   },
-  changeSorting: (type = SortingType.POPULAR) => ({
+  changeSorting: (sortingType = SortingType.POPULAR) => ({
     type: ActionType.CHANGE_SORTING,
-    payload: type,
+    payload: sortingType,
   }),
-  offerHover: (id = ``) => ({
-    type: ActionType.OFFER_HOVER,
-    payload: id,
+  hoverOnOffer: (offerId = ``) => ({
+    type: ActionType.HOVER_ON_OFFER,
+    payload: offerId,
   }),
 };
+
+export {ActionType, SortingType, ActionCreator};

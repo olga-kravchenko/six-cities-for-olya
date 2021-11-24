@@ -2,9 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import {ActionCreator} from "../../store/action";
 import {connect} from "react-redux";
+import {SortingType} from "../../store/action";
 
 const SortingOptions = ({sorting, onSortingClick}) => {
-  const types = [`Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`];
+  const types = Object.values(SortingType);
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -41,7 +42,7 @@ const mapDispatchToProps = (dispatch) => ({
     evt.preventDefault();
     const sortingType = evt.target.textContent;
     dispatch(ActionCreator.changeSorting(sortingType));
-    dispatch(ActionCreator.offerFilling(sortingType));
+    dispatch(ActionCreator.fillWithOffers(sortingType));
   },
 });
 
