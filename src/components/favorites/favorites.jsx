@@ -8,7 +8,9 @@ import HeaderSignIn from "../header-sign-in/header-sign-in";
 import HeaderMail from "../header-mail/header-mail";
 
 const Favorites = ({offers, isLogged}) => {
+  const CITY_NAMES = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
   const isEmptyOffers = offers.length === 0;
+
   return (
     <div className="page">
       <Header render={() => (isLogged ? <HeaderMail/> : <HeaderSignIn/>)}/>
@@ -19,18 +21,23 @@ const Favorites = ({offers, isLogged}) => {
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
-                <li className="favorites__locations-items">
-                  <div className="favorites__locations locations locations--current">
-                    <div className="locations__item">
-                      <a className="locations__item-link" href="#">
-                        <span>Amsterdam</span>
-                      </a>
-                    </div>
-                  </div>
-                  <div className="favorites__places">
-                    {offers.map((offer, i) => <OfferCard key = {i} offer = {offer} pageType="favorites"/>)}
-                  </div>
-                </li>
+                {CITY_NAMES.map((city, i) => {
+                  const filteringOffers = offers.filter((e) => e.city.name === city);
+                  return (
+                    <li className="favorites__locations-items" key={i}>
+                      <div className="favorites__locations locations locations--current">
+                        <div className="locations__item">
+                          <a className="locations__item-link" href="#">
+                            <span>{city}</span>
+                          </a>
+                        </div>
+                      </div>
+                      <div className="favorites__places">
+                        {filteringOffers.map((offer, y) => <OfferCard key={y} offer={offer} pageType="favorites"/>)}
+                      </div>
+                    </li>
+                  );
+                })}
               </ul>
             </section>
           </div>

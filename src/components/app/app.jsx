@@ -6,6 +6,7 @@ import Login from "../login/login";
 import Favorites from "../favorites/favorites";
 import Offer from "../offer/offer";
 import PageNotFound from "../page-not-found/page-not-found";
+import {connect} from "react-redux";
 
 const App = ({offers, isLogged}) => {
   const favoriteOffers = offers.filter((offer) => offer.is_favorite);
@@ -45,4 +46,9 @@ App.propTypes = {
   offers: PropTypes.array.isRequired
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+});
+
+export {App};
+export default connect(mapStateToProps, null)(App);
