@@ -3,6 +3,7 @@ export const ActionType = {
   CHANGE_CITY: `city/cityChange`,
   OFFER_FILLING: `city/offerFilling`,
   CHANGE_SORTING: `city/sortingChange`,
+  OFFER_HOVER: `city/offerHover`,
 };
 
 export const SortingType = {
@@ -43,5 +44,9 @@ export const ActionCreator = {
   changeSorting: (type = SortingType.POPULAR) => ({
     type: ActionType.CHANGE_SORTING,
     payload: type,
+  }),
+  offerHover: (id = ``) => ({
+    type: ActionType.OFFER_HOVER,
+    payload: id,
   }),
 };

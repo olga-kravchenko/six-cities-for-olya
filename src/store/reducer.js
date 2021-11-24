@@ -7,6 +7,7 @@ const initialState = {
   offers,
   offerList: offers.filter((e) => e.city.name === `Paris`),
   sorting: SortingType.POPULAR,
+  activeOfferId: ``,
 };
 
 const reducer = (state = initialState, action) => {
@@ -23,6 +24,10 @@ const reducer = (state = initialState, action) => {
 
     case ActionType.CHANGE_SORTING:
       return {...state, sorting: action.payload};
+
+    case ActionType.OFFER_HOVER:
+      return {...state, activeOfferId: action.payload};
+
     default:
       return state;
   }

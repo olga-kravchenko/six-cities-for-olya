@@ -8,7 +8,6 @@ const Map = ({offerList, style, city}) => {
   const mapRef = useRef();
   const cityInfo = offerList.find((e) => e.city.location).city;
   const {location} = cityInfo;
-  const points = offerList.map((offer) => offer.location);
 
   useEffect(() => {
     mapRef.current = leaflet.map(`map`, {
@@ -25,20 +24,21 @@ const Map = ({offerList, style, city}) => {
       })
       .addTo(mapRef.current);
 
-    points.forEach((point) => {
+    offerList.forEach((offer) => {
       const customIcon = leaflet.icon({
         iconUrl: `./img/pin.svg`,
         iconSize: [27, 39]
       });
 
       leaflet.marker({
-        lat: point.latitude,
-        lng: point.longitude
+        lat: offer.location.latitude,
+        lng: offer.location.longitude
       },
       {
         icon: customIcon
       })
-        .addTo(mapRef.current);
+        .addTo(mapRef.current)
+        .bindPopup(offer.title);
     });
     return () => {
       mapRef.current.remove();
