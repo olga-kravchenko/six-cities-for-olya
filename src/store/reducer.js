@@ -1,11 +1,11 @@
 import {ActionType} from "./action";
 import {offers} from "../mocks/offers";
-import {SortingType} from "./action";
+import {SortingType, DEFULT_CITY} from "../constants";
 
 const initialState = {
-  city: `Paris`,
+  city: DEFULT_CITY,
   offers,
-  offerList: offers.filter((e) => e.city.name === `Paris`),
+  offerList: offers.filter((e) => e.city.name === DEFULT_CITY),
   sorting: SortingType.POPULAR,
   activeOfferId: ``,
 };

@@ -1,17 +1,11 @@
 import {sortOffersByRating, sortOffersByPriceLowToHigh, sortOffersByPriceHighToLow} from "../utils/utils";
+import {SortingType} from "../constants";
 
 const ActionType = {
   CHANGE_CITY: `city/cityChange`,
   FILL_WITH_OFFERS: `city/offerFilling`,
   CHANGE_SORTING: `city/sortingChange`,
   HOVER_ON_OFFER: `city/offerHover`,
-};
-
-const SortingType = {
-  POPULAR: `Popular`,
-  PRICE_LOW_TO_HIGH: `Price: low to high`,
-  PRICE_HIGH_TO_LOW: `Price: high to low`,
-  TOP_RATED_FIRST: `Top rated first`,
 };
 
 const ActionCreator = {
@@ -50,4 +44,4 @@ const ActionCreator = {
   }),
 };
 
-export {ActionType, SortingType, ActionCreator};
+export {ActionType, ActionCreator};

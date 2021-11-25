@@ -8,13 +8,14 @@ import Offer from "../offer/offer";
 import PageNotFound from "../page-not-found/page-not-found";
 import {connect} from "react-redux";
 
-const App = ({offers, isLogged}) => {
+const App = ({offers, isLogged, cities}) => {
   const favoriteOffers = offers.filter((offer) => offer.is_favorite);
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact>
           <Main
+            cities={cities}
             isLogged={isLogged}
           />
         </Route>
@@ -23,6 +24,7 @@ const App = ({offers, isLogged}) => {
         </Route>
         <Route path="/favorites" exact>
           <Favorites
+            cities={cities}
             offers={favoriteOffers}
             isLogged={isLogged}
           />
@@ -42,6 +44,7 @@ const App = ({offers, isLogged}) => {
 };
 
 App.propTypes = {
+  cities: PropTypes.array,
   isLogged: PropTypes.bool.isRequired,
   offers: PropTypes.array.isRequired
 };

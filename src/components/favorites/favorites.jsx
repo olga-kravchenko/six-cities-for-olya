@@ -7,8 +7,7 @@ import OfferCard from "../offer-card/offer-card";
 import HeaderSignIn from "../header-sign-in/header-sign-in";
 import HeaderMail from "../header-mail/header-mail";
 
-const Favorites = ({offers, isLogged}) => {
-  const CITY_NAMES = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
+const Favorites = ({offers, isLogged, cities}) => {
   const isEmptyOffers = offers.length === 0;
 
   return (
@@ -21,7 +20,7 @@ const Favorites = ({offers, isLogged}) => {
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
-                {CITY_NAMES.map((city, i) => {
+                {cities.map((city, i) => {
                   const filteringOffers = offers.filter((e) => e.city.name === city);
                   return (
                     <li className="favorites__locations-items" key={i}>
@@ -54,6 +53,7 @@ const Favorites = ({offers, isLogged}) => {
 };
 
 Favorites.propTypes = {
+  cities: PropTypes.array,
   offers: PropTypes.array.isRequired,
   isLogged: PropTypes.bool.isRequired
 };

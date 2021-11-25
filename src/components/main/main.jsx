@@ -10,8 +10,7 @@ import {connect} from "react-redux";
 import EmptyMain from "../empty-main/empty-main";
 import SortingOptions from "../sorting-options/sorting-options";
 
-const Main = ({city, offerList, isLogged}) => {
-  const CITY_NAMES = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
+const Main = ({city, offerList, isLogged, cities}) => {
   const isEmptyOffer = offerList.length ? `page__main page__main--index` : `page__main page__main--index page__main--index-empty`;
 
   return (
@@ -22,7 +21,7 @@ const Main = ({city, offerList, isLogged}) => {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <Cities cities={CITY_NAMES}/>
+            <Cities cities={cities}/>
           </section>
         </div>
         {offerList.length ? <div className="cities">
@@ -47,6 +46,7 @@ const Main = ({city, offerList, isLogged}) => {
 };
 
 Main.propTypes = {
+  cities: PropTypes.array,
   city: PropTypes.string.isRequired,
   offerList: PropTypes.array.isRequired,
   isLogged: PropTypes.bool.isRequired

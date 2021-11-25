@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {ActionCreator} from "../../store/action";
 import {connect} from "react-redux";
-import {SortingType} from "../../store/action";
+import {SortingType} from "../../constants";
 
 const SortingOptions = ({sorting, onSortingClick}) => {
   const types = Object.values(SortingType);
