@@ -36,8 +36,8 @@ const mapDispatchToProps = (dispatch) => ({
     evt.preventDefault();
     const cityName = evt.target.textContent;
     dispatch(ActionCreator.changeCity(cityName));
+    dispatch(ActionCreator.resetSortingType());
     dispatch(ActionCreator.fillWithOffers());
-    dispatch(ActionCreator.changeSortingType());
   },
 });
 

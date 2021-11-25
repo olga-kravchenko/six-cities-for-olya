@@ -1,20 +1,23 @@
 import {ActionType} from "./action";
 import {offers} from "../mocks/offers";
-import {SortingType, DEFULT_CITY} from "../constants";
+import {DEFAULT_CITY, DEFAULT_SORTING_TYPE, DEFAULT_STATE} from "../constants";
 
 const initialState = {
   offers,
-  city: DEFULT_CITY,
-  offerList: offers.filter((e) => e.city.name === DEFULT_CITY),
-  sortingType: SortingType.POPULAR,
+  city: DEFAULT_CITY,
+  offerList: offers.filter((e) => e.city.name === DEFAULT_CITY),
+  sortingType: DEFAULT_SORTING_TYPE,
   activeOfferId: ``,
-  isOpenSortingPopup: false,
+  isOpenSortingPopup: DEFAULT_STATE,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
-      return {...state, city: action.payload, isOpenSortingPopup: false};
+      return {...state, city: action.payload, isOpenSortingPopup: DEFAULT_STATE};
+
+    case ActionType.RESET_SORTING_TYPE:
+      return {...state, sortingType: DEFAULT_SORTING_TYPE, isOpenSortingPopup: DEFAULT_STATE};
 
     case ActionType.FILL_WITH_OFFERS:
       return {

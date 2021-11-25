@@ -3,10 +3,11 @@ import {SortingType} from "../constants";
 
 const ActionType = {
   CHANGE_CITY: `city/cityChange`,
-  FILL_WITH_OFFERS: `city/offerFilling`,
   CHANGE_SORTING_TYPE: `city/changeSortingType`,
-  HOVER_ON_OFFER: `city/offerHover`,
   OPEN_POPUP: `city/openPopup`,
+  RESET_SORTING_TYPE: `city/resetSortingType`,
+  HOVER_ON_OFFER: `city/offerHover`,
+  FILL_WITH_OFFERS: `city/offerFilling`,
 };
 
 const ActionCreator = {
@@ -14,10 +15,23 @@ const ActionCreator = {
     type: ActionType.CHANGE_CITY,
     payload: city,
   }),
+  changeSortingType: (sortingType = SortingType.POPULAR) => ({
+    type: ActionType.CHANGE_SORTING_TYPE,
+    payload: sortingType,
+  }),
   openPopup: () => ({
     type: ActionType.OPEN_POPUP,
   }),
-  fillWithOffers: (sortingType = SortingType.POPULAR) => {
+
+  resetSortingType: () => ({
+    type: ActionType.RESET_SORTING_TYPE,
+  }),
+
+  hoverOnOffer: (offerId = ``) => ({
+    type: ActionType.HOVER_ON_OFFER,
+    payload: offerId,
+  }),
+  fillWithOffers: (sortingType) => {
     let sortingTypeCallback;
     switch (sortingType) {
       case SortingType.POPULAR:
@@ -38,14 +52,6 @@ const ActionCreator = {
       payload: sortingTypeCallback
     });
   },
-  changeSortingType: (sortingType = SortingType.POPULAR) => ({
-    type: ActionType.CHANGE_SORTING_TYPE,
-    payload: sortingType,
-  }),
-  hoverOnOffer: (offerId = ``) => ({
-    type: ActionType.HOVER_ON_OFFER,
-    payload: offerId,
-  }),
 };
 
 export {ActionType, ActionCreator};
