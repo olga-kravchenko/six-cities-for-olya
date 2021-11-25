@@ -15,23 +15,39 @@ import {connect} from "react-redux";
 
 const Offer = ({isLogged, onSubmitComment, offerList}) => {
   const MAX_COMMENT_QUANTITY = 5;
-  const SHOWN_OFFER_QUANTITY = -3;
+  const SHOWN_OFFER_QUANTITY = 3;
+
   const comments = new Array(getRandomNumber(0, MAX_COMMENT_QUANTITY))
     .fill(null)
     .map(generateComment);
+
   const {id} = useParams();
   const index = offerList.findIndex((offer) => offer.id === id);
   if (index === -1) {
     return (
-      <Redirect to="/page-not-found" />
+      <Redirect to="/page-not-found"/>
     );
   }
-  const nearOffers = [...offerList].filter((offer) => offer.id !== id).slice(SHOWN_OFFER_QUANTITY);
+
+  const nearOffers = [...offerList].filter((offer) => offer.id !== id).slice(0, SHOWN_OFFER_QUANTITY);
   const offer = offerList[index];
-  const {bedrooms, max_adults, goods, price, description, title, type, images, is_favorite, is_premium, rating, host} = offer;
+  const {
+    bedrooms,
+    max_adults,
+    goods,
+    price,
+    description,
+    title,
+    type,
+    images,
+    is_favorite,
+    is_premium,
+    rating,
+    host
+  } = offer;
   const {avatar_url, is_pro, name, id: hostId} = host;
-  const isProHost = is_pro ? `property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper` : `property__avatar-wrapper user__avatar-wrapper`;
   const percent = convertRatingToPercent(rating);
+  const userAvatarPro = is_pro ? `property__avatar-wrapper--pro` : ``;
 
   return (
     <div className="page">
@@ -100,7 +116,7 @@ const Offer = ({isLogged, onSubmitComment, offerList}) => {
               <div className="property__host" id={hostId}>
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className={isProHost}>
+                  <div className={`property__avatar-wrapper user__avatar-wrapper ${userAvatarPro}`}>
                     <img className="property__avatar user__avatar" src={avatar_url} width="74" height="74"
                       alt="Host avatar"/>
                   </div>
@@ -130,7 +146,7 @@ const Offer = ({isLogged, onSubmitComment, offerList}) => {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearOffers.map((o, i) => <OfferCard key = {i} offer={o} pageType="near"/>)}
+              {nearOffers.map((o, i) => <OfferCard key={i} offer={o} pageType="near"/>)}
             </div>
           </section>
         </div>

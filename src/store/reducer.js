@@ -3,8 +3,8 @@ import {offers} from "../mocks/offers";
 import {SortingType, DEFULT_CITY} from "../constants";
 
 const initialState = {
-  city: DEFULT_CITY,
   offers,
+  city: DEFULT_CITY,
   offerList: offers.filter((e) => e.city.name === DEFULT_CITY),
   sortingType: SortingType.POPULAR,
   activeOfferId: ``,

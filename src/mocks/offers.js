@@ -1,6 +1,6 @@
 import {nanoid} from "nanoid";
 import dayjs from "dayjs";
-import {getRandomNumber, generateRandomArray} from "../utils/utils";
+import {getRandomNumber, generateRandomArray, getRandomValue} from "../utils/utils";
 
 const DESCRIPTION = [
   `Contrary to popular belief, Lorem Ipsum is not simply random text.`,
@@ -96,7 +96,6 @@ const MAX_PRICE = 1000;
 const MAX_RATING = 5;
 
 const getRandomRating = () => (Math.random() * MAX_RATING).toFixed(1);
-const getRandomValue = (array) => array[getRandomNumber(0, array.length)];
 
 const generateOffer = () => {
   const randomLocation = getRandomValue(LOCATIONS);

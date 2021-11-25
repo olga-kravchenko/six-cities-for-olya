@@ -7,10 +7,10 @@ const Cities = ({cities, onCityClick, city}) => {
   return (
     <ul className="locations__list tabs__list">
       {cities.map((cityName, i) => {
-        const isCityActive = city === cityName ? `locations__item-link tabs__item tabs__item--active` : `locations__item-link tabs__item`;
+        const activeCity = city === cityName ? `tabs__item--active` : ``;
         return (
           <li className="locations__item" key={i}>
-            <a className={isCityActive} href="#"
+            <a className={`locations__item-link tabs__item ${activeCity}`} href="#"
               onClick={onCityClick}>
               <span>{cityName}</span>
             </a>

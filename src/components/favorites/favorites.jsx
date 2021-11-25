@@ -8,12 +8,12 @@ import HeaderSignIn from "../header-sign-in/header-sign-in";
 import HeaderMail from "../header-mail/header-mail";
 
 const Favorites = ({offers, isLogged, cities}) => {
-  const isEmptyOffers = offers.length === 0;
+  const isNoOffers = offers.length === 0;
 
   return (
     <div className="page">
       <Header render={() => (isLogged ? <HeaderMail/> : <HeaderSignIn/>)}/>
-      {isEmptyOffers ?
+      {isNoOffers ?
         <FavoritesEmpty/> :
         <main className="page__main page__main--favorites">
           <div className="page__favorites-container container">

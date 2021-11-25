@@ -11,13 +11,13 @@ import EmptyMain from "../empty-main/empty-main";
 import SortingTypes from "../sorting-types/sorting-types";
 
 const Main = ({city, offerList, isLogged, cities}) => {
-  const isEmptyOffer = offerList.length ? `page__main page__main--index` : `page__main page__main--index page__main--index-empty`;
+  const noOffers = !offerList.length ? `page__main--index-empty` : ``;
 
   return (
     <div className="page page--gray page--main">
       <Header render={() => (isLogged ? <HeaderMail/> : <HeaderSignIn/>)}/>
 
-      <main className={isEmptyOffer}>
+      <main className={`page__main page__main--index ${noOffers}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">

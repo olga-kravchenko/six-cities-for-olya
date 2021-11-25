@@ -15,7 +15,7 @@ const Map = ({offerList, style, city, activeOfferId}) => {
         lat: location.latitude,
         lng: location.longitude
       },
-      zoom: 12,
+      zoom: location.zoom,
     });
 
     leaflet

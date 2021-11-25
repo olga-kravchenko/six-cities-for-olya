@@ -5,6 +5,7 @@ const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min) + m
 const sortOffersByRating = (offerA, offerB) => (offerB.rating - offerA.rating);
 const sortOffersByPriceLowToHigh = (offerA, offerB) => (offerA.price - offerB.price);
 const sortOffersByPriceHighToLow = (offerA, offerB) => (offerB.price - offerA.price);
+const getRandomValue = (array) => array[getRandomNumber(0, array.length)];
 
 const convertRatingToPercent = (rating) => {
   const integer = Math.round(rating);
@@ -28,5 +29,6 @@ export {
   generateRandomArray,
   sortOffersByRating,
   sortOffersByPriceLowToHigh,
-  sortOffersByPriceHighToLow
+  sortOffersByPriceHighToLow,
+  getRandomValue
 };

@@ -19,9 +19,9 @@ const SortingTypes = ({sortingType, onSortingTypeClick, isOpenSortingPopup, onSo
       </span>
       <ul className={`places__options places__options--custom ${openSortingPopUp}`}>
         {types.map((type, i) => {
-          const isActiveSortingType = type === sortingType ? `places__option places__option--active` : `places__option`;
+          const activeSortingType = type === sortingType ? `places__option--active` : ``;
           return (
-            <li className={isActiveSortingType} tabIndex="0" key={i} onClick={onSortingTypeClick}>
+            <li className={`places__option ${activeSortingType}`} tabIndex="0" key={i} onClick={onSortingTypeClick}>
               {type}
             </li>);
         })}
