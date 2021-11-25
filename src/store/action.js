@@ -4,7 +4,7 @@ import {SortingType} from "../constants";
 const ActionType = {
   CHANGE_CITY: `city/cityChange`,
   FILL_WITH_OFFERS: `city/offerFilling`,
-  CHANGE_SORTING: `city/sortingChange`,
+  CHANGE_SORTING_TYPE: `city/changeSortingType`,
   HOVER_ON_OFFER: `city/offerHover`,
 };
 
@@ -14,28 +14,28 @@ const ActionCreator = {
     payload: city,
   }),
   fillWithOffers: (sortingType = SortingType.POPULAR) => {
-    let sortingCallback;
+    let sortingTypeCallback;
     switch (sortingType) {
       case SortingType.POPULAR:
-        sortingCallback = false;
+        sortingTypeCallback = false;
         break;
       case SortingType.PRICE_LOW_TO_HIGH:
-        sortingCallback = sortOffersByPriceLowToHigh;
+        sortingTypeCallback = sortOffersByPriceLowToHigh;
         break;
       case SortingType.PRICE_HIGH_TO_LOW:
-        sortingCallback = sortOffersByPriceHighToLow;
+        sortingTypeCallback = sortOffersByPriceHighToLow;
         break;
       case SortingType.TOP_RATED_FIRST:
-        sortingCallback = sortOffersByRating;
+        sortingTypeCallback = sortOffersByRating;
         break;
     }
     return ({
       type: ActionType.FILL_WITH_OFFERS,
-      payload: sortingCallback
+      payload: sortingTypeCallback
     });
   },
-  changeSorting: (sortingType = SortingType.POPULAR) => ({
-    type: ActionType.CHANGE_SORTING,
+  changeSortingType: (sortingType = SortingType.POPULAR) => ({
+    type: ActionType.CHANGE_SORTING_TYPE,
     payload: sortingType,
   }),
   hoverOnOffer: (offerId = ``) => ({

@@ -8,7 +8,7 @@ import HeaderMail from "../header-mail/header-mail";
 import Cities from "../cities/cities";
 import {connect} from "react-redux";
 import EmptyMain from "../empty-main/empty-main";
-import SortingOptions from "../sorting-options/sorting-options";
+import SortingTypes from "../sorting-types/sorting-types";
 
 const Main = ({city, offerList, isLogged, cities}) => {
   const isEmptyOffer = offerList.length ? `page__main page__main--index` : `page__main page__main--index page__main--index-empty`;
@@ -29,7 +29,7 @@ const Main = ({city, offerList, isLogged, cities}) => {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offerList.length} places to stay in {city}</b>
-              <SortingOptions />
+              <SortingTypes />
               <Offers pageType="cities" offers={offerList}/>
             </section>
             <div className="cities__right-section">

@@ -6,7 +6,7 @@ const initialState = {
   city: DEFULT_CITY,
   offers,
   offerList: offers.filter((e) => e.city.name === DEFULT_CITY),
-  sorting: SortingType.POPULAR,
+  sortingType: SortingType.POPULAR,
   activeOfferId: ``,
 };
 
@@ -22,8 +22,8 @@ const reducer = (state = initialState, action) => {
           offers.filter((e) => e.city.name === state.city)
       };
 
-    case ActionType.CHANGE_SORTING:
-      return {...state, sorting: action.payload};
+    case ActionType.CHANGE_SORTING_TYPE:
+      return {...state, sortingType: action.payload};
 
     case ActionType.HOVER_ON_OFFER:
       return {...state, activeOfferId: action.payload};
