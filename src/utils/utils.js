@@ -23,6 +23,19 @@ const generateRandomArray = (array) => {
   return randomArray;
 };
 
+const sortCities = (offers, cities) => {
+  const citiesOff = offers.map((e) => e.city.name);
+  const arr = [...new Set(citiesOff)];
+  const newArr = [];
+  cities.forEach((city) => {
+    const newCity = arr.find((e) => e === city);
+    if (newCity) {
+      newArr.push(newCity);
+    }
+  });
+  return newArr;
+};
+
 export {
   convertRatingToPercent,
   getRandomNumber,
@@ -30,5 +43,6 @@ export {
   sortOffersByRating,
   sortOffersByPriceLowToHigh,
   sortOffersByPriceHighToLow,
-  getRandomValue
+  getRandomValue,
+  sortCities
 };

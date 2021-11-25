@@ -6,9 +6,11 @@ import FavoritesEmpty from "../favorites-empty/favorites-empty";
 import OfferCard from "../offer-card/offer-card";
 import HeaderSignIn from "../header-sign-in/header-sign-in";
 import HeaderMail from "../header-mail/header-mail";
+import {sortCities} from "../../utils/utils";
 
 const Favorites = ({offers, isLogged, cities}) => {
   const isNoOffers = offers.length === 0;
+  const citiesNames = sortCities(offers, cities);
 
   return (
     <div className="page">
@@ -20,13 +22,13 @@ const Favorites = ({offers, isLogged, cities}) => {
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
-                {cities.map((city, i) => {
+                {citiesNames.map((city, i) => {
                   const filteringOffers = offers.filter((e) => e.city.name === city);
                   return (
                     <li className="favorites__locations-items" key={i}>
                       <div className="favorites__locations locations locations--current">
                         <div className="locations__item">
-                          <a className="locations__item-link" href="#">
+                          <a className="locations__item-link">
                             <span>{city}</span>
                           </a>
                         </div>

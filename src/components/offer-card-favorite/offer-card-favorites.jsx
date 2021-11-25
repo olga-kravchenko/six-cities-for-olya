@@ -6,49 +6,30 @@ import {convertRatingToPercent} from "../../utils/utils";
 import {ActionCreator} from "../../store/action";
 import {connect} from "react-redux";
 
-const OfferCard = ({offer, pageType, onOfferTitleClick}) => {
+const OfferCardFavorites = ({offer, onFavoriteOfferTitleClick}) => {
   const {price, title, type, preview_image, id, is_favorite, rating} = offer;
   const percent = convertRatingToPercent(rating);
   const history = useHistory();
   const pathToOffer = `/offer/${id}`;
-
-  const citiesOrNearPlaceCard = pageType === `cities` ? `cities__place-card` : `near-places__card`;
   const favoriteOffer = is_favorite ? `place-card__bookmark-button--active` : ``;
-
-  let articlePlaceCard;
-  let offerImageWidth;
-  let offerImageHeight;
-  let cardInfoFavorite;
-
-  if (pageType === `favorites`) {
-    articlePlaceCard = `favorites__card`;
-    offerImageWidth = `150`;
-    offerImageHeight = `110`;
-    cardInfoFavorite = `favorites__card-info`;
-  } else {
-    articlePlaceCard = citiesOrNearPlaceCard;
-    offerImageWidth = `260`;
-    offerImageHeight = `200`;
-    cardInfoFavorite = ``;
-  }
 
   const onTitleClick = (evt) => {
     evt.preventDefault();
     history.push(pathToOffer);
     window.scrollTo(0, 0);
-    onOfferTitleClick(offer.city.name);
+    onFavoriteOfferTitleClick(offer.city.name);
   };
 
   return (
-    <article className={`${articlePlaceCard} place-card`} id={id}>
-      <div className={`${pageType}__image-wrapper place-card__image-wrapper`}>
+    <article className="favorites__card place-card" id={id}>
+      <div className={`favorites__image-wrapper place-card__image-wrapper`}>
         <a>
-          <img className="place-card__image" src={preview_image} width={offerImageWidth}
-            height={offerImageHeight}
+          <img className="place-card__image" src={preview_image} width="150"
+            height="110"
             alt="Place image"/>
         </a>
       </div>
-      <div className={`place-card__info ${cardInfoFavorite}`}>
+      <div className="place-card__info favorites__card-info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -76,20 +57,20 @@ const OfferCard = ({offer, pageType, onOfferTitleClick}) => {
   );
 };
 
-OfferCard.propTypes = {
+OfferCardFavorites.propTypes = {
   offer: OfferProp,
   pageType: PropTypes.string.isRequired,
-  onOfferTitleClick: PropTypes.func,
+  onFavoriteOfferTitleClick: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onOfferTitleClick(typeCity) {
+  onFavoriteOfferTitleClick(typeCity) {
     dispatch(ActionCreator.changeCity(typeCity));
     dispatch(ActionCreator.findRelevantOffers());
-    dispatch(ActionCreator.resetSortingType());
     dispatch(ActionCreator.resetCity());
+    dispatch(ActionCreator.resetSortingType());
   },
 });
 
-export {OfferCard};
-export default connect(null, mapDispatchToProps)(OfferCard);
+export {OfferCardFavorites};
+export default connect(null, mapDispatchToProps)(OfferCardFavorites);
