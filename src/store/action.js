@@ -5,6 +5,7 @@ const ActionType = {
   CHANGE_CITY: `city/cityChange`,
   CHANGE_SORTING_TYPE: `city/changeSortingType`,
   OPEN_POPUP: `city/openPopup`,
+  RESET_CITY: `city/resetCity`,
   RESET_SORTING_TYPE: `city/resetSortingType`,
   HOVER_ON_OFFER: `city/offerHover`,
   FILL_WITH_OFFERS: `city/offerFilling`,
@@ -25,6 +26,10 @@ const ActionCreator = {
 
   resetSortingType: () => ({
     type: ActionType.RESET_SORTING_TYPE,
+  }),
+
+  resetCity: () => ({
+    type: ActionType.RESET_CITY,
   }),
 
   hoverOnOffer: (offerId = ``) => ({

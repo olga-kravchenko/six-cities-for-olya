@@ -19,6 +19,9 @@ const reducer = (state = initialState, action) => {
     case ActionType.RESET_SORTING_TYPE:
       return {...state, sortingType: DEFAULT_SORTING_TYPE, isOpenSortingPopup: DEFAULT_STATE};
 
+    case ActionType.RESET_CITY:
+      return {...state, city: DEFAULT_CITY};
+
     case ActionType.FILL_WITH_OFFERS:
       return {
         ...state, offerList: action.payload ?
