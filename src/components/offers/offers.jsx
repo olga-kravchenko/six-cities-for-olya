@@ -29,12 +29,12 @@ const mapDispatchToProps = (dispatch) => ({
       return;
     }
     const hoverElementId = evt.target.closest(`article`).id;
-    dispatch(ActionCreator.hoverOnOffer(hoverElementId));
+    dispatch(ActionCreator.changeActiveOffer(hoverElementId));
   },
   onOfferLeave(evt) {
     evt.preventDefault();
     const leaveElementId = ``;
-    dispatch(ActionCreator.hoverOnOffer(leaveElementId));
+    dispatch(ActionCreator.changeActiveOffer(leaveElementId));
   },
 });
 

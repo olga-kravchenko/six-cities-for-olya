@@ -1,4 +1,3 @@
-import {sortOffersByRating, sortOffersByPriceLowToHigh, sortOffersByPriceHighToLow} from "../utils/utils";
 import {SortingType} from "../constants";
 
 const ActionType = {
@@ -7,7 +6,7 @@ const ActionType = {
   OPEN_POPUP: `city/openPopup`,
   RESET_CITY: `city/resetCity`,
   RESET_SORTING_TYPE: `city/resetSortingType`,
-  HOVER_ON_OFFER: `city/offerHover`,
+  CHANGE_ACTIVE_OFFER: `city/changeActiveOffer`,
   FILL_WITH_OFFERS: `city/offerFilling`,
 };
 
@@ -32,29 +31,14 @@ const ActionCreator = {
     type: ActionType.RESET_CITY,
   }),
 
-  hoverOnOffer: (offerId = ``) => ({
-    type: ActionType.HOVER_ON_OFFER,
+  changeActiveOffer: (offerId = ``) => ({
+    type: ActionType.CHANGE_ACTIVE_OFFER,
     payload: offerId,
   }),
-  fillWithOffers: (sortingType) => {
-    let sortingTypeCallback;
-    switch (sortingType) {
-      case SortingType.POPULAR:
-        sortingTypeCallback = false;
-        break;
-      case SortingType.PRICE_LOW_TO_HIGH:
-        sortingTypeCallback = sortOffersByPriceLowToHigh;
-        break;
-      case SortingType.PRICE_HIGH_TO_LOW:
-        sortingTypeCallback = sortOffersByPriceHighToLow;
-        break;
-      case SortingType.TOP_RATED_FIRST:
-        sortingTypeCallback = sortOffersByRating;
-        break;
-    }
+
+  findRelevantOffers: () => {
     return ({
       type: ActionType.FILL_WITH_OFFERS,
-      payload: sortingTypeCallback
     });
   },
 };
