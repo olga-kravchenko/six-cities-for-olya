@@ -48,6 +48,7 @@ const Offer = ({isLogged, onSubmitComment, offerList}) => {
   const {avatar_url, is_pro, name, id: hostId} = host;
   const percent = convertRatingToPercent(rating);
   const userAvatarPro = is_pro ? `property__avatar-wrapper--pro` : ``;
+  const favoriteOffer = is_favorite ? `property__bookmark-button--active` : ``;
 
   return (
     <div className="page">
@@ -72,11 +73,7 @@ const Offer = ({isLogged, onSubmitComment, offerList}) => {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={
-                  is_favorite ?
-                    `property__bookmark-button button property__bookmark-button--active` :
-                    `property__bookmark-button button`}
-                type="button">
+                <button className={`property__bookmark-button button ${favoriteOffer}`} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"/>
                   </svg>
@@ -139,15 +136,18 @@ const Offer = ({isLogged, onSubmitComment, offerList}) => {
             </div>
           </div>
           <section className="property__map map">
-            <Map offerList={nearOffers} style={{height: `100%`, width: `1144px`, margin: `0 auto`}}/>
+            <Map offerList={nearOffers.length ? nearOffers : offerList}
+              style={{height: `100%`, width: `1144px`, margin: `0 auto`}}/>
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              {nearOffers.map((o, i) => <OfferCard key={i} offer={o} pageType="near"/>)}
-            </div>
+            {nearOffers.length ?
+              <div className="near-places__list places__list">
+                {nearOffers.map((o, i) => <OfferCard key={i} offer={o} pageType="near"/>)}
+              </div> :
+              <h3 className="near-places__title">Not found : (</h3>}
           </section>
         </div>
       </main>
