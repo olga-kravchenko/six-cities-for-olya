@@ -6,12 +6,16 @@ const ActionType = {
   FILL_WITH_OFFERS: `city/offerFilling`,
   CHANGE_SORTING_TYPE: `city/changeSortingType`,
   HOVER_ON_OFFER: `city/offerHover`,
+  OPEN_POPUP: `city/openPopup`,
 };
 
 const ActionCreator = {
   changeCity: (city) => ({
     type: ActionType.CHANGE_CITY,
     payload: city,
+  }),
+  openPopup: () => ({
+    type: ActionType.OPEN_POPUP,
   }),
   fillWithOffers: (sortingType = SortingType.POPULAR) => {
     let sortingTypeCallback;

@@ -8,12 +8,13 @@ const initialState = {
   offerList: offers.filter((e) => e.city.name === DEFULT_CITY),
   sortingType: SortingType.POPULAR,
   activeOfferId: ``,
+  isOpenSortingPopup: false,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
-      return {...state, city: action.payload};
+      return {...state, city: action.payload, isOpenSortingPopup: false};
 
     case ActionType.FILL_WITH_OFFERS:
       return {
@@ -23,10 +24,14 @@ const reducer = (state = initialState, action) => {
       };
 
     case ActionType.CHANGE_SORTING_TYPE:
-      return {...state, sortingType: action.payload};
+      return {...state, sortingType: action.payload, isOpenSortingPopup: false};
 
     case ActionType.HOVER_ON_OFFER:
       return {...state, activeOfferId: action.payload};
+
+
+    case ActionType.OPEN_POPUP:
+      return {...state, isOpenSortingPopup: !state.isOpenSortingPopup};
 
     default:
       return state;
