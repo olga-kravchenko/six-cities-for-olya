@@ -1,13 +1,13 @@
 import {SortingType} from "../constants";
 
 const ActionType = {
-  CHANGE_CITY: `city/cityChange`,
+  CHANGE_CITY: `city/changeCity`,
   CHANGE_SORTING_TYPE: `city/changeSortingType`,
   OPEN_POPUP: `city/openPopup`,
   RESET_CITY: `city/resetCity`,
   RESET_SORTING_TYPE: `city/resetSortingType`,
   CHANGE_ACTIVE_OFFER: `city/changeActiveOffer`,
-  FILL_WITH_OFFERS: `city/offerFilling`,
+  FIND_RELEVANT_OFFERS: `city/findRelevantOffers`,
 };
 
 const ActionCreator = {
@@ -38,7 +38,7 @@ const ActionCreator = {
 
   findRelevantOffers: () => {
     return ({
-      type: ActionType.FILL_WITH_OFFERS,
+      type: ActionType.FIND_RELEVANT_OFFERS,
     });
   },
 };

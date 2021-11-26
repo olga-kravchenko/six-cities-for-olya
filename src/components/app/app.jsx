@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {connect} from "react-redux";
 import Main from "../main/main";
 import Login from "../login/login";
 import Favorites from "../favorites/favorites";
-import Offer from "../offer/offer";
 import PageNotFound from "../page-not-found/page-not-found";
-import {connect} from "react-redux";
+import Offer from "../offer/offer";
 
 const App = ({offers, isLogged, cities}) => {
   const favoriteOffers = offers.filter((offer) => offer.is_favorite);
@@ -44,9 +44,9 @@ const App = ({offers, isLogged, cities}) => {
 };
 
 App.propTypes = {
-  cities: PropTypes.array,
+  offers: PropTypes.array.isRequired,
   isLogged: PropTypes.bool.isRequired,
-  offers: PropTypes.array.isRequired
+  cities: PropTypes.array
 };
 
 const mapStateToProps = (state) => ({

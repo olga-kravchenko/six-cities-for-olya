@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from 'react-router-dom';
+import {sortCities} from "../../utils/utils";
 import Header from "../header/header";
 import FavoritesEmpty from "../favorites-empty/favorites-empty";
 import OfferCard from "../offer-card/offer-card";
 import HeaderSignIn from "../header-sign-in/header-sign-in";
 import HeaderMail from "../header-mail/header-mail";
-import {sortCities} from "../../utils/utils";
 
 const Favorites = ({offers, isLogged, cities}) => {
   const isNoOffers = offers.length === 0;
@@ -55,9 +55,9 @@ const Favorites = ({offers, isLogged, cities}) => {
 };
 
 Favorites.propTypes = {
-  cities: PropTypes.array,
   offers: PropTypes.array.isRequired,
-  isLogged: PropTypes.bool.isRequired
+  isLogged: PropTypes.bool.isRequired,
+  cities: PropTypes.array
 };
 
 export default Favorites;

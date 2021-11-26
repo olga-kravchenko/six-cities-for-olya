@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import OfferProp from "./offer.prop";
 import {Redirect, useParams} from "react-router-dom";
+import {connect} from "react-redux";
 import {convertRatingToPercent, getRandomNumber} from "../../utils/utils";
 import {generateComment} from "../../mocks/offers";
 import Header from "../header/header";
@@ -11,7 +11,6 @@ import Map from "../map/map";
 import Comments from "../comments/comments";
 import HeaderSignIn from "../header-sign-in/header-sign-in";
 import HeaderMail from "../header-mail/header-mail";
-import {connect} from "react-redux";
 
 const Offer = ({isLogged, onSubmitComment, offerList}) => {
   const MAX_COMMENT_QUANTITY = 5;
@@ -156,10 +155,9 @@ const Offer = ({isLogged, onSubmitComment, offerList}) => {
 };
 
 Offer.propTypes = {
+  isLogged: PropTypes.bool.isRequired,
   onSubmitComment: PropTypes.func.isRequired,
   offerList: PropTypes.array.isRequired,
-  offer: OfferProp,
-  isLogged: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({

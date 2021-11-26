@@ -32,7 +32,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_ACTIVE_OFFER:
       return {...state, activeOfferId: action.payload};
 
-    case ActionType.FILL_WITH_OFFERS:
+    case ActionType.FIND_RELEVANT_OFFERS:
       let callback;
       switch (state.sortingType) {
         case SortingType.POPULAR:

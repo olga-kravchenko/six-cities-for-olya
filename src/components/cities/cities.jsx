@@ -10,8 +10,7 @@ const Cities = ({cities, onCityClick, city}) => {
         const activeCity = city === cityName ? `tabs__item--active` : ``;
         return (
           <li className="locations__item" key={i}>
-            <a className={`locations__item-link tabs__item ${activeCity}`} href="#"
-              onClick={onCityClick}>
+            <a className={`locations__item-link tabs__item ${activeCity}`} onClick={onCityClick}>
               <span>{cityName}</span>
             </a>
           </li>
@@ -23,8 +22,8 @@ const Cities = ({cities, onCityClick, city}) => {
 
 Cities.propTypes = {
   cities: PropTypes.array.isRequired,
-  city: PropTypes.string,
   onCityClick: PropTypes.func,
+  city: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({

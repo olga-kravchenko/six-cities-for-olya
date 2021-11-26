@@ -32,8 +32,8 @@ const SortingTypes = ({sortingType, onSortingTypeClick, isOpenSortingPopup, onSo
 SortingTypes.propTypes = {
   sortingType: PropTypes.string,
   onSortingTypeClick: PropTypes.func,
-  onSortingPopupClick: PropTypes.func,
   isOpenSortingPopup: PropTypes.bool,
+  onSortingPopupClick: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
