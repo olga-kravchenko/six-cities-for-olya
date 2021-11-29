@@ -2,14 +2,14 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 
 const CommentForm = ({onSubmitComment}) => {
-  const MIN_SYMBOLS_QUANTITY = 50;
+  const MIN_SYMBOL_QUANTITY = 50;
   const [userForm, setUserForm] = useState({
     review: ``,
     rating: ``
   });
 
-  const isEnoughSymbols = userForm.review.length >= MIN_SYMBOLS_QUANTITY;
-  const blocking = isEnoughSymbols && userForm.rating ? `` : `disable`;
+  const isEnoughSymbols = userForm.review.length >= MIN_SYMBOL_QUANTITY;
+  const isDisable = isEnoughSymbols && userForm.rating;
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -62,13 +62,13 @@ const CommentForm = ({onSubmitComment}) => {
       </div>
       <textarea className="reviews__textarea form__textarea" id="review" name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={handleFieldChange}/>
+        onChange={handleFieldChange} maxLength="300"/>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay
           with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={blocking}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={isDisable ? `` : `disable`}>Submit</button>
       </div>
     </form>
   );

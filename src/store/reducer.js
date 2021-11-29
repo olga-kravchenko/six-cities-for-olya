@@ -16,22 +16,16 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
       return {...state, city: action.payload, isOpenSortingPopup: DEFAULT_STATE};
-
-    case ActionType.CHANGE_SORTING_TYPE:
-      return {...state, sortingType: action.payload, isOpenSortingPopup: false};
-
-    case ActionType.OPEN_POPUP:
-      return {...state, isOpenSortingPopup: !state.isOpenSortingPopup};
-
     case ActionType.RESET_CITY:
       return {...state, city: DEFAULT_CITY};
-
+    case ActionType.CHANGE_SORTING_TYPE:
+      return {...state, sortingType: action.payload, isOpenSortingPopup: false};
     case ActionType.RESET_SORTING_TYPE:
       return {...state, sortingType: DEFAULT_SORTING_TYPE, isOpenSortingPopup: DEFAULT_STATE};
-
+    case ActionType.OPEN_POPUP:
+      return {...state, isOpenSortingPopup: !state.isOpenSortingPopup};
     case ActionType.CHANGE_ACTIVE_OFFER:
       return {...state, activeOfferId: action.payload};
-
     case ActionType.FIND_RELEVANT_OFFERS:
       let callback;
       switch (state.sortingType) {
@@ -53,7 +47,6 @@ const reducer = (state = initialState, action) => {
           [...offers.filter((e) => e.city.name === state.city)].sort(callback) :
           offers.filter((e) => e.city.name === state.city)
       };
-
     default:
       return state;
   }
