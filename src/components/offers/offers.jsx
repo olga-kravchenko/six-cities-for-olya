@@ -1,19 +1,14 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import OfferCard from "../offer-card/offer-card";
+import {ActionCreator} from "../../store/action";
+import {connect} from "react-redux";
 
-const Offers = ({offers, pageType}) => {
-  const [activeOfferId, setActiveOfferId] = useState({activeOfferId: ``});
+const Offers = ({offers, pageType, onOfferHover, onOfferLeave}) => {
   return (
     <div className="cities__places-list places__list tabs__content"
-      onMouseOver={({target}) => {
-        if (target.tagName === `DIV`) {
-          return;
-        }
-        const hoverElementId = target.closest(`article`).id;
-        setActiveOfferId({...activeOfferId, activeOfferId: hoverElementId});
-      }}
-      onMouseLeave={() => setActiveOfferId({...activeOfferId, activeOfferId: ``})}
+      onMouseOver={onOfferHover}
+      onMouseLeave={onOfferLeave}
     >
       {offers.map((offer, i) => <OfferCard key = {i} offer={offer} pageType={pageType}/>)}
     </div>
@@ -22,7 +17,26 @@ const Offers = ({offers, pageType}) => {
 
 Offers.propTypes = {
   offers: PropTypes.array.isRequired,
-  pageType: PropTypes.string.isRequired
+  pageType: PropTypes.string.isRequired,
+  onOfferHover: PropTypes.func,
+  onOfferLeave: PropTypes.func,
 };
 
-export default Offers;
+const mapDispatchToProps = (dispatch) => ({
+  onOfferHover(evt) {
+    evt.preventDefault();
+    if (evt.target.tagName === `DIV`) {
+      return;
+    }
+    const hoverElementId = evt.target.closest(`article`).id;
+    dispatch(ActionCreator.changeActiveOffer(hoverElementId));
+  },
+  onOfferLeave(evt) {
+    evt.preventDefault();
+    const leaveElementId = ``;
+    dispatch(ActionCreator.changeActiveOffer(leaveElementId));
+  },
+});
+
+export {Offers};
+export default connect(null, mapDispatchToProps)(Offers);

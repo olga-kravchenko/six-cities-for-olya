@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import OfferProp from "./offer.prop";
 import {Redirect, useParams} from "react-router-dom";
+import {connect} from "react-redux";
 import {convertRatingToPercent, getRandomNumber} from "../../utils/utils";
 import {generateComment} from "../../mocks/offers";
 import Header from "../header/header";
@@ -12,27 +12,42 @@ import Comments from "../comments/comments";
 import HeaderSignIn from "../header-sign-in/header-sign-in";
 import HeaderMail from "../header-mail/header-mail";
 
-const Offer = ({isLogged, offers, onSubmitComment}) => {
+const Offer = ({isLogged, onSubmitComment, offerList}) => {
   const MAX_COMMENT_QUANTITY = 5;
+  const SHOWN_OFFER_QUANTITY = 3;
+
   const comments = new Array(getRandomNumber(0, MAX_COMMENT_QUANTITY))
     .fill(null)
     .map(generateComment);
+
   const {id} = useParams();
-  const index = offers.findIndex((offer) => offer.id === id);
+  const index = offerList.findIndex((offer) => offer.id === id);
   if (index === -1) {
     return (
-      <Redirect to="/page-not-found" />
+      <Redirect to="/page-not-found"/>
     );
   }
-  const nearOffers = [...offers].filter((offer) => offer.id !== id).slice(-3);
-  const offer = offers[index];
-  const {bedrooms, max_adults, goods, price, description, title, type, images, is_favorite, is_premium, rating, host} = offer;
-  const {avatar_url, is_pro, name, id: hostId} = host;
-  const isProHost = is_pro ? `property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper` : `property__avatar-wrapper user__avatar-wrapper`;
-  const percent = convertRatingToPercent(rating);
 
-  const city = offer.city.location;
-  const points = nearOffers.map((o) => o.location);
+  const nearOffers = [...offerList].filter((offer) => offer.id !== id).slice(0, SHOWN_OFFER_QUANTITY);
+  const offer = offerList[index];
+  const {
+    bedrooms,
+    max_adults,
+    goods,
+    price,
+    description,
+    title,
+    type,
+    images,
+    is_favorite,
+    is_premium,
+    rating,
+    host
+  } = offer;
+  const {avatar_url, is_pro, name, id: hostId} = host;
+  const percent = convertRatingToPercent(rating);
+  const userAvatarPro = is_pro ? `property__avatar-wrapper--pro` : ``;
+  const favoriteOffer = is_favorite ? `property__bookmark-button--active` : ``;
 
   return (
     <div className="page">
@@ -57,11 +72,7 @@ const Offer = ({isLogged, offers, onSubmitComment}) => {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={
-                  is_favorite ?
-                    `property__bookmark-button button property__bookmark-button--active` :
-                    `property__bookmark-button button`}
-                type="button">
+                <button className={`property__bookmark-button button ${favoriteOffer}`} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"/>
                   </svg>
@@ -101,7 +112,7 @@ const Offer = ({isLogged, offers, onSubmitComment}) => {
               <div className="property__host" id={hostId}>
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className={isProHost}>
+                  <div className={`property__avatar-wrapper user__avatar-wrapper ${userAvatarPro}`}>
                     <img className="property__avatar user__avatar" src={avatar_url} width="74" height="74"
                       alt="Host avatar"/>
                   </div>
@@ -124,15 +135,18 @@ const Offer = ({isLogged, offers, onSubmitComment}) => {
             </div>
           </div>
           <section className="property__map map">
-            <Map city={city} points={points} style={{height: `100%`, width: `1144px`, margin: `0 auto`}}/>
+            <Map offerList={nearOffers.length ? nearOffers : offerList}
+              style={{height: `100%`, width: `1144px`, margin: `0 auto`}}/>
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              {nearOffers.map((o, i) => <OfferCard key = {i} offer={o} pageType="near"/>)}
-            </div>
+            {nearOffers.length ?
+              <div className="near-places__list places__list">
+                {nearOffers.map((o, i) => <OfferCard key={i} offer={o} pageType="near"/>)}
+              </div> :
+              <h3 className="near-places__title">Not found : (</h3>}
           </section>
         </div>
       </main>
@@ -141,10 +155,15 @@ const Offer = ({isLogged, offers, onSubmitComment}) => {
 };
 
 Offer.propTypes = {
-  onSubmitComment: PropTypes.func.isRequired,
-  offers: PropTypes.array.isRequired,
-  offer: OfferProp,
   isLogged: PropTypes.bool.isRequired,
+  onSubmitComment: PropTypes.func.isRequired,
+  offerList: PropTypes.array.isRequired,
 };
 
-export default Offer;
+const mapStateToProps = (state) => ({
+  offerList: state.offerList,
+  city: state.city
+});
+
+export {Offer};
+export default connect(mapStateToProps)(Offer);

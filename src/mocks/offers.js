@@ -1,6 +1,6 @@
 import {nanoid} from "nanoid";
 import dayjs from "dayjs";
-import {getRandomNumber, generateRandomArray} from "../utils/utils";
+import {getRandomNumber, generateRandomArray, getRandomValue} from "../utils/utils";
 
 const DESCRIPTION = [
   `Contrary to popular belief, Lorem Ipsum is not simply random text.`,
@@ -12,7 +12,6 @@ const DESCRIPTION = [
 ];
 const GOODS = [`Wi-fi`, `Heating`, `Kitchen`, `Cable TV`, `Washing machine`,
   `Coffee machine`, `Coffee machine`, `Dishwasher`, `Fridge`, `Towels`, `Baby seat`];
-const CITY_NAMES = [`Amsterdam`, `Paris`, `Cologne`, `Brussels`, `Hamburg`, `Dusseldorf`];
 const OWNER_NAMES = [`Angelina`, `Vadim`, `Mark`, `Benjamin`, `Elena`, `Alex`];
 const TYPE_NAMES = [`Apartment`, `Private Room`, `House`, `Hotel`];
 const STATES = [true, false];
@@ -37,6 +36,57 @@ const LOCATIONS = [
   },
 ];
 
+const CITIES_INFO = [
+  {
+    "location": {
+      "latitude": 48.856663,
+      "longitude": 2.351556,
+      "zoom": 12
+    },
+    "name": `Paris`
+  },
+  {
+    "location": {
+      "latitude": 50.930779,
+      "longitude": 6.938399,
+      "zoom": 12
+    },
+    "name": `Cologne`
+  },
+  {
+    "location": {
+      "latitude": 50.854283,
+      "longitude": 4.352131,
+      "zoom": 12
+    },
+    "name": `Brussels`
+  },
+  {
+    "location": {
+      "latitude": 52.370216,
+      "longitude": 4.895168,
+      "zoom": 12
+    },
+    "name": `Amsterdam`
+  },
+  {
+    "location": {
+      "latitude": 53.550688,
+      "longitude": 9.992895,
+      "zoom": 12
+    },
+    "name": `Hamburg`
+  },
+  {
+    "location": {
+      "latitude": 51.230569,
+      "longitude": 6.787428,
+      "zoom": 12
+    },
+    "name": `Dusseldorf`
+  },
+];
+
 const MIN_ROOM_QUANTITY = 1;
 const MAX_ROOM_QUANTITY = 5;
 const MIN_ADULT_QUANTITY = 2;
@@ -46,20 +96,12 @@ const MAX_PRICE = 1000;
 const MAX_RATING = 5;
 
 const getRandomRating = () => (Math.random() * MAX_RATING).toFixed(1);
-const getRandomValue = (array) => array[getRandomNumber(0, array.length)];
 
 const generateOffer = () => {
   const randomLocation = getRandomValue(LOCATIONS);
   return {
     "bedrooms": getRandomNumber(MIN_ROOM_QUANTITY, MAX_ROOM_QUANTITY),
-    "city": {
-      "location": {
-        "latitude": 52.370216,
-        "longitude": 4.895168,
-        "zoom": 10
-      },
-      "name": getRandomValue(CITY_NAMES)
-    },
+    "city": getRandomValue(CITIES_INFO),
     "description": getRandomValue(DESCRIPTION),
     "goods": generateRandomArray(GOODS),
     "host": {
@@ -101,5 +143,8 @@ const generateComment = () => {
   };
 };
 
-export {generateOffer, generateComment};
+const OFFER_QUANTITY = 15;
+const offers = new Array(OFFER_QUANTITY).fill(null).map(generateOffer);
+
+export {offers, generateComment};
 

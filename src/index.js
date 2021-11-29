@@ -1,17 +1,22 @@
 import React from "react";
 import ReactDOM from 'react-dom';
-import {generateOffer} from "./mocks/offers";
+import {createStore} from "redux";
+import {Provider} from "react-redux";
+import {composeWithDevTools} from "redux-devtools-extension";
 import App from "./components/app/app";
+import {reducer} from "./store/reducer";
+import {CityNames} from "./constants";
 
-const OFFER_QUANTITY = 5;
-const offers = new Array(OFFER_QUANTITY).fill(null).map(generateOffer);
 const isLogged = true;
+const store = createStore(reducer, composeWithDevTools());
+const cityNames = Object.values(CityNames);
 
 ReactDOM.render(
-    <App
-      offerQuantity={OFFER_QUANTITY}
-      offers={offers}
-      isLogged={isLogged}
-    />,
+    <Provider store={store}>
+      <App
+        cities={cityNames}
+        isLogged={isLogged}
+      />
+    </Provider>,
     document.querySelector(`#root`)
 );

@@ -1,21 +1,21 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {connect} from "react-redux";
 import Main from "../main/main";
 import Login from "../login/login";
 import Favorites from "../favorites/favorites";
+import PageNotFound from "../page-not-found/page-not-found";
 import Offer from "../offer/offer";
-import PageNotFound from "../404/404";
 
-const App = ({offerQuantity, offers, isLogged}) => {
+const App = ({offers, isLogged, cities}) => {
   const favoriteOffers = offers.filter((offer) => offer.is_favorite);
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact>
           <Main
-            offerQuantity={offerQuantity}
-            offers={offers}
+            cities={cities}
             isLogged={isLogged}
           />
         </Route>
@@ -24,13 +24,13 @@ const App = ({offerQuantity, offers, isLogged}) => {
         </Route>
         <Route path="/favorites" exact>
           <Favorites
+            cities={cities}
             offers={favoriteOffers}
             isLogged={isLogged}
           />
         </Route>
         <Route path="/offer/:id" exact>
           <Offer
-            offers={offers}
             isLogged={isLogged}
             onSubmitComment={() => {}}
           />
@@ -44,9 +44,14 @@ const App = ({offerQuantity, offers, isLogged}) => {
 };
 
 App.propTypes = {
+  offers: PropTypes.array.isRequired,
   isLogged: PropTypes.bool.isRequired,
-  offerQuantity: PropTypes.number.isRequired,
-  offers: PropTypes.array.isRequired
+  cities: PropTypes.array
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+});
+
+export {App};
+export default connect(mapStateToProps, null)(App);

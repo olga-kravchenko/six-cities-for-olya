@@ -1,18 +1,21 @@
 import React, {useEffect, useRef} from 'react';
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import leaflet from 'leaflet';
 import "leaflet/dist/leaflet.css";
 
-const Map = ({city, points, style}) => {
+const Map = ({offerList, style, city, activeOfferId}) => {
   const mapRef = useRef();
+  const cityInfo = offerList.find((e) => e.city.location).city;
+  const {location} = cityInfo;
 
   useEffect(() => {
     mapRef.current = leaflet.map(`map`, {
       center: {
-        lat: city.latitude,
-        lng: city.longitude
+        lat: location.latitude,
+        lng: location.longitude
       },
-      zoom: city.zoom
+      zoom: location.zoom,
     });
 
     leaflet
@@ -21,44 +24,45 @@ const Map = ({city, points, style}) => {
       })
       .addTo(mapRef.current);
 
-    points.forEach((point) => {
+    offerList.forEach((offer) => {
+      const isActivePin = activeOfferId === offer.id ? `./img/pin-active.svg` : `./img/pin.svg`;
+
       const customIcon = leaflet.icon({
-        iconUrl: `./img/pin.svg`,
+        iconUrl: isActivePin,
         iconSize: [27, 39]
       });
 
       leaflet.marker({
-        lat: point.latitude,
-        lng: point.longitude
+        lat: offer.location.latitude,
+        lng: offer.location.longitude
       },
       {
         icon: customIcon
       })
-        .addTo(mapRef.current);
-
-      return () => {
-        mapRef.current.remove();
-      };
+        .addTo(mapRef.current)
+        .bindPopup(offer.title);
     });
-  }, []);
+    return () => {
+      mapRef.current.remove();
+    };
+  }, [city, activeOfferId]);
 
   return (
-    <div id="map" style={style}/>
+    <div id="map" style={style} ref={mapRef}/>
   );
 };
 
 Map.propTypes = {
-  city: PropTypes.shape({
-    latitude: PropTypes.number.isRequired,
-    longitude: PropTypes.number.isRequired,
-    zoom: PropTypes.number.isRequired,
-  }),
-  points: PropTypes.arrayOf(PropTypes.shape({
-    latitude: PropTypes.number.isRequired,
-    longitude: PropTypes.number.isRequired,
-    zoom: PropTypes.number.isRequired,
-  })),
-  style: PropTypes.object.isRequired
+  offerList: PropTypes.array.isRequired,
+  style: PropTypes.object.isRequired,
+  city: PropTypes.string,
+  activeOfferId: PropTypes.string,
 };
 
-export default Map;
+const mapStateToProps = (state) => ({
+  city: state.city,
+  activeOfferId: state.activeOfferId
+});
+
+export {Map};
+export default connect(mapStateToProps, null)(Map);
