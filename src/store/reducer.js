@@ -1,9 +1,10 @@
 import {ActionType} from "./action";
 import {offers} from "../mocks/offers";
-import {DEFAULT_CITY, DEFAULT_SORTING_TYPE, DEFAULT_STATE, SortingType} from "../constants";
+import {DEFAULT_CITY, DEFAULT_SORTING_TYPE, DEFAULT_STATE, SortingType, AuthorizationStatus} from "../constants";
 import {sortOffersByPriceHighToLow, sortOffersByPriceLowToHigh, sortOffersByRating} from "../utils/utils";
 
 const initialState = {
+  authorizationStatus: AuthorizationStatus.NO_AUTH,
   offers,
   city: DEFAULT_CITY,
   offerList: offers.filter((e) => e.city.name === DEFAULT_CITY),
@@ -14,6 +15,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case ActionType.REQUIRED_AUTHORIZATION:
+      return {
+        ...state,
+        authorizationStatus: action.payload,
+      };
     case ActionType.CHANGE_CITY:
       return {...state, city: action.payload, isOpenSortingPopup: DEFAULT_STATE};
     case ActionType.RESET_CITY:

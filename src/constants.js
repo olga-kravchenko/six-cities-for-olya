@@ -18,4 +18,9 @@ const DEFAULT_CITY = CityNames.PARIS;
 const DEFAULT_SORTING_TYPE = SortingType.POPULAR;
 const DEFAULT_STATE = false;
 
-export {CityNames, SortingType, DEFAULT_CITY, DEFAULT_SORTING_TYPE, DEFAULT_STATE};
+const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};
+
+export {CityNames, SortingType, DEFAULT_CITY, DEFAULT_SORTING_TYPE, DEFAULT_STATE, AuthorizationStatus};

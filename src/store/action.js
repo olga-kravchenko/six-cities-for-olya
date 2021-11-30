@@ -1,6 +1,7 @@
 import {SortingType} from "../constants";
 
 const ActionType = {
+  REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
   CHANGE_CITY: `city/changeCity`,
   RESET_CITY: `city/resetCity`,
   CHANGE_SORTING_TYPE: `city/changeSortingType`,
@@ -11,6 +12,10 @@ const ActionType = {
 };
 
 const ActionCreator = {
+  requireAuthorization: (status) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: status,
+  }),
   changeCity: (city) => ({
     type: ActionType.CHANGE_CITY,
     payload: city,
