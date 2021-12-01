@@ -8,6 +8,7 @@ const initialState = {
   sortingType: DEFAULT_SORTING_TYPE,
   activeOfferId: ``,
   isOpenSortingPopup: DEFAULT_STATE,
+  isDataLoaded: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -16,6 +17,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         authorizationStatus: action.payload,
+      };
+    case ActionType.LOAD_OFFERS:
+      return {
+        ...state,
+        offers: action.payload,
+        isDataLoaded: true
       };
     case ActionType.CHANGE_CITY:
       return {...state, city: action.payload, isOpenSortingPopup: DEFAULT_STATE};

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import SortingTypes from "../sorting-types/sorting-types";
@@ -9,10 +9,25 @@ import HeaderSignIn from "../header-sign-in/header-sign-in";
 import HeaderMail from "../header-mail/header-mail";
 import Cities from "../cities/cities";
 import EmptyMain from "../empty-main/empty-main";
+import LoadingScreen from "../loading-screen/loading-screen";
+import {fetchOffers} from "../../store/api-actions";
 import {SortingType} from "../../constants";
 import {sortOffersByPriceHighToLow, sortOffersByPriceLowToHigh, sortOffersByRating} from "../../utils/utils";
 
-const Main = ({city, isLogged, cities, offers, sortingType}) => {
+const Main = ({city, isLogged, cities, offers, sortingType, isDataLoaded, onLoadData}) => {
+  useEffect(() => {
+    if (!isDataLoaded) {
+      onLoadData();
+    }
+  }, [isDataLoaded]);
+
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
+
   let callback;
   switch (sortingType) {
     case SortingType.POPULAR:
@@ -74,12 +89,20 @@ Main.propTypes = {
   isLogged: PropTypes.bool.isRequired,
   cities: PropTypes.array,
   sortingType: PropTypes.string,
+  isDataLoaded: PropTypes.bool.isRequired,
+  onLoadData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  sortingType: state.sortingType,
+  isDataLoaded: state.isDataLoaded,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadData() {
+    dispatch(fetchOffers());
+  },
 });
 
 export {Main};
-export default connect(mapStateToProps, null)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

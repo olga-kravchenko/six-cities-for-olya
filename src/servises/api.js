@@ -6,6 +6,7 @@ const REQUEST_TIMEOUT = 5000;
 const HttpCode = {
   UNAUTHORIZED: 401
 };
+
 export const createAPI = (onUnauthorized) => {
   const api = axios.create({
     baseURL: BACKEND_URL,

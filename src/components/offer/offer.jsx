@@ -22,7 +22,7 @@ const Offer = ({isLogged, onSubmitComment, offers, city}) => {
     .map(generateComment);
 
   const {id} = useParams();
-  const index = offerList.findIndex((offer) => offer.id === id);
+  const index = offerList.findIndex((offer) => offer.id === +id);
   if (index === -1) {
     return (
       <Redirect to="/page-not-found"/>
