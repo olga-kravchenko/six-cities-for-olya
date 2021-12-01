@@ -9,10 +9,8 @@ import CommentForm from "../comment-form/comment-form";
 import OfferCard from "../offer-card/offer-card";
 import Map from "../map/map";
 import Comments from "../comments/comments";
-import HeaderSignIn from "../header-sign-in/header-sign-in";
-import HeaderMail from "../header-mail/header-mail";
 
-const Offer = ({isLogged, onSubmitComment, offers, city}) => {
+const Offer = ({onSubmitComment, offers, city}) => {
   const offerList = offers.filter((e) => e.city.name === city);
   const MAX_COMMENT_QUANTITY = 5;
   const SHOWN_OFFER_QUANTITY = 3;
@@ -52,7 +50,7 @@ const Offer = ({isLogged, onSubmitComment, offers, city}) => {
 
   return (
     <div className="page">
-      <Header render={() => (isLogged ? <HeaderMail/> : <HeaderSignIn/>)}/>
+      <Header/>
       <main className="page__main page__main--property">
         <section className="property" id={id}>
           <div className="property__gallery-container container">
@@ -156,14 +154,13 @@ const Offer = ({isLogged, onSubmitComment, offers, city}) => {
 };
 
 Offer.propTypes = {
-  isLogged: PropTypes.bool.isRequired,
   onSubmitComment: PropTypes.func.isRequired,
   offers: PropTypes.array,
   city: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
-  city: state.city
+  city: state.city,
 });
 
 export {Offer};

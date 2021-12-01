@@ -5,8 +5,6 @@ import SortingTypes from "../sorting-types/sorting-types";
 import Header from "../header/header";
 import Offers from "../offers/offers";
 import Map from "../map/map";
-import HeaderSignIn from "../header-sign-in/header-sign-in";
-import HeaderMail from "../header-mail/header-mail";
 import Cities from "../cities/cities";
 import EmptyMain from "../empty-main/empty-main";
 import Spinner from "../spinner/spinner";
@@ -14,19 +12,14 @@ import {fetchOffers} from "../../store/api-actions";
 import {SortingType} from "../../constants";
 import {sortOffersByPriceHighToLow, sortOffersByPriceLowToHigh, sortOffersByRating} from "../../utils/utils";
 
-const Main = ({city, isLogged, cities, offers, sortingType, isDataLoaded, onLoadData}) => {
+const Main = ({city, cities, offers, sortingType, isDataLoaded, onLoadData}) => {
   useEffect(() => {
     if (!isDataLoaded) {
       onLoadData();
     }
   }, [isDataLoaded]);
 
-  if (!isDataLoaded) {
-    return (
-      <Spinner />
-    );
-  }
-
+  const isLoaded = !isDataLoaded ? <Spinner /> : <EmptyMain/>;
 
   let callback;
   switch (sortingType) {
@@ -52,7 +45,7 @@ const Main = ({city, isLogged, cities, offers, sortingType, isDataLoaded, onLoad
 
   return (
     <div className="page page--gray page--main">
-      <Header render={() => (isLogged ? <HeaderMail/> : <HeaderSignIn/>)}/>
+      <Header/>
 
       <main className={`page__main page__main--index ${noOffers}`}>
         <h1 className="visually-hidden">Cities</h1>
@@ -62,7 +55,7 @@ const Main = ({city, isLogged, cities, offers, sortingType, isDataLoaded, onLoad
           </section>
         </div>
         {!offerList.length ?
-          <EmptyMain/> :
+          isLoaded :
           <div className="cities">
             <div className="cities__places-container container">
               <section className="cities__places places">
@@ -86,7 +79,6 @@ const Main = ({city, isLogged, cities, offers, sortingType, isDataLoaded, onLoad
 Main.propTypes = {
   city: PropTypes.string.isRequired,
   offers: PropTypes.array.isRequired,
-  isLogged: PropTypes.bool.isRequired,
   cities: PropTypes.array,
   sortingType: PropTypes.string,
   isDataLoaded: PropTypes.bool.isRequired,

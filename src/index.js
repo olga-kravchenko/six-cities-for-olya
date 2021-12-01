@@ -16,7 +16,6 @@ const api = createAPI(() => {
   return store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
 });
 
-const isLogged = true;
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))));
 const cityNames = Object.values(CityNames);
 
@@ -26,7 +25,6 @@ ReactDOM.render(
     <Provider store={store}>
       <App
         cities={cityNames}
-        isLogged={isLogged}
       />
     </Provider>,
     document.querySelector(`#root`)

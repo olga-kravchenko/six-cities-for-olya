@@ -1,8 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import HeaderMail from "../header-mail/header-mail";
+import HeaderSignIn from "../header-sign-in/header-sign-in";
+import {connect} from "react-redux";
 
-const Header = ({render}) => {
+const Header = ({authorizationStatus}) => {
   return (
     <header className="header">
       <div className="container">
@@ -15,7 +18,7 @@ const Header = ({render}) => {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                {render()}
+                {authorizationStatus ? <HeaderMail/> : <HeaderSignIn/>}
               </li>
             </ul>
           </nav>
@@ -26,7 +29,12 @@ const Header = ({render}) => {
 };
 
 Header.propTypes = {
-  render: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.bool.isRequired,
 };
 
-export default Header;
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+});
+
+export {Header};
+export default connect(mapStateToProps, null)(Header);

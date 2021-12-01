@@ -5,16 +5,14 @@ import {sortCities} from "../../utils/utils";
 import Header from "../header/header";
 import FavoritesEmpty from "../favorites-empty/favorites-empty";
 import OfferCard from "../offer-card/offer-card";
-import HeaderSignIn from "../header-sign-in/header-sign-in";
-import HeaderMail from "../header-mail/header-mail";
 
-const Favorites = ({offers, isLogged, cities}) => {
+const Favorites = ({offers, cities}) => {
   const isNoOffers = offers.length === 0;
   const citiesNames = sortCities(offers, cities);
 
   return (
     <div className="page">
-      <Header render={() => (isLogged ? <HeaderMail/> : <HeaderSignIn/>)}/>
+      <Header/>
       {isNoOffers ?
         <FavoritesEmpty/> :
         <main className="page__main page__main--favorites">
@@ -56,7 +54,6 @@ const Favorites = ({offers, isLogged, cities}) => {
 
 Favorites.propTypes = {
   offers: PropTypes.array.isRequired,
-  isLogged: PropTypes.bool.isRequired,
   cities: PropTypes.array
 };
 

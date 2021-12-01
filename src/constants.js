@@ -19,8 +19,8 @@ const DEFAULT_SORTING_TYPE = SortingType.POPULAR;
 const DEFAULT_STATE = false;
 
 const AuthorizationStatus = {
-  AUTH: `AUTH`,
-  NO_AUTH: `NO_AUTH`,
+  AUTH: true,
+  NO_AUTH: false,
 };
 
 export {CityNames, SortingType, DEFAULT_CITY, DEFAULT_SORTING_TYPE, DEFAULT_STATE, AuthorizationStatus};

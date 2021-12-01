@@ -8,7 +8,7 @@ import Favorites from "../favorites/favorites";
 import PageNotFound from "../page-not-found/page-not-found";
 import Offer from "../offer/offer";
 
-const App = ({offers, isLogged, cities}) => {
+const App = ({offers, cities}) => {
   const favoriteOffers = offers.filter((offer) => offer.is_favorite);
   return (
     <BrowserRouter>
@@ -17,28 +17,25 @@ const App = ({offers, isLogged, cities}) => {
           <Main
             offers={offers}
             cities={cities}
-            isLogged={isLogged}
           />
         </Route>
         <Route path="/login" exact>
-          <Login isLogged={isLogged}/>
+          <Login/>
         </Route>
         <Route path="/favorites" exact>
           <Favorites
             cities={cities}
             offers={favoriteOffers}
-            isLogged={isLogged}
           />
         </Route>
         <Route path="/offer/:id" exact>
           <Offer
             offers={offers}
-            isLogged={isLogged}
             onSubmitComment={() => {}}
           />
         </Route>
         <Route>
-          <PageNotFound isLogged={isLogged}/>
+          <PageNotFound/>
         </Route>
       </Switch>
     </BrowserRouter>
@@ -47,12 +44,11 @@ const App = ({offers, isLogged, cities}) => {
 
 App.propTypes = {
   offers: PropTypes.array.isRequired,
-  isLogged: PropTypes.bool.isRequired,
   cities: PropTypes.array
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
+  offers: state.offers
 });
 
 export {App};
