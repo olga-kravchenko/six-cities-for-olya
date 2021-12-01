@@ -9,8 +9,30 @@ import HeaderSignIn from "../header-sign-in/header-sign-in";
 import HeaderMail from "../header-mail/header-mail";
 import Cities from "../cities/cities";
 import EmptyMain from "../empty-main/empty-main";
+import {SortingType} from "../../constants";
+import {sortOffersByPriceHighToLow, sortOffersByPriceLowToHigh, sortOffersByRating} from "../../utils/utils";
 
-const Main = ({city, offerList, isLogged, cities}) => {
+const Main = ({city, isLogged, cities, offers, sortingType}) => {
+  let callback;
+  switch (sortingType) {
+    case SortingType.POPULAR:
+      callback = false;
+      break;
+    case SortingType.PRICE_LOW_TO_HIGH:
+      callback = sortOffersByPriceLowToHigh;
+      break;
+    case SortingType.PRICE_HIGH_TO_LOW:
+      callback = sortOffersByPriceHighToLow;
+      break;
+    case SortingType.TOP_RATED_FIRST:
+      callback = sortOffersByRating;
+      break;
+  }
+
+  const offerList = callback ?
+    [...offers.filter((e) => e.city.name === city)].sort(callback) :
+    offers.filter((e) => e.city.name === city);
+
   const noOffers = !offerList.length ? `page__main--index-empty` : ``;
 
   return (
@@ -48,14 +70,15 @@ const Main = ({city, offerList, isLogged, cities}) => {
 
 Main.propTypes = {
   city: PropTypes.string.isRequired,
-  offerList: PropTypes.array.isRequired,
+  offers: PropTypes.array.isRequired,
   isLogged: PropTypes.bool.isRequired,
-  cities: PropTypes.array
+  cities: PropTypes.array,
+  sortingType: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
-  offerList: state.offerList,
-  city: state.city
+  city: state.city,
+  sortingType: state.sortingType,
 });
 
 export {Main};

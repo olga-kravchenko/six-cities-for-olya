@@ -85,9 +85,7 @@ OfferCard.propTypes = {
 const mapDispatchToProps = (dispatch) => ({
   onOfferTitleClick(typeCity) {
     dispatch(ActionCreator.changeCity(typeCity));
-    dispatch(ActionCreator.findRelevantOffers());
     dispatch(ActionCreator.resetSortingType());
-    dispatch(ActionCreator.resetCity());
   },
 });
 

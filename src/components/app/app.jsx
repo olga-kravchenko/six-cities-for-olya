@@ -15,6 +15,7 @@ const App = ({offers, isLogged, cities}) => {
       <Switch>
         <Route path="/" exact>
           <Main
+            offers={offers}
             cities={cities}
             isLogged={isLogged}
           />
@@ -31,6 +32,7 @@ const App = ({offers, isLogged, cities}) => {
         </Route>
         <Route path="/offer/:id" exact>
           <Offer
+            offers={offers}
             isLogged={isLogged}
             onSubmitComment={() => {}}
           />

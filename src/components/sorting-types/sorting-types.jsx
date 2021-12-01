@@ -46,7 +46,6 @@ const mapDispatchToProps = (dispatch) => ({
     evt.preventDefault();
     const sortingType = evt.target.textContent;
     dispatch(ActionCreator.changeSortingType(sortingType));
-    dispatch(ActionCreator.findRelevantOffers());
   },
   onSortingPopupClick() {
     dispatch(ActionCreator.openPopup());

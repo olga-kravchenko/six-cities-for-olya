@@ -12,7 +12,8 @@ import Comments from "../comments/comments";
 import HeaderSignIn from "../header-sign-in/header-sign-in";
 import HeaderMail from "../header-mail/header-mail";
 
-const Offer = ({isLogged, onSubmitComment, offerList}) => {
+const Offer = ({isLogged, onSubmitComment, offers, city}) => {
+  const offerList = offers.filter((e) => e.city.name === city);
   const MAX_COMMENT_QUANTITY = 5;
   const SHOWN_OFFER_QUANTITY = 3;
 
@@ -157,11 +158,11 @@ const Offer = ({isLogged, onSubmitComment, offerList}) => {
 Offer.propTypes = {
   isLogged: PropTypes.bool.isRequired,
   onSubmitComment: PropTypes.func.isRequired,
-  offerList: PropTypes.array.isRequired,
+  offers: PropTypes.array,
+  city: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
-  offerList: state.offerList,
   city: state.city
 });
 
