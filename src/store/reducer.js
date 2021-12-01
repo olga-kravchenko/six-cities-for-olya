@@ -1,10 +1,9 @@
 import {ActionType} from "./action";
-import {offers} from "../mocks/offers";
 import {DEFAULT_CITY, DEFAULT_SORTING_TYPE, DEFAULT_STATE, AuthorizationStatus} from "../constants";
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
-  offers,
+  offers: [],
   city: DEFAULT_CITY,
   sortingType: DEFAULT_SORTING_TYPE,
   activeOfferId: ``,
