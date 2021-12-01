@@ -9,7 +9,7 @@ import HeaderSignIn from "../header-sign-in/header-sign-in";
 import HeaderMail from "../header-mail/header-mail";
 import Cities from "../cities/cities";
 import EmptyMain from "../empty-main/empty-main";
-import LoadingScreen from "../loading-screen/loading-screen";
+import Spinner from "../spinner/spinner";
 import {fetchOffers} from "../../store/api-actions";
 import {SortingType} from "../../constants";
 import {sortOffersByPriceHighToLow, sortOffersByPriceLowToHigh, sortOffersByRating} from "../../utils/utils";
@@ -23,7 +23,7 @@ const Main = ({city, isLogged, cities, offers, sortingType, isDataLoaded, onLoad
 
   if (!isDataLoaded) {
     return (
-      <LoadingScreen />
+      <Spinner />
     );
   }
 
