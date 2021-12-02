@@ -10,7 +10,7 @@ import OfferCard from "../offer-card/offer-card";
 import Map from "../map/map";
 import Comments from "../comments/comments";
 
-const Offer = ({onSubmitComment, offers, city}) => {
+const Offer = ({onSubmitComment, offers, city, authorizationStatus}) => {
   const offerList = offers.filter((e) => e.city.name === city);
   const MAX_COMMENT_QUANTITY = 5;
   const SHOWN_OFFER_QUANTITY = 3;
@@ -129,7 +129,7 @@ const Offer = ({onSubmitComment, offers, city}) => {
                 <h2 className="reviews__title">Reviews &middot; <span
                   className="reviews__amount">{comments.length}</span></h2>
                 {comments.length ? <Comments comments={comments}/> : ``}
-                <CommentForm onSubmitComment={onSubmitComment}/>
+                {authorizationStatus ? <CommentForm onSubmitComment={onSubmitComment}/> : ``}
               </section>
             </div>
           </div>
@@ -157,10 +157,12 @@ Offer.propTypes = {
   onSubmitComment: PropTypes.func.isRequired,
   offers: PropTypes.array,
   city: PropTypes.string,
+  authorizationStatus: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
+  authorizationStatus: state.authorizationStatus,
 });
 
 export {Offer};

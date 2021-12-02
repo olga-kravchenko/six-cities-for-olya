@@ -8,14 +8,24 @@ export const fetchOffers = () => (dispatch, _getState, api) => (
 
 export const checkAuthorization = () => (dispatch, _getState, api) => (
   api.get(`/login`)
+    .then(({data}) =>{
+      dispatch(ActionCreator.saveUserInfo(data));
+      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+    })
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
     .catch(() => {})
 );
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(`/login`, {email, password})
-    .then(({data}) => dispatch(ActionCreator.saveUserInfo(data)))
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(({data}) => {
+      if (email && password) {
+        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(ActionCreator.saveUserInfo(data));
+      } else {
+        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+      }
+    })
 );
 
 export const logout = () => (dispatch, _getState, api) => (

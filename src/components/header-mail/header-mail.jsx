@@ -12,7 +12,7 @@ const HeaderMail = ({onExitClick, userInfo}) => {
         </div>
         <span className="header__user-name user__name">{userInfo.email}</span>
       </Link>
-      <a href="#" onClick={onExitClick}>
+      <a onClick={onExitClick}>
         <p>Выход</p>
       </a>
     </>);

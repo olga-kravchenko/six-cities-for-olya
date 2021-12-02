@@ -2,7 +2,7 @@ import {ActionType} from "./action";
 import {DEFAULT_CITY, DEFAULT_SORTING_TYPE, DEFAULT_STATE, AuthorizationStatus} from "../constants";
 
 const initialState = {
-  userInfo: {email: `default-name`, avatar_url: `img/avatar.svg`},
+  userInfo: {email: ``, avatar_url: ``},
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   offers: [],
   city: DEFAULT_CITY,
