@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import {login} from "../../store/api-actions";
 import {connect} from "react-redux";
 
-const Login = ({onSubmit}) => {
+const Login = ({onSubmitForm}) => {
   const loginRef = useRef();
   const passwordRef = useRef();
 
@@ -13,10 +13,11 @@ const Login = ({onSubmit}) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    onSubmit({
+    onSubmitForm({
       login: loginRef.current.value,
       password: passwordRef.current.value,
     });
+    history.push(`/`);
   };
 
   return (
@@ -33,7 +34,8 @@ const Login = ({onSubmit}) => {
                 <input
                   ref={loginRef}
                   className="login__input form__input"
-                  type="email" name="email"
+                  type="email"
+                  name="email"
                   placeholder="Email"
                   required=""/>
               </div>
@@ -49,8 +51,7 @@ const Login = ({onSubmit}) => {
               </div>
               <button
                 className="login__submit form__submit button"
-                type="submit"
-                onClick={() => history.push(`/`)}>
+                type="submit">
                 Sign in
               </button>
             </form>
@@ -69,13 +70,11 @@ const Login = ({onSubmit}) => {
 };
 
 Login.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  onSubmitForm: PropTypes.func.isRequired,
 };
 
-
 const mapDispatchToProps = (dispatch) => ({
-  onSubmit(authData) {
-    console.log(authData)
+  onSubmitForm(authData) {
     dispatch(login(authData));
   }
 });
