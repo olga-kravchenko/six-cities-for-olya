@@ -1,15 +1,12 @@
 import React, {useRef} from "react";
 import Header from "../header/header";
-import {useHistory} from "react-router-dom";
 import PropTypes from "prop-types";
 import {login} from "../../store/api-actions";
 import {connect} from "react-redux";
 
-const Login = ({onSubmitForm}) => {
+const Login = ({onSubmitForm, onSubmitButtonClick}) => {
   const loginRef = useRef();
   const passwordRef = useRef();
-
-  const history = useHistory();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -17,7 +14,7 @@ const Login = ({onSubmitForm}) => {
       login: loginRef.current.value,
       password: passwordRef.current.value,
     });
-    history.push(`/`);
+    onSubmitButtonClick();
   };
 
   return (
@@ -71,6 +68,7 @@ const Login = ({onSubmitForm}) => {
 
 Login.propTypes = {
   onSubmitForm: PropTypes.func.isRequired,
+  onSubmitButtonClick: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

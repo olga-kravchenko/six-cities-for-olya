@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import {connect} from "react-redux";
 import Main from "../main/main";
 import Login from "../login/login";
@@ -8,11 +8,12 @@ import Favorites from "../favorites/favorites";
 import PageNotFound from "../page-not-found/page-not-found";
 import Offer from "../offer/offer";
 import PrivateRoute from "../private-route/private-route";
+import browserHistory from "../../browser-history";
 
 const App = ({offers, cities, authorizationStatus}) => {
   const favoriteOffers = offers.filter((offer) => offer.is_favorite);
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route path="/" exact>
           <Main
@@ -20,9 +21,11 @@ const App = ({offers, cities, authorizationStatus}) => {
             cities={cities}
           />
         </Route>
-        <Route path="/login" exact>
-          <Login/>
-        </Route>
+        <Route
+          path="/login"
+          exact
+          render={({history}) => (<Login onSubmitButtonClick={() => history.push(`/`)}/>)}
+        />
         <PrivateRoute
           exact
           path="/favorites"
