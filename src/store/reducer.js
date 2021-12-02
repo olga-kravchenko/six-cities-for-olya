@@ -2,6 +2,7 @@ import {ActionType} from "./action";
 import {DEFAULT_CITY, DEFAULT_SORTING_TYPE, DEFAULT_STATE, AuthorizationStatus} from "../constants";
 
 const initialState = {
+  userInfo: {email: `default-name`, avatar_url: `img/avatar.svg`},
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   offers: [],
   city: DEFAULT_CITY,
@@ -13,6 +14,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case ActionType.SAVE_USER_INFO:
+      return {
+        ...state,
+        userInfo: action.payload,
+      };
     case ActionType.REQUIRED_AUTHORIZATION:
       return {
         ...state,

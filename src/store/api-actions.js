@@ -14,6 +14,7 @@ export const checkAuthorization = () => (dispatch, _getState, api) => (
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(`/login`, {email, password})
+    .then(({data}) => dispatch(ActionCreator.saveUserInfo(data)))
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
 );
 

@@ -4,13 +4,13 @@ import PropTypes from "prop-types";
 import {logout} from "../../store/api-actions";
 import {connect} from "react-redux";
 
-const HeaderMail = ({onExitClick}) => {
+const HeaderMail = ({onExitClick, userInfo}) => {
   return (
     <>
       <Link className="header__nav-link header__nav-link--profile" to="/favorites">
-        <div className="header__avatar-wrapper user__avatar-wrapper">
+        <div className="header__avatar-wrapper user__avatar-wrapper" style={{backgroundImage: `url(${userInfo.avatar_url})`}}>
         </div>
-        <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+        <span className="header__user-name user__name">{userInfo.email}</span>
       </Link>
       <a href="#" onClick={onExitClick}>
         <p>Выход</p>
@@ -20,7 +20,12 @@ const HeaderMail = ({onExitClick}) => {
 
 HeaderMail.propTypes = {
   onExitClick: PropTypes.func.isRequired,
+  userInfo: PropTypes.object,
 };
+
+const mapStateToProps = (state) => ({
+  userInfo: state.userInfo,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onExitClick(authData) {
@@ -29,4 +34,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {HeaderMail};
-export default connect(null, mapDispatchToProps)(HeaderMail);
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderMail);
