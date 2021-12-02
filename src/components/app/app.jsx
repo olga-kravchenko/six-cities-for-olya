@@ -7,8 +7,9 @@ import Login from "../login/login";
 import Favorites from "../favorites/favorites";
 import PageNotFound from "../page-not-found/page-not-found";
 import Offer from "../offer/offer";
+import PrivateRoute from "../private-route/private-route";
 
-const App = ({offers, cities}) => {
+const App = ({offers, cities, authorizationStatus}) => {
   const favoriteOffers = offers.filter((offer) => offer.is_favorite);
   return (
     <BrowserRouter>
@@ -22,12 +23,15 @@ const App = ({offers, cities}) => {
         <Route path="/login" exact>
           <Login/>
         </Route>
-        <Route path="/favorites" exact>
-          <Favorites
+        <PrivateRoute
+          exact
+          path="/favorites"
+          authorizationStatus={authorizationStatus}
+          render={() => <Favorites
             cities={cities}
             offers={favoriteOffers}
-          />
-        </Route>
+          />}
+        />
         <Route path="/offer/:id" exact>
           <Offer
             offers={offers}
@@ -44,11 +48,13 @@ const App = ({offers, cities}) => {
 
 App.propTypes = {
   offers: PropTypes.array.isRequired,
-  cities: PropTypes.array
+  cities: PropTypes.array,
+  authorizationStatus: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers
+  offers: state.offers,
+  authorizationStatus: state.authorizationStatus
 });
 
 export {App};
