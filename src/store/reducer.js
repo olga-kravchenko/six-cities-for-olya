@@ -10,6 +10,7 @@ const initialState = {
   activeOfferId: ``,
   isOpenSortingPopup: DEFAULT_STATE,
   isDataLoaded: false,
+  chosenOffer: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -40,6 +41,8 @@ const reducer = (state = initialState, action) => {
       return {...state, isOpenSortingPopup: !state.isOpenSortingPopup};
     case ActionType.CHANGE_ACTIVE_OFFER:
       return {...state, activeOfferId: action.payload};
+    case ActionType.CHOSE_OFFER:
+      return {...state, chosenOffer: action.payload};
     default:
       return state;
   }

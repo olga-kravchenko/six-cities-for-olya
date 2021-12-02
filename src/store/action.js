@@ -3,12 +3,13 @@ import {SortingType} from "../constants";
 const ActionType = {
   SAVE_USER_INFO: `user/saveUserInfo`,
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
-  LOAD_OFFERS: `city/loadOffers`,
-  CHANGE_CITY: `city/changeCity`,
-  CHANGE_SORTING_TYPE: `city/changeSortingType`,
-  RESET_SORTING_TYPE: `city/resetSortingType`,
-  OPEN_POPUP: `city/openPopup`,
-  CHANGE_ACTIVE_OFFER: `city/changeActiveOffer`,
+  LOAD_OFFERS: `main/loadOffers`,
+  CHANGE_CITY: `main/changeCity`,
+  CHANGE_SORTING_TYPE: `main/changeSortingType`,
+  RESET_SORTING_TYPE: `main/resetSortingType`,
+  OPEN_POPUP: `main/openPopup`,
+  CHANGE_ACTIVE_OFFER: `offer/changeActiveOffer`,
+  CHOSE_OFFER: `offer/choseOffer`,
 };
 
 const ActionCreator = {
@@ -38,9 +39,12 @@ const ActionCreator = {
   openPopup: () => ({
     type: ActionType.OPEN_POPUP,
   }),
-
   changeActiveOffer: (offerId = ``) => ({
     type: ActionType.CHANGE_ACTIVE_OFFER,
+    payload: offerId,
+  }),
+  choseOffer: (offerId = ``) => ({
+    type: ActionType.CHOSE_OFFER,
     payload: offerId,
   }),
 };
