@@ -11,12 +11,19 @@ import {CityNames} from "./constants";
 import {ActionCreator} from "./store/action";
 import {checkAuthorization} from "./store/api-actions";
 import {AuthorizationStatus} from "./constants";
+import {redirect} from "./store/middlewares/redirect";
 
 const api = createAPI(() => {
   return store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
 });
 
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))));
+const store = createStore(
+    reducer,
+    composeWithDevTools(
+        applyMiddleware(thunk.withExtraArgument(api)),
+        applyMiddleware(redirect)
+    )
+);
 const cityNames = Object.values(CityNames);
 
 store.dispatch(checkAuthorization());

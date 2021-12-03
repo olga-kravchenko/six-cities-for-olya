@@ -21,11 +21,9 @@ const App = ({offers, cities, authorizationStatus}) => {
             cities={cities}
           />
         </Route>
-        <Route
-          path="/login"
-          exact
-          render={({history}) => (<Login onSubmitButtonClick={() => history.push(`/`)}/>)}
-        />
+        <Route path="/login" exact>
+          <Login/>
+        </Route>
         <PrivateRoute
           exact
           path="/favorites"

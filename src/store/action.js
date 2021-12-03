@@ -12,6 +12,7 @@ const ActionType = {
   CHOSE_OFFER: `offer/choseOffer`,
   RESET_OFFER: `offer/resetOffer`,
   LOAD_NEARBY_OFFERS: `offer/loadNearbyOffers`,
+  REDIRECT_TO_ROUTE: `main/redirectToRoute`,
 };
 
 const ActionCreator = {
@@ -55,6 +56,10 @@ const ActionCreator = {
   }),
   resetOffer: () => ({
     type: ActionType.RESET_OFFER,
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url,
   }),
 };
 

@@ -26,6 +26,7 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
       }
     })
+    .then(() => dispatch(ActionCreator.redirectToRoute(`/`)))
 );
 
 export const logout = () => (dispatch, _getState, api) => (
