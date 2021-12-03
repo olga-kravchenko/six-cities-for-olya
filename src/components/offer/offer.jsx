@@ -9,10 +9,10 @@ import CommentForm from "../comment-form/comment-form";
 import OfferCard from "../offer-card/offer-card";
 import Map from "../map/map";
 import Comments from "../comments/comments";
-import {fetchOffer, getOffer} from "../../store/api-actions";
+import {fetchNearbyOffer, fetchOffer} from "../../store/api-actions";
 import Spinner from "../spinner/spinner";
 
-const Offer = ({onSubmitComment, offers, city, authorizationStatus, onLoadOffer, isOfferLoaded, chosenOffer}) => {
+const Offer = ({onLoadNearbyOffers, onSubmitComment, offers, city, authorizationStatus, onLoadOffer, isOfferLoaded, chosenOffer, nearByOffers, isNearbyOffersLoaded}) => {
   const {id} = useParams();
 
   useEffect(() => {
@@ -21,16 +21,30 @@ const Offer = ({onSubmitComment, offers, city, authorizationStatus, onLoadOffer,
     }
   }, [isOfferLoaded]);
 
+
+  useEffect(() => {
+    if (!isNearbyOffersLoaded) {
+      onLoadNearbyOffers(id);
+    }
+  }, [isNearbyOffersLoaded]);
+
   if (!isOfferLoaded) {
     return (
       <Spinner />
     );
   }
 
+  if (!isNearbyOffersLoaded) {
+    return (
+      <Spinner />
+    );
+  }
+
+  console.log(chosenOffer)
+  console.log(nearByOffers)
+
   const offerList = offers.filter((e) => e.city.name === city);
   const MAX_COMMENT_QUANTITY = 5;
-  const SHOWN_OFFER_QUANTITY = 3;
-
   const comments = new Array(getRandomNumber(0, MAX_COMMENT_QUANTITY))
     .fill(null)
     .map(generateComment);
@@ -41,8 +55,6 @@ const Offer = ({onSubmitComment, offers, city, authorizationStatus, onLoadOffer,
       <Redirect to="/page-not-found"/>
     );
   }
-
-  const nearOffers = [...offerList].filter((offer) => offer.id !== id).slice(0, SHOWN_OFFER_QUANTITY);
 
   const {
     bedrooms,
@@ -149,16 +161,16 @@ const Offer = ({onSubmitComment, offers, city, authorizationStatus, onLoadOffer,
             </div>
           </div>
           <section className="property__map map">
-            <Map offerList={nearOffers.length ? nearOffers : offerList}
+            <Map offerList={nearByOffers}
               style={{height: `100%`, width: `1144px`, margin: `0 auto`}}/>
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            {nearOffers.length ?
+            {nearByOffers.length ?
               <div className="near-places__list places__list">
-                {nearOffers.map((o, i) => <OfferCard key={i} offer={o} pageType="near"/>)}
+                {nearByOffers.map((o, i) => <OfferCard key={i} offer={o} pageType="near"/>)}
               </div> :
               <h3 className="near-places__title">Not found : (</h3>}
           </section>
@@ -176,6 +188,9 @@ Offer.propTypes = {
   onLoadOffer: PropTypes.func,
   isOfferLoaded: PropTypes.bool,
   chosenOffer: PropTypes.object,
+  nearByOffers: PropTypes.array,
+  isNearbyOffersLoaded: PropTypes.bool,
+  onLoadNearbyOffers: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -183,11 +198,16 @@ const mapStateToProps = (state) => ({
   authorizationStatus: state.authorizationStatus,
   isOfferLoaded: state.isOfferLoaded,
   chosenOffer: state.chosenOffer,
+  nearByOffers: state.nearByOffers,
+  isNearbyOffersLoaded: state.isNearbyOffersLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadOffer(id) {
     dispatch(fetchOffer(id));
+  },
+  onLoadNearbyOffers(id) {
+    dispatch(fetchNearbyOffer(id));
   },
 });
 

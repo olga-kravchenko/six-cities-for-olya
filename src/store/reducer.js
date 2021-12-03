@@ -11,7 +11,9 @@ const initialState = {
   isOpenSortingPopup: DEFAULT_STATE,
   isDataLoaded: false,
   isOfferLoaded: false,
+  isNearbyOffersLoaded: false,
   chosenOffer: {},
+  nearByOffers: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -44,8 +46,10 @@ const reducer = (state = initialState, action) => {
       return {...state, activeOfferId: action.payload};
     case ActionType.CHOSE_OFFER:
       return {...state, chosenOffer: action.payload, isOfferLoaded: true};
+    case ActionType.LOAD_NEARBY_OFFERS:
+      return {...state, nearByOffers: action.payload, isNearbyOffersLoaded: true};
     case ActionType.RESET_OFFER:
-      return {...state, chosenOffer: {}, isOfferLoaded: false};
+      return {...state, chosenOffer: {}, isOfferLoaded: false, nearByOffers: [], isNearbyOffersLoaded: false};
     default:
       return state;
   }

@@ -11,6 +11,7 @@ const ActionType = {
   CHANGE_ACTIVE_OFFER: `offer/changeActiveOffer`,
   CHOSE_OFFER: `offer/choseOffer`,
   RESET_OFFER: `offer/resetOffer`,
+  LOAD_NEARBY_OFFERS: `offer/loadNearbyOffers`,
 };
 
 const ActionCreator = {
@@ -44,9 +45,13 @@ const ActionCreator = {
     type: ActionType.CHANGE_ACTIVE_OFFER,
     payload: offerId,
   }),
-  choseOffer: (offerId = ``) => ({
+  choseOffer: (offer) => ({
     type: ActionType.CHOSE_OFFER,
-    payload: offerId,
+    payload: offer,
+  }),
+  loadNearbyOffers: (offers) => ({
+    type: ActionType.LOAD_NEARBY_OFFERS,
+    payload: offers,
   }),
   resetOffer: () => ({
     type: ActionType.RESET_OFFER,

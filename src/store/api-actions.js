@@ -39,3 +39,10 @@ export const fetchOffer = (id) => (dispatch, _getState, api) => (
       dispatch(ActionCreator.choseOffer(data));
     })
 );
+
+export const fetchNearbyOffer = (id) => (dispatch, _getState, api) => (
+  api.get(`/hotels/${id}/nearby`)
+    .then(({data}) => {
+      dispatch(ActionCreator.loadNearbyOffers(data));
+    })
+);
