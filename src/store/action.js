@@ -9,9 +9,9 @@ const ActionType = {
   RESET_SORTING_TYPE: `main/resetSortingType`,
   OPEN_POPUP: `main/openPopup`,
   CHANGE_ACTIVE_OFFER: `offer/changeActiveOffer`,
-  CHOSE_OFFER: `offer/choseOffer`,
+  LOAD_OFFER: `offer/loadOffer`,
   RESET_OFFER: `offer/resetOffer`,
-  LOAD_NEARBY_OFFERS: `offer/loadNearbyOffers`,
+  LOAD_NEAREST_OFFERS: `offer/loadNearestOffers`,
   REDIRECT_TO_ROUTE: `main/redirectToRoute`,
 };
 
@@ -46,12 +46,12 @@ const ActionCreator = {
     type: ActionType.CHANGE_ACTIVE_OFFER,
     payload: offerId,
   }),
-  choseOffer: (offer) => ({
-    type: ActionType.CHOSE_OFFER,
+  loadOffer: (offer) => ({
+    type: ActionType.LOAD_OFFER,
     payload: offer,
   }),
-  loadNearbyOffers: (offers) => ({
-    type: ActionType.LOAD_NEARBY_OFFERS,
+  loadNearestOffers: (offers) => ({
+    type: ActionType.LOAD_NEAREST_OFFERS,
     payload: offers,
   }),
   resetOffer: () => ({

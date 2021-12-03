@@ -44,9 +44,9 @@ const reducer = (state = initialState, action) => {
       return {...state, isOpenSortingPopup: !state.isOpenSortingPopup};
     case ActionType.CHANGE_ACTIVE_OFFER:
       return {...state, activeOfferId: action.payload};
-    case ActionType.CHOSE_OFFER:
+    case ActionType.LOAD_OFFER:
       return {...state, chosenOffer: action.payload, isOfferLoaded: true};
-    case ActionType.LOAD_NEARBY_OFFERS:
+    case ActionType.LOAD_NEAREST_OFFERS:
       return {...state, nearByOffers: action.payload, isNearbyOffersLoaded: true};
     case ActionType.RESET_OFFER:
       return {...state, chosenOffer: {}, isOfferLoaded: false, nearByOffers: [], isNearbyOffersLoaded: false};

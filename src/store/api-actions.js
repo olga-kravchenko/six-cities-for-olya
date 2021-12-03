@@ -37,7 +37,7 @@ const logout = () => (dispatch, _getState, api) => (
 const fetchOffer = (id) => (dispatch, _getState, api) => (
   api.get(`${ApiRoute.OFFERS}/${id}`)
     .then(({data}) => {
-      dispatch(ActionCreator.choseOffer(data));
+      dispatch(ActionCreator.loadOffer(data));
     })
     .catch(() => dispatch(ActionCreator.redirectToRoute(`${AppRoute.PAGE_NOT_FOUND}`)))
 );
@@ -45,7 +45,7 @@ const fetchOffer = (id) => (dispatch, _getState, api) => (
 const fetchNearbyOffer = (id) => (dispatch, _getState, api) => (
   api.get(`${ApiRoute.OFFERS}/${id}${ApiRoute.NEARBY}`)
     .then(({data}) => {
-      dispatch(ActionCreator.loadNearbyOffers(data));
+      dispatch(ActionCreator.loadNearestOffers(data));
     })
 );
 

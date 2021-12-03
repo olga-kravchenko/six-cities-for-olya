@@ -12,7 +12,7 @@ import Comments from "../comments/comments";
 import {fetchNearbyOffer, fetchOffer} from "../../store/api-actions";
 import Spinner from "../spinner/spinner";
 
-const Offer = ({onLoadNearbyOffers, onSubmitComment, authorizationStatus, onLoadOffer, isOfferLoaded, chosenOffer, nearByOffers, isNearbyOffersLoaded}) => {
+const Offer = ({onLoadNearestOffers, onSubmitComment, authorizationStatus, onLoadOffer, isOfferLoaded, chosenOffer, nearByOffers, isNearbyOffersLoaded}) => {
   const {id} = useParams();
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const Offer = ({onLoadNearbyOffers, onSubmitComment, authorizationStatus, onLoad
 
   useEffect(() => {
     if (!isNearbyOffersLoaded) {
-      onLoadNearbyOffers(id);
+      onLoadNearestOffers(id);
     }
   }, [isNearbyOffersLoaded]);
 
@@ -179,7 +179,7 @@ Offer.propTypes = {
   chosenOffer: PropTypes.object,
   nearByOffers: PropTypes.array,
   isNearbyOffersLoaded: PropTypes.bool,
-  onLoadNearbyOffers: PropTypes.func,
+  onLoadNearestOffers: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -195,7 +195,7 @@ const mapDispatchToProps = (dispatch) => ({
   onLoadOffer(id) {
     dispatch(fetchOffer(id));
   },
-  onLoadNearbyOffers(id) {
+  onLoadNearestOffers(id) {
     dispatch(fetchNearbyOffer(id));
   },
 });
