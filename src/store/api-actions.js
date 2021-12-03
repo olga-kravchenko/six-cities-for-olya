@@ -56,6 +56,11 @@ const fetchComments = (id) => (dispatch, _getState, api) => (
     .then(({data}) => dispatch(ActionCreator.loadComments(data)))
 );
 
+const postComment = (id, {comment, rating}) => (dispatch, _getState, api) => (
+  api.post(`${ApiRoute.COMMENTS}/${id}`, {comment, rating})
+    .then(({data}) => dispatch(ActionCreator.loadComments(data)))
+);
+
 export {
   fetchOffers,
   checkAuthorization,
@@ -64,5 +69,6 @@ export {
   fetchOffer,
   fetchNearbyOffer,
   fetchFavoriteOffers,
-  fetchComments
+  fetchComments,
+  postComment
 };

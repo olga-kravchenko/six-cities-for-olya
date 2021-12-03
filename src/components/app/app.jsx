@@ -35,10 +35,7 @@ const App = ({offers, cities, authorizationStatus}) => {
           />}
         />
         <Route path={AppRoute.OFFER} exact>
-          <Offer
-            offers={offers}
-            onSubmitComment={() => {}}
-          />
+          <Offer/>
         </Route>
         <Route>
           <PageNotFound/>

@@ -13,7 +13,6 @@ import Spinner from "../spinner/spinner";
 
 const Offer = ({
   onLoadNearestOffers,
-  onSubmitComment,
   authorizationStatus,
   onLoadOffer,
   isOfferLoaded,
@@ -61,11 +60,6 @@ const Offer = ({
       <Spinner/>
     );
   }
-  //
-  // const MAX_COMMENT_QUANTITY = 5;
-  // const comments = new Array(getRandomNumber(0, MAX_COMMENT_QUANTITY))
-  //   .fill(null)
-  //   .map(generateComment);
 
   const {
     bedrooms,
@@ -167,7 +161,7 @@ const Offer = ({
                 <h2 className="reviews__title">Reviews &middot; <span
                   className="reviews__amount">{comments.length}</span></h2>
                 {comments.length ? <Comments comments={comments}/> : ``}
-                {authorizationStatus ? <CommentForm onSubmitComment={onSubmitComment}/> : ``}
+                {authorizationStatus ? <CommentForm id={id}/> : ``}
               </section>
             </div>
           </div>
@@ -192,7 +186,6 @@ const Offer = ({
 };
 
 Offer.propTypes = {
-  onSubmitComment: PropTypes.func.isRequired,
   offers: PropTypes.array,
   city: PropTypes.string,
   authorizationStatus: PropTypes.bool,
