@@ -23,4 +23,30 @@ const AuthorizationStatus = {
   NO_AUTH: false,
 };
 
-export {CityNames, SortingType, DEFAULT_CITY, DEFAULT_SORTING_TYPE, DEFAULT_STATE, AuthorizationStatus};
+
+const AppRoute = {
+  MAIN: `/`,
+  LOGIN: `/login`,
+  FAVORITES: `/favorites`,
+  OFFER: `/offer/:id`,
+  PAGE_NOT_FOUND: `/page-not-found`,
+};
+
+const ApiRoute = {
+  OFFERS: `/hotels`,
+  LOGIN: `/login`,
+  LOGOUT: `/logout`,
+  NEARBY: `/nearby`,
+};
+
+
+export {
+  CityNames,
+  SortingType,
+  DEFAULT_CITY,
+  DEFAULT_SORTING_TYPE,
+  DEFAULT_STATE,
+  AuthorizationStatus,
+  AppRoute,
+  ApiRoute
+};

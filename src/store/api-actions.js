@@ -1,13 +1,13 @@
 import {ActionCreator} from "./action";
-import {AuthorizationStatus} from "../constants";
+import {AuthorizationStatus, ApiRoute, AppRoute} from "../constants";
 
 const fetchOffers = () => (dispatch, _getState, api) => (
-  api.get(`/hotels`)
+  api.get(`${ApiRoute.OFFERS}`)
     .then(({data}) => dispatch(ActionCreator.loadOffers(data)))
 );
 
 const checkAuthorization = () => (dispatch, _getState, api) => (
-  api.get(`/login`)
+  api.get(`${ApiRoute.LOGIN}`)
     .then(({data}) =>{
       dispatch(ActionCreator.saveUserInfo(data));
       dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
@@ -17,7 +17,7 @@ const checkAuthorization = () => (dispatch, _getState, api) => (
 );
 
 const login = ({login: email, password}) => (dispatch, _getState, api) => (
-  api.post(`/login`, {email, password})
+  api.post(`${ApiRoute.LOGIN}`, {email, password})
     .then(({data}) => {
       if (email && password) {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
@@ -26,24 +26,24 @@ const login = ({login: email, password}) => (dispatch, _getState, api) => (
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
       }
     })
-    .then(() => dispatch(ActionCreator.redirectToRoute(`/`)))
+    .then(() => dispatch(ActionCreator.redirectToRoute(`${AppRoute.MAIN}`)))
 );
 
 const logout = () => (dispatch, _getState, api) => (
-  api.get(`/logout`)
+  api.get(`${ApiRoute.LOGOUT}`)
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)))
 );
 
 const fetchOffer = (id) => (dispatch, _getState, api) => (
-  api.get(`/hotels/${id}`)
+  api.get(`${ApiRoute.OFFERS}/${id}`)
     .then(({data}) => {
       dispatch(ActionCreator.choseOffer(data));
     })
-    .catch(() => dispatch(ActionCreator.redirectToRoute(`/page-not-found`)))
+    .catch(() => dispatch(ActionCreator.redirectToRoute(`${AppRoute.PAGE_NOT_FOUND}`)))
 );
 
 const fetchNearbyOffer = (id) => (dispatch, _getState, api) => (
-  api.get(`/hotels/${id}/nearby`)
+  api.get(`${ApiRoute.OFFERS}/${id}${ApiRoute.NEARBY}`)
     .then(({data}) => {
       dispatch(ActionCreator.loadNearbyOffers(data));
     })

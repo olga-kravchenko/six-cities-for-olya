@@ -9,31 +9,32 @@ import PageNotFound from "../page-not-found/page-not-found";
 import Offer from "../offer/offer";
 import PrivateRoute from "../private-route/private-route";
 import browserHistory from "../../browser-history";
+import {AppRoute} from "../../constants";
 
 const App = ({offers, cities, authorizationStatus}) => {
   const favoriteOffers = offers.filter((offer) => offer.is_favorite);
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
-        <Route path="/" exact>
+        <Route path={AppRoute.MAIN} exact>
           <Main
             offers={offers}
             cities={cities}
           />
         </Route>
-        <Route path="/login" exact>
+        <Route path={AppRoute.LOGIN} exact>
           <Login/>
         </Route>
         <PrivateRoute
           exact
-          path="/favorites"
+          path={AppRoute.FAVORITES}
           authorizationStatus={authorizationStatus}
           render={() => <Favorites
             cities={cities}
             offers={favoriteOffers}
           />}
         />
-        <Route path="/offer/:id" exact>
+        <Route path={AppRoute.OFFER} exact>
           <Offer
             offers={offers}
             onSubmitComment={() => {}}
