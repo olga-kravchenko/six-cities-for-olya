@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import PropTypes from "prop-types";
 import {Redirect, useParams} from "react-router-dom";
 import {connect} from "react-redux";
@@ -9,8 +9,24 @@ import CommentForm from "../comment-form/comment-form";
 import OfferCard from "../offer-card/offer-card";
 import Map from "../map/map";
 import Comments from "../comments/comments";
+import {fetchOffer, getOffer} from "../../store/api-actions";
+import Spinner from "../spinner/spinner";
 
-const Offer = ({onSubmitComment, offers, city, authorizationStatus}) => {
+const Offer = ({onSubmitComment, offers, city, authorizationStatus, onLoadOffer, isOfferLoaded, chosenOffer}) => {
+  const {id} = useParams();
+
+  useEffect(() => {
+    if (!isOfferLoaded) {
+      onLoadOffer(id);
+    }
+  }, [isOfferLoaded]);
+
+  if (!isOfferLoaded) {
+    return (
+      <Spinner />
+    );
+  }
+
   const offerList = offers.filter((e) => e.city.name === city);
   const MAX_COMMENT_QUANTITY = 5;
   const SHOWN_OFFER_QUANTITY = 3;
@@ -19,7 +35,6 @@ const Offer = ({onSubmitComment, offers, city, authorizationStatus}) => {
     .fill(null)
     .map(generateComment);
 
-  const {id} = useParams();
   const index = offerList.findIndex((offer) => offer.id === +id);
   if (index === -1) {
     return (
@@ -28,7 +43,7 @@ const Offer = ({onSubmitComment, offers, city, authorizationStatus}) => {
   }
 
   const nearOffers = [...offerList].filter((offer) => offer.id !== id).slice(0, SHOWN_OFFER_QUANTITY);
-  const offer = offerList[index];
+
   const {
     bedrooms,
     max_adults,
@@ -42,7 +57,7 @@ const Offer = ({onSubmitComment, offers, city, authorizationStatus}) => {
     is_premium,
     rating,
     host
-  } = offer;
+  } = chosenOffer;
   const {avatar_url, is_pro, name, id: hostId} = host;
   const percent = convertRatingToPercent(rating);
   const userAvatarPro = is_pro ? `property__avatar-wrapper--pro` : ``;
@@ -158,12 +173,24 @@ Offer.propTypes = {
   offers: PropTypes.array,
   city: PropTypes.string,
   authorizationStatus: PropTypes.bool,
+  onLoadOffer: PropTypes.func,
+  isOfferLoaded: PropTypes.bool,
+  chosenOffer: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
   authorizationStatus: state.authorizationStatus,
+  isOfferLoaded: state.isOfferLoaded,
+  chosenOffer: state.chosenOffer,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onLoadOffer(id) {
+    dispatch(fetchOffer(id));
+  },
+});
+
+
 export {Offer};
-export default connect(mapStateToProps)(Offer);
+export default connect(mapStateToProps, mapDispatchToProps)(Offer);

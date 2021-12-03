@@ -33,7 +33,7 @@ export const logout = () => (dispatch, _getState, api) => (
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)))
 );
 
-export const getOffer = (id) => (dispatch, _getState, api) => (
+export const fetchOffer = (id) => (dispatch, _getState, api) => (
   api.get(`/hotels/${id}`)
     .then(({data}) => {
       dispatch(ActionCreator.choseOffer(data));

@@ -11,15 +11,22 @@ import Spinner from "../spinner/spinner";
 import {fetchOffers} from "../../store/api-actions";
 import {SortingType} from "../../constants";
 import {sortOffersByPriceHighToLow, sortOffersByPriceLowToHigh, sortOffersByRating} from "../../utils/utils";
+import {ActionCreator} from "../../store/action";
 
-const Main = ({city, cities, offers, sortingType, isDataLoaded, onLoadData}) => {
+const Main = ({city, cities, offers, sortingType, isDataLoaded, onLoadData, isOfferLoaded, resetOffer}) => {
   useEffect(() => {
     if (!isDataLoaded) {
       onLoadData();
     }
   }, [isDataLoaded]);
 
-  const isLoaded = !isDataLoaded ? <Spinner /> : <EmptyMain/>;
+  useEffect(() => {
+    if (isOfferLoaded) {
+      resetOffer();
+    }
+  }, [isOfferLoaded]);
+
+  const isLoaded = !isDataLoaded ? <Spinner/> : <EmptyMain/>;
 
   let callback;
   switch (sortingType) {
@@ -82,18 +89,24 @@ Main.propTypes = {
   cities: PropTypes.array,
   sortingType: PropTypes.string,
   isDataLoaded: PropTypes.bool.isRequired,
+  isOfferLoaded: PropTypes.bool.isRequired,
   onLoadData: PropTypes.func.isRequired,
+  resetOffer: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
   isDataLoaded: state.isDataLoaded,
+  isOfferLoaded: state.isOfferLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadData() {
     dispatch(fetchOffers());
   },
+  resetOffer() {
+    dispatch(ActionCreator.resetOffer());
+  }
 });
 
 export {Main};

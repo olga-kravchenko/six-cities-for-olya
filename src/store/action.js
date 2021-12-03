@@ -10,6 +10,7 @@ const ActionType = {
   OPEN_POPUP: `main/openPopup`,
   CHANGE_ACTIVE_OFFER: `offer/changeActiveOffer`,
   CHOSE_OFFER: `offer/choseOffer`,
+  RESET_OFFER: `offer/resetOffer`,
 };
 
 const ActionCreator = {
@@ -46,6 +47,9 @@ const ActionCreator = {
   choseOffer: (offerId = ``) => ({
     type: ActionType.CHOSE_OFFER,
     payload: offerId,
+  }),
+  resetOffer: () => ({
+    type: ActionType.RESET_OFFER,
   }),
 };
 

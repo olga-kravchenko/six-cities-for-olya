@@ -5,7 +5,6 @@ import {useHistory} from "react-router-dom";
 import {convertRatingToPercent} from "../../utils/utils";
 import {ActionCreator} from "../../store/action";
 import {connect} from "react-redux";
-import {getOffer} from "../../store/api-actions";
 
 const OfferCard = ({offer, pageType, onOfferTitleClick}) => {
   const {price, title, type, preview_image, id, is_favorite, rating} = offer;
@@ -84,10 +83,9 @@ OfferCard.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onOfferTitleClick(typeCity, id) {
+  onOfferTitleClick(typeCity) {
     dispatch(ActionCreator.changeCity(typeCity));
     dispatch(ActionCreator.resetSortingType());
-    dispatch(getOffer(id));
   },
 });
 
