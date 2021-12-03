@@ -3,17 +3,17 @@ import {SortingType} from "../constants";
 const ActionType = {
   SAVE_USER_INFO: `user/saveUserInfo`,
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
-  LOAD_OFFERS: `main/loadOffers`,
   CHANGE_CITY: `main/changeCity`,
   CHANGE_SORTING_TYPE: `main/changeSortingType`,
-  RESET_SORTING_TYPE: `main/resetSortingType`,
   OPEN_POPUP: `main/openPopup`,
+  RESET_SORTING_TYPE: `main/resetSortingType`,
   CHANGE_ACTIVE_OFFER: `offer/changeActiveOffer`,
+  LOAD_OFFERS: `main/loadOffers`,
   LOAD_OFFER: `offer/loadOffer`,
-  RESET_OFFER: `offer/resetOffer`,
-  LOAD_NEAREST_OFFERS: `offer/loadNearestOffers`,
   LOAD_COMMENTS: `offer/loadComments`,
+  LOAD_NEAREST_OFFERS: `offer/loadNearestOffers`,
   LOAD_FAVORITE_OFFERS: `offer/loadFavoriteOffers`,
+  RESET_OFFER: `offer/resetOffer`,
   REDIRECT_TO_ROUTE: `main/redirectToRoute`,
 };
 
@@ -26,10 +26,6 @@ const ActionCreator = {
     type: ActionType.REQUIRED_AUTHORIZATION,
     payload: status,
   }),
-  loadOffers: (offers) => ({
-    type: ActionType.LOAD_OFFERS,
-    payload: offers
-  }),
   changeCity: (city) => ({
     type: ActionType.CHANGE_CITY,
     payload: city,
@@ -38,27 +34,35 @@ const ActionCreator = {
     type: ActionType.CHANGE_SORTING_TYPE,
     payload: sortingType,
   }),
-  resetSortingType: () => ({
-    type: ActionType.RESET_SORTING_TYPE,
-  }),
   openPopup: () => ({
     type: ActionType.OPEN_POPUP,
+  }),
+  resetSortingType: () => ({
+    type: ActionType.RESET_SORTING_TYPE,
   }),
   changeActiveOffer: (offerId = ``) => ({
     type: ActionType.CHANGE_ACTIVE_OFFER,
     payload: offerId,
   }),
+  loadOffers: (offers) => ({
+    type: ActionType.LOAD_OFFERS,
+    payload: offers
+  }),
   loadOffer: (offer) => ({
     type: ActionType.LOAD_OFFER,
     payload: offer,
+  }),
+  loadComments: (comments) => ({
+    type: ActionType.LOAD_COMMENTS,
+    payload: comments,
   }),
   loadNearestOffers: (offers) => ({
     type: ActionType.LOAD_NEAREST_OFFERS,
     payload: offers,
   }),
-  loadComments: (comments) => ({
-    type: ActionType.LOAD_COMMENTS,
-    payload: comments,
+  loadFavoriteOffers: (offers) => ({
+    type: ActionType.LOAD_FAVORITE_OFFERS,
+    payload: offers,
   }),
   resetOffer: () => ({
     type: ActionType.RESET_OFFER,
@@ -66,10 +70,6 @@ const ActionCreator = {
   redirectToRoute: (url) => ({
     type: ActionType.REDIRECT_TO_ROUTE,
     payload: url,
-  }),
-  loadFavoriteOffers: (offers) => ({
-    type: ActionType.LOAD_FAVORITE_OFFERS,
-    payload: offers,
   }),
 };
 

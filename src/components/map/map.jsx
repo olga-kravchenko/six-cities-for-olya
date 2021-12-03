@@ -26,7 +26,6 @@ const Map = ({offerList, style, city, activeOfferId}) => {
 
     offerList.forEach((offer) => {
       const isActivePin = +activeOfferId === offer.id ? `./img/pin-active.svg` : `./img/pin.svg`;
-
       const customIcon = leaflet.icon({
         iconUrl: isActivePin,
         iconSize: [27, 39]

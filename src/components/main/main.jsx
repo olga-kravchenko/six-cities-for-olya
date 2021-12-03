@@ -1,6 +1,10 @@
 import React, {useEffect} from "react";
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
+import {SortingType} from "../../constants";
+import {ActionCreator} from "../../store/action";
+import {sortOffersByPriceHighToLow, sortOffersByPriceLowToHigh, sortOffersByRating} from "../../utils/utils";
+import {fetchOffers} from "../../store/api-actions";
 import SortingTypes from "../sorting-types/sorting-types";
 import Header from "../header/header";
 import Offers from "../offers/offers";
@@ -8,17 +12,13 @@ import Map from "../map/map";
 import Cities from "../cities/cities";
 import EmptyMain from "../empty-main/empty-main";
 import Spinner from "../spinner/spinner";
-import {fetchOffers} from "../../store/api-actions";
-import {SortingType} from "../../constants";
-import {sortOffersByPriceHighToLow, sortOffersByPriceLowToHigh, sortOffersByRating} from "../../utils/utils";
-import {ActionCreator} from "../../store/action";
 
-const Main = ({city, cities, offers, sortingType, isDataLoaded, onLoadData, isOfferLoaded, resetOffer}) => {
+const Main = ({cities, city, offers, sortingType, isOffersLoaded, onLoadOffers, isOfferLoaded, resetOffer}) => {
   useEffect(() => {
-    if (!isDataLoaded) {
-      onLoadData();
+    if (!isOffersLoaded) {
+      onLoadOffers();
     }
-  }, [isDataLoaded]);
+  }, [isOffersLoaded]);
 
   useEffect(() => {
     if (isOfferLoaded) {
@@ -26,7 +26,7 @@ const Main = ({city, cities, offers, sortingType, isDataLoaded, onLoadData, isOf
     }
   }, [isOfferLoaded]);
 
-  const isLoaded = !isDataLoaded ? <Spinner/> : <EmptyMain/>;
+  const isLoaded = !isOffersLoaded ? <Spinner/> : <EmptyMain/>;
 
   let callback;
   switch (sortingType) {
@@ -84,24 +84,25 @@ const Main = ({city, cities, offers, sortingType, isDataLoaded, onLoadData, isOf
 };
 
 Main.propTypes = {
+  cities: PropTypes.array,
   city: PropTypes.string.isRequired,
   offers: PropTypes.array.isRequired,
-  cities: PropTypes.array,
   sortingType: PropTypes.string,
-  isDataLoaded: PropTypes.bool.isRequired,
+  isOffersLoaded: PropTypes.bool.isRequired,
+  onLoadOffers: PropTypes.func.isRequired,
   isOfferLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired,
   resetOffer: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  isDataLoaded: state.isDataLoaded,
+  offers: state.offers,
+  isOffersLoaded: state.isOffersLoaded,
   isOfferLoaded: state.isOfferLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoadData() {
+  onLoadOffers() {
     dispatch(fetchOffers());
   },
   resetOffer() {

@@ -30,9 +30,7 @@ store.dispatch(checkAuthorization());
 
 ReactDOM.render(
     <Provider store={store}>
-      <App
-        cities={cityNames}
-      />
+      <App cities={cityNames}/>
     </Provider>,
     document.querySelector(`#root`)
 );

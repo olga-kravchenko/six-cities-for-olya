@@ -33,8 +33,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onCityClick(evt) {
     evt.preventDefault();
-    document.querySelector(`.cities__places`).scrollTo(0, 0);
     const cityName = evt.target.textContent;
+    document.querySelector(`.cities__places`).scrollTo(0, 0);
     dispatch(ActionCreator.changeCity(cityName));
     dispatch(ActionCreator.resetSortingType());
   },

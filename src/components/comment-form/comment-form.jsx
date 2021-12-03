@@ -19,15 +19,15 @@ const CommentForm = ({id, onSubmitComment}) => {
       comment: userForm.review,
       rating: userForm.rating,
     });
-    setUserForm({...userForm, review: ``, rating: ``});
     document.querySelector(`.reviews__form`).reset();
+    setUserForm({...userForm, review: ``, rating: ``});
   };
 
   const handleFieldChange = (evt) => {
     const {name, value} = evt.target;
     setUserForm({...userForm, [name]: value});
-
   };
+
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>

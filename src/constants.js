@@ -23,7 +23,6 @@ const AuthorizationStatus = {
   NO_AUTH: false,
 };
 
-
 const AppRoute = {
   MAIN: `/`,
   LOGIN: `/login`,
@@ -40,7 +39,6 @@ const ApiRoute = {
   FAVORITE: `/favorite`,
   COMMENTS: `/comments`,
 };
-
 
 export {
   CityNames,

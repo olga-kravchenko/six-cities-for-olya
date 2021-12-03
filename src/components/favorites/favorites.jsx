@@ -9,11 +9,10 @@ import {fetchFavoriteOffers} from "../../store/api-actions";
 import {connect} from "react-redux";
 import Spinner from "../spinner/spinner";
 
-const Favorites = ({cities, isFavoritesLoaded, onLoadData, favoriteOffers}) => {
-
+const Favorites = ({cities, favoriteOffers, isFavoritesLoaded, onLoadFavorites}) => {
   useEffect(() => {
     if (!isFavoritesLoaded) {
-      onLoadData();
+      onLoadFavorites();
     }
   }, [isFavoritesLoaded]);
 
@@ -69,10 +68,10 @@ const Favorites = ({cities, isFavoritesLoaded, onLoadData, favoriteOffers}) => {
 };
 
 Favorites.propTypes = {
-  favoriteOffers: PropTypes.array.isRequired,
   cities: PropTypes.array,
+  favoriteOffers: PropTypes.array.isRequired,
   isFavoritesLoaded: PropTypes.bool,
-  onLoadData: PropTypes.func,
+  onLoadFavorites: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -81,7 +80,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoadData() {
+  onLoadFavorites() {
     dispatch(fetchFavoriteOffers());
   }
 });

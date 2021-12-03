@@ -1,26 +1,21 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
-import {connect} from "react-redux";
+import browserHistory from "../../browser-history";
+import {AppRoute} from "../../constants";
 import Main from "../main/main";
 import Login from "../login/login";
 import Favorites from "../favorites/favorites";
-import PageNotFound from "../page-not-found/page-not-found";
 import Offer from "../offer/offer";
 import PrivateRoute from "../private-route/private-route";
-import browserHistory from "../../browser-history";
-import {AppRoute} from "../../constants";
+import PageNotFound from "../page-not-found/page-not-found";
 
-const App = ({offers, cities, authorizationStatus}) => {
-  const favoriteOffers = offers.filter((offer) => offer.is_favorite);
+const App = ({cities}) => {
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
         <Route path={AppRoute.MAIN} exact>
-          <Main
-            offers={offers}
-            cities={cities}
-          />
+          <Main cities={cities}/>
         </Route>
         <Route path={AppRoute.LOGIN} exact>
           <Login/>
@@ -28,11 +23,7 @@ const App = ({offers, cities, authorizationStatus}) => {
         <PrivateRoute
           exact
           path={AppRoute.FAVORITES}
-          authorizationStatus={authorizationStatus}
-          render={() => <Favorites
-            cities={cities}
-            offers={favoriteOffers}
-          />}
+          render={() => <Favorites cities={cities}/>}
         />
         <Route path={AppRoute.OFFER} exact>
           <Offer/>
@@ -46,15 +37,7 @@ const App = ({offers, cities, authorizationStatus}) => {
 };
 
 App.propTypes = {
-  offers: PropTypes.array.isRequired,
   cities: PropTypes.array,
-  authorizationStatus: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => ({
-  offers: state.offers,
-  authorizationStatus: state.authorizationStatus
-});
-
-export {App};
-export default connect(mapStateToProps, null)(App);
+export default App;

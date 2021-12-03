@@ -3,25 +3,25 @@ import PropTypes from "prop-types";
 import {useParams} from "react-router-dom";
 import {connect} from "react-redux";
 import {convertRatingToPercent} from "../../utils/utils";
+import {fetchComments, fetchNearbyOffer, fetchOffer} from "../../store/api-actions";
 import Header from "../header/header";
 import CommentForm from "../comment-form/comment-form";
 import OfferCard from "../offer-card/offer-card";
 import Map from "../map/map";
 import Comments from "../comments/comments";
-import {fetchComments, fetchNearbyOffer, fetchOffer} from "../../store/api-actions";
 import Spinner from "../spinner/spinner";
 
 const Offer = ({
-  onLoadNearestOffers,
-  authorizationStatus,
-  onLoadOffer,
-  isOfferLoaded,
-  chosenOffer,
-  nearByOffers,
-  isNearbyOffersLoaded,
-  onLoadComments,
+  offer,
   comments,
-  isCommentsLoaded
+  nearestOffers,
+  onLoadOffer,
+  onLoadComments,
+  onLoadNearestOffers,
+  isOfferLoaded,
+  isNearbyOffersLoaded,
+  isCommentsLoaded,
+  authorizationStatus,
 }) => {
   const {id} = useParams();
 
@@ -32,16 +32,22 @@ const Offer = ({
   }, [isOfferLoaded]);
 
   useEffect(() => {
+    if (!isCommentsLoaded) {
+      onLoadComments(id);
+    }
+  }, [isCommentsLoaded]);
+
+  useEffect(() => {
     if (!isNearbyOffersLoaded) {
       onLoadNearestOffers(id);
     }
   }, [isNearbyOffersLoaded]);
 
-  useEffect(() => {
-    if (!isCommentsLoaded) {
-      onLoadComments(id);
-    }
-  }, [isCommentsLoaded]);
+  if (!isCommentsLoaded) {
+    return (
+      <Spinner/>
+    );
+  }
 
   if (!isOfferLoaded) {
     return (
@@ -50,12 +56,6 @@ const Offer = ({
   }
 
   if (!isNearbyOffersLoaded) {
-    return (
-      <Spinner/>
-    );
-  }
-
-  if (!isCommentsLoaded) {
     return (
       <Spinner/>
     );
@@ -74,7 +74,7 @@ const Offer = ({
     is_premium,
     rating,
     host
-  } = chosenOffer;
+  } = offer;
   const {avatar_url, is_pro, name, id: hostId} = host;
   const percent = convertRatingToPercent(rating);
   const userAvatarPro = is_pro ? `property__avatar-wrapper--pro` : ``;
@@ -166,16 +166,16 @@ const Offer = ({
             </div>
           </div>
           <section className="property__map map">
-            <Map offerList={nearByOffers}
+            <Map offerList={nearestOffers}
               style={{height: `100%`, width: `1144px`, margin: `0 auto`}}/>
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            {nearByOffers.length ?
+            {nearestOffers.length ?
               <div className="near-places__list places__list">
-                {nearByOffers.map((o, i) => <OfferCard key={i} offer={o} pageType="near"/>)}
+                {nearestOffers.map((o, i) => <OfferCard key={i} offer={o} pageType="near"/>)}
               </div> :
               <h3 className="near-places__title">Not found : (</h3>}
           </section>
@@ -186,43 +186,39 @@ const Offer = ({
 };
 
 Offer.propTypes = {
-  offers: PropTypes.array,
-  city: PropTypes.string,
-  authorizationStatus: PropTypes.bool,
-  onLoadOffer: PropTypes.func,
-  isOfferLoaded: PropTypes.bool,
-  chosenOffer: PropTypes.object,
-  nearByOffers: PropTypes.array,
-  isNearbyOffersLoaded: PropTypes.bool,
-  onLoadNearestOffers: PropTypes.func,
-  onLoadComments: PropTypes.func,
+  offer: PropTypes.object,
   comments: PropTypes.array,
+  nearestOffers: PropTypes.array,
+  onLoadOffer: PropTypes.func,
+  onLoadComments: PropTypes.func,
+  onLoadNearestOffers: PropTypes.func,
+  isOfferLoaded: PropTypes.bool,
   isCommentsLoaded: PropTypes.bool,
+  isNearbyOffersLoaded: PropTypes.bool,
+  authorizationStatus: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
-  city: state.city,
-  authorizationStatus: state.authorizationStatus,
-  isOfferLoaded: state.isOfferLoaded,
-  chosenOffer: state.chosenOffer,
-  nearByOffers: state.nearByOffers,
-  isNearbyOffersLoaded: state.isNearbyOffersLoaded,
+  offer: state.offer,
   comments: state.comments,
+  nearestOffers: state.nearestOffers,
+  isOfferLoaded: state.isOfferLoaded,
   isCommentsLoaded: state.isCommentsLoaded,
+  isNearbyOffersLoaded: state.isNearbyOffersLoaded,
+  authorizationStatus: state.authorizationStatus,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadOffer(id) {
     dispatch(fetchOffer(id));
   },
-  onLoadNearestOffers(id) {
-    dispatch(fetchNearbyOffer(id));
-  },
   onLoadComments(id) {
     dispatch(fetchComments(id));
   },
+  onLoadNearestOffers(id) {
+    dispatch(fetchNearbyOffer(id));
+  },
 });
-
 
 export {Offer};
 export default connect(mapStateToProps, mapDispatchToProps)(Offer);

@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import OfferProp from "../offer/offer.prop";
-import {useHistory} from "react-router-dom";
-import {convertRatingToPercent} from "../../utils/utils";
-import {ActionCreator} from "../../store/action";
 import {connect} from "react-redux";
+import {useHistory} from "react-router-dom";
+import {ActionCreator} from "../../store/action";
+import {convertRatingToPercent} from "../../utils/utils";
 
 const OfferCard = ({offer, pageType, onOfferTitleClick}) => {
   const {price, title, type, preview_image, id, is_favorite, rating} = offer;

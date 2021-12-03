@@ -4,40 +4,28 @@ import {DEFAULT_CITY, DEFAULT_SORTING_TYPE, DEFAULT_STATE, AuthorizationStatus} 
 const initialState = {
   userInfo: {email: ``, avatar_url: ``},
   authorizationStatus: AuthorizationStatus.NO_AUTH,
-  offers: [],
   city: DEFAULT_CITY,
   sortingType: DEFAULT_SORTING_TYPE,
-  activeOfferId: ``,
   isOpenSortingPopup: DEFAULT_STATE,
-  isDataLoaded: false,
+  activeOfferId: ``,
+  offers: [],
+  offer: {},
+  comments: [],
+  nearestOffers: [],
+  favoriteOffers: [],
+  isOffersLoaded: false,
   isOfferLoaded: false,
+  isCommentsLoaded: false,
   isNearbyOffersLoaded: false,
   isFavoritesLoaded: false,
-  isCommentsLoaded: false,
-  chosenOffer: {},
-  nearByOffers: [],
-  comments: [],
-  favoriteOffers: [],
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.SAVE_USER_INFO:
-      return {
-        ...state,
-        userInfo: action.payload,
-      };
+      return {...state, userInfo: action.payload};
     case ActionType.REQUIRED_AUTHORIZATION:
-      return {
-        ...state,
-        authorizationStatus: action.payload,
-      };
-    case ActionType.LOAD_OFFERS:
-      return {
-        ...state,
-        offers: action.payload,
-        isDataLoaded: true
-      };
+      return {...state, authorizationStatus: action.payload};
     case ActionType.CHANGE_CITY:
       return {...state, city: action.payload, isOpenSortingPopup: DEFAULT_STATE};
     case ActionType.CHANGE_SORTING_TYPE:
@@ -48,12 +36,16 @@ const reducer = (state = initialState, action) => {
       return {...state, isOpenSortingPopup: !state.isOpenSortingPopup};
     case ActionType.CHANGE_ACTIVE_OFFER:
       return {...state, activeOfferId: action.payload};
+    case ActionType.LOAD_OFFERS:
+      return {...state, offers: action.payload, isOffersLoaded: true};
     case ActionType.LOAD_OFFER:
-      return {...state, chosenOffer: action.payload, isOfferLoaded: true};
-    case ActionType.LOAD_NEAREST_OFFERS:
-      return {...state, nearByOffers: action.payload, isNearbyOffersLoaded: true};
+      return {...state, offer: action.payload, isOfferLoaded: true};
     case ActionType.LOAD_COMMENTS:
       return {...state, comments: action.payload, isCommentsLoaded: true};
+    case ActionType.LOAD_NEAREST_OFFERS:
+      return {...state, nearestOffers: action.payload, isNearbyOffersLoaded: true};
+    case ActionType.LOAD_FAVORITE_OFFERS:
+      return {...state, favoriteOffers: action.payload, isFavoritesLoaded: true};
     case ActionType.RESET_OFFER:
       return {
         ...state,
@@ -64,8 +56,6 @@ const reducer = (state = initialState, action) => {
         isFavoritesLoaded: false,
         isCommentsLoaded: false
       };
-    case ActionType.LOAD_FAVORITE_OFFERS:
-      return {...state, favoriteOffers: action.payload, isFavoritesLoaded: true};
     default:
       return state;
   }

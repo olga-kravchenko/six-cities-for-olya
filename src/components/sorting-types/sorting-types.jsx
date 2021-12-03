@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {ActionCreator} from "../../store/action";
 import {connect} from "react-redux";
+import {ActionCreator} from "../../store/action";
 import {SortingType} from "../../constants";
 
 const SortingTypes = ({sortingType, onSortingTypeClick, isOpenSortingPopup, onSortingPopupClick}) => {
   const types = Object.values(SortingType);
-
   const openSortingPopUp = isOpenSortingPopup ? `places__options--opened` : ``;
+
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by </span>
