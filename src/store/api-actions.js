@@ -51,4 +51,18 @@ const fetchFavoriteOffers = () => (dispatch, _getState, api) => (
     .then(({data}) => dispatch(ActionCreator.loadFavoriteOffers(data)))
 );
 
-export {fetchOffers, checkAuthorization, login, logout, fetchOffer, fetchNearbyOffer, fetchFavoriteOffers};
+const fetchComments = (id) => (dispatch, _getState, api) => (
+  api.get(`${ApiRoute.COMMENTS}/${id}`)
+    .then(({data}) => dispatch(ActionCreator.loadComments(data)))
+);
+
+export {
+  fetchOffers,
+  checkAuthorization,
+  login,
+  logout,
+  fetchOffer,
+  fetchNearbyOffer,
+  fetchFavoriteOffers,
+  fetchComments
+};

@@ -2,17 +2,28 @@ import React, {useEffect} from "react";
 import PropTypes from "prop-types";
 import {useParams} from "react-router-dom";
 import {connect} from "react-redux";
-import {convertRatingToPercent, getRandomNumber} from "../../utils/utils";
-import {generateComment} from "../../mocks/offers";
+import {convertRatingToPercent} from "../../utils/utils";
 import Header from "../header/header";
 import CommentForm from "../comment-form/comment-form";
 import OfferCard from "../offer-card/offer-card";
 import Map from "../map/map";
 import Comments from "../comments/comments";
-import {fetchNearbyOffer, fetchOffer} from "../../store/api-actions";
+import {fetchComments, fetchNearbyOffer, fetchOffer} from "../../store/api-actions";
 import Spinner from "../spinner/spinner";
 
-const Offer = ({onLoadNearestOffers, onSubmitComment, authorizationStatus, onLoadOffer, isOfferLoaded, chosenOffer, nearByOffers, isNearbyOffersLoaded}) => {
+const Offer = ({
+  onLoadNearestOffers,
+  onSubmitComment,
+  authorizationStatus,
+  onLoadOffer,
+  isOfferLoaded,
+  chosenOffer,
+  nearByOffers,
+  isNearbyOffersLoaded,
+  onLoadComments,
+  comments,
+  isCommentsLoaded
+}) => {
   const {id} = useParams();
 
   useEffect(() => {
@@ -21,29 +32,40 @@ const Offer = ({onLoadNearestOffers, onSubmitComment, authorizationStatus, onLoa
     }
   }, [isOfferLoaded]);
 
-
   useEffect(() => {
     if (!isNearbyOffersLoaded) {
       onLoadNearestOffers(id);
     }
   }, [isNearbyOffersLoaded]);
 
+  useEffect(() => {
+    if (!isCommentsLoaded) {
+      onLoadComments(id);
+    }
+  }, [isCommentsLoaded]);
+
   if (!isOfferLoaded) {
     return (
-      <Spinner />
+      <Spinner/>
     );
   }
 
   if (!isNearbyOffersLoaded) {
     return (
-      <Spinner />
+      <Spinner/>
     );
   }
 
-  const MAX_COMMENT_QUANTITY = 5;
-  const comments = new Array(getRandomNumber(0, MAX_COMMENT_QUANTITY))
-    .fill(null)
-    .map(generateComment);
+  if (!isCommentsLoaded) {
+    return (
+      <Spinner/>
+    );
+  }
+  //
+  // const MAX_COMMENT_QUANTITY = 5;
+  // const comments = new Array(getRandomNumber(0, MAX_COMMENT_QUANTITY))
+  //   .fill(null)
+  //   .map(generateComment);
 
   const {
     bedrooms,
@@ -180,6 +202,9 @@ Offer.propTypes = {
   nearByOffers: PropTypes.array,
   isNearbyOffersLoaded: PropTypes.bool,
   onLoadNearestOffers: PropTypes.func,
+  onLoadComments: PropTypes.func,
+  comments: PropTypes.array,
+  isCommentsLoaded: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
@@ -189,6 +214,8 @@ const mapStateToProps = (state) => ({
   chosenOffer: state.chosenOffer,
   nearByOffers: state.nearByOffers,
   isNearbyOffersLoaded: state.isNearbyOffersLoaded,
+  comments: state.comments,
+  isCommentsLoaded: state.isCommentsLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -197,6 +224,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onLoadNearestOffers(id) {
     dispatch(fetchNearbyOffer(id));
+  },
+  onLoadComments(id) {
+    dispatch(fetchComments(id));
   },
 });
 

@@ -12,6 +12,7 @@ const ActionType = {
   LOAD_OFFER: `offer/loadOffer`,
   RESET_OFFER: `offer/resetOffer`,
   LOAD_NEAREST_OFFERS: `offer/loadNearestOffers`,
+  LOAD_COMMENTS: `offer/loadComments`,
   LOAD_FAVORITE_OFFERS: `offer/loadFavoriteOffers`,
   REDIRECT_TO_ROUTE: `main/redirectToRoute`,
 };
@@ -54,6 +55,10 @@ const ActionCreator = {
   loadNearestOffers: (offers) => ({
     type: ActionType.LOAD_NEAREST_OFFERS,
     payload: offers,
+  }),
+  loadComments: (comments) => ({
+    type: ActionType.LOAD_COMMENTS,
+    payload: comments,
   }),
   resetOffer: () => ({
     type: ActionType.RESET_OFFER,
