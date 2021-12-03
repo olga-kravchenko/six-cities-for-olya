@@ -1,14 +1,30 @@
-import React from "react";
+import React, {useEffect} from "react";
 import PropTypes from "prop-types";
 import {Link} from 'react-router-dom';
 import {sortCities} from "../../utils/utils";
 import Header from "../header/header";
 import FavoritesEmpty from "../favorites-empty/favorites-empty";
 import OfferCard from "../offer-card/offer-card";
+import {fetchFavoriteOffers} from "../../store/api-actions";
+import {connect} from "react-redux";
+import Spinner from "../spinner/spinner";
 
-const Favorites = ({offers, cities}) => {
-  const isNoOffers = offers.length === 0;
-  const citiesNames = sortCities(offers, cities);
+const Favorites = ({cities, isFavoritesLoaded, onLoadData, favoriteOffers}) => {
+
+  useEffect(() => {
+    if (!isFavoritesLoaded) {
+      onLoadData();
+    }
+  }, [isFavoritesLoaded]);
+
+  if (!isFavoritesLoaded) {
+    return (
+      <Spinner/>
+    );
+  }
+
+  const isNoOffers = favoriteOffers.length === 0;
+  const citiesNames = sortCities(favoriteOffers, cities);
 
   return (
     <div className="page">
@@ -21,7 +37,7 @@ const Favorites = ({offers, cities}) => {
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
                 {citiesNames.map((city, i) => {
-                  const filteringOffers = offers.filter((e) => e.city.name === city);
+                  const filteringOffers = favoriteOffers.filter((e) => e.city.name === city);
                   return (
                     <li className="favorites__locations-items" key={i}>
                       <div className="favorites__locations locations locations--current">
@@ -53,8 +69,22 @@ const Favorites = ({offers, cities}) => {
 };
 
 Favorites.propTypes = {
-  offers: PropTypes.array.isRequired,
-  cities: PropTypes.array
+  favoriteOffers: PropTypes.array.isRequired,
+  cities: PropTypes.array,
+  isFavoritesLoaded: PropTypes.bool,
+  onLoadData: PropTypes.func,
 };
 
-export default Favorites;
+const mapStateToProps = (state) => ({
+  isFavoritesLoaded: state.isFavoritesLoaded,
+  favoriteOffers: state.favoriteOffers,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadData() {
+    dispatch(fetchFavoriteOffers());
+  }
+});
+
+export {Favorites};
+export default connect(mapStateToProps, mapDispatchToProps)(Favorites);

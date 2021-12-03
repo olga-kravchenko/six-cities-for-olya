@@ -12,6 +12,7 @@ const ActionType = {
   LOAD_OFFER: `offer/loadOffer`,
   RESET_OFFER: `offer/resetOffer`,
   LOAD_NEAREST_OFFERS: `offer/loadNearestOffers`,
+  LOAD_FAVORITE_OFFERS: `offer/loadFavoriteOffers`,
   REDIRECT_TO_ROUTE: `main/redirectToRoute`,
 };
 
@@ -60,6 +61,10 @@ const ActionCreator = {
   redirectToRoute: (url) => ({
     type: ActionType.REDIRECT_TO_ROUTE,
     payload: url,
+  }),
+  loadFavoriteOffers: (offers) => ({
+    type: ActionType.LOAD_FAVORITE_OFFERS,
+    payload: offers,
   }),
 };
 

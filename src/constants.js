@@ -37,6 +37,7 @@ const ApiRoute = {
   LOGIN: `/login`,
   LOGOUT: `/logout`,
   NEARBY: `/nearby`,
+  FAVORITE: `/favorite`,
 };
 
 

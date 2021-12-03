@@ -12,8 +12,10 @@ const initialState = {
   isDataLoaded: false,
   isOfferLoaded: false,
   isNearbyOffersLoaded: false,
+  isFavoritesLoaded: false,
   chosenOffer: {},
   nearByOffers: [],
+  favoriteOffers: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -49,7 +51,9 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_NEAREST_OFFERS:
       return {...state, nearByOffers: action.payload, isNearbyOffersLoaded: true};
     case ActionType.RESET_OFFER:
-      return {...state, chosenOffer: {}, isOfferLoaded: false, nearByOffers: [], isNearbyOffersLoaded: false};
+      return {...state, chosenOffer: {}, isOfferLoaded: false, nearByOffers: [], isNearbyOffersLoaded: false, isFavoritesLoaded: false};
+    case ActionType.LOAD_FAVORITE_OFFERS:
+      return {...state, favoriteOffers: action.payload, isFavoritesLoaded: true};
     default:
       return state;
   }

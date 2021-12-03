@@ -8,12 +8,13 @@ const fetchOffers = () => (dispatch, _getState, api) => (
 
 const checkAuthorization = () => (dispatch, _getState, api) => (
   api.get(`${ApiRoute.LOGIN}`)
-    .then(({data}) =>{
+    .then(({data}) => {
       dispatch(ActionCreator.saveUserInfo(data));
       dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
     })
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
-    .catch(() => {})
+    .catch(() => {
+    })
 );
 
 const login = ({login: email, password}) => (dispatch, _getState, api) => (
@@ -36,17 +37,18 @@ const logout = () => (dispatch, _getState, api) => (
 
 const fetchOffer = (id) => (dispatch, _getState, api) => (
   api.get(`${ApiRoute.OFFERS}/${id}`)
-    .then(({data}) => {
-      dispatch(ActionCreator.loadOffer(data));
-    })
+    .then(({data}) => dispatch(ActionCreator.loadOffer(data)))
     .catch(() => dispatch(ActionCreator.redirectToRoute(`${AppRoute.PAGE_NOT_FOUND}`)))
 );
 
 const fetchNearbyOffer = (id) => (dispatch, _getState, api) => (
   api.get(`${ApiRoute.OFFERS}/${id}${ApiRoute.NEARBY}`)
-    .then(({data}) => {
-      dispatch(ActionCreator.loadNearestOffers(data));
-    })
+    .then(({data}) => dispatch(ActionCreator.loadNearestOffers(data)))
 );
 
-export {fetchOffers, checkAuthorization, login, logout, fetchOffer, fetchNearbyOffer};
+const fetchFavoriteOffers = () => (dispatch, _getState, api) => (
+  api.get(`${ApiRoute.FAVORITE}`)
+    .then(({data}) => dispatch(ActionCreator.loadFavoriteOffers(data)))
+);
+
+export {fetchOffers, checkAuthorization, login, logout, fetchOffer, fetchNearbyOffer, fetchFavoriteOffers};
