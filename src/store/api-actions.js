@@ -1,12 +1,12 @@
 import {ActionCreator} from "./action";
 import {AuthorizationStatus} from "../constants";
 
-export const fetchOffers = () => (dispatch, _getState, api) => (
+const fetchOffers = () => (dispatch, _getState, api) => (
   api.get(`/hotels`)
     .then(({data}) => dispatch(ActionCreator.loadOffers(data)))
 );
 
-export const checkAuthorization = () => (dispatch, _getState, api) => (
+const checkAuthorization = () => (dispatch, _getState, api) => (
   api.get(`/login`)
     .then(({data}) =>{
       dispatch(ActionCreator.saveUserInfo(data));
@@ -16,7 +16,7 @@ export const checkAuthorization = () => (dispatch, _getState, api) => (
     .catch(() => {})
 );
 
-export const login = ({login: email, password}) => (dispatch, _getState, api) => (
+const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(`/login`, {email, password})
     .then(({data}) => {
       if (email && password) {
@@ -29,21 +29,24 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
     .then(() => dispatch(ActionCreator.redirectToRoute(`/`)))
 );
 
-export const logout = () => (dispatch, _getState, api) => (
+const logout = () => (dispatch, _getState, api) => (
   api.get(`/logout`)
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)))
 );
 
-export const fetchOffer = (id) => (dispatch, _getState, api) => (
+const fetchOffer = (id) => (dispatch, _getState, api) => (
   api.get(`/hotels/${id}`)
     .then(({data}) => {
       dispatch(ActionCreator.choseOffer(data));
     })
+    .catch(() => dispatch(ActionCreator.redirectToRoute(`/page-not-found`)))
 );
 
-export const fetchNearbyOffer = (id) => (dispatch, _getState, api) => (
+const fetchNearbyOffer = (id) => (dispatch, _getState, api) => (
   api.get(`/hotels/${id}/nearby`)
     .then(({data}) => {
       dispatch(ActionCreator.loadNearbyOffers(data));
     })
 );
+
+export {fetchOffers, checkAuthorization, login, logout, fetchOffer, fetchNearbyOffer};

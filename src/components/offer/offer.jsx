@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import PropTypes from "prop-types";
-import {Redirect, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {connect} from "react-redux";
 import {convertRatingToPercent, getRandomNumber} from "../../utils/utils";
 import {generateComment} from "../../mocks/offers";
@@ -12,7 +12,7 @@ import Comments from "../comments/comments";
 import {fetchNearbyOffer, fetchOffer} from "../../store/api-actions";
 import Spinner from "../spinner/spinner";
 
-const Offer = ({onLoadNearbyOffers, onSubmitComment, offers, city, authorizationStatus, onLoadOffer, isOfferLoaded, chosenOffer, nearByOffers, isNearbyOffersLoaded}) => {
+const Offer = ({onLoadNearbyOffers, onSubmitComment, authorizationStatus, onLoadOffer, isOfferLoaded, chosenOffer, nearByOffers, isNearbyOffersLoaded}) => {
   const {id} = useParams();
 
   useEffect(() => {
@@ -40,21 +40,10 @@ const Offer = ({onLoadNearbyOffers, onSubmitComment, offers, city, authorization
     );
   }
 
-  console.log(chosenOffer)
-  console.log(nearByOffers)
-
-  const offerList = offers.filter((e) => e.city.name === city);
   const MAX_COMMENT_QUANTITY = 5;
   const comments = new Array(getRandomNumber(0, MAX_COMMENT_QUANTITY))
     .fill(null)
     .map(generateComment);
-
-  const index = offerList.findIndex((offer) => offer.id === +id);
-  if (index === -1) {
-    return (
-      <Redirect to="/page-not-found"/>
-    );
-  }
 
   const {
     bedrooms,
