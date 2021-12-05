@@ -1,5 +1,6 @@
 import {ActionCreator} from "./actions";
 import {AuthorizationStatus, AxiosRoute, AppRoute} from "../constants";
+import {errorToast} from "../utils/utils";
 
 const fetchOffers = () => (dispatch, _, axios) => (
   axios.get(`${AxiosRoute.OFFERS}`)
@@ -10,19 +11,17 @@ const checkAuth = () => (dispatch, _, axios) => (
   axios.get(`${AxiosRoute.LOGIN}`)
     .then(({data}) => dispatch(ActionCreator.saveUserInfo(data)))
     .then(() => dispatch(ActionCreator.changeAuthStatus(AuthorizationStatus.AUTH)))
+    .catch(() => errorToast(`User don't authorize`))
 );
 
 const login = ({login: email, password}) => (dispatch, _, axios) => (
   axios.post(`${AxiosRoute.LOGIN}`, {email, password})
     .then(({data}) => {
-      if (email && password) {
-        dispatch(ActionCreator.changeAuthStatus(AuthorizationStatus.AUTH));
-        dispatch(ActionCreator.saveUserInfo(data));
-      } else {
-        dispatch(ActionCreator.changeAuthStatus(AuthorizationStatus.NO_AUTH));
-      }
+      dispatch(ActionCreator.changeAuthStatus(AuthorizationStatus.AUTH));
+      dispatch(ActionCreator.saveUserInfo(data));
     })
     .then(() => dispatch(ActionCreator.redirectToRoute(`${AppRoute.MAIN}`)))
+    .catch(() => errorToast(`Enter your password and email, please!`))
 );
 
 const logout = () => (dispatch, _, axios) => (
@@ -54,6 +53,7 @@ const fetchComments = (id) => (dispatch, _, axios) => (
 const postComment = (id, {comment, rating}) => (dispatch, _, axios) => (
   axios.post(`${AxiosRoute.COMMENTS}/${id}`, {comment, rating})
     .then(({data}) => dispatch(ActionCreator.loadComments(data)))
+    .catch(() => errorToast(`Comments didn't post!`))
 );
 
 export {
