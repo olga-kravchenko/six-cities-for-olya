@@ -1,12 +1,12 @@
 import {ActionType} from "./actions";
-import {DEFAULT_CITY, DEFAULT_SORTING_TYPE, DEFAULT_STATE, AuthorizationStatus} from "../constants";
+import {DEFAULT_CITY, DEFAULT_SORTING_TYPE} from "../constants";
 
 const initialState = {
   userInfo: {email: ``, avatar_url: ``},
-  authorizationStatus: AuthorizationStatus.NO_AUTH,
+  authorizationStatus: false,
   city: DEFAULT_CITY,
   sortingType: DEFAULT_SORTING_TYPE,
-  isOpenSortingPopup: DEFAULT_STATE,
+  isOpenSortingPopup: false,
   activeOfferId: ``,
   offers: [],
   offer: {},
@@ -20,32 +20,32 @@ const initialState = {
   isFavoritesLoaded: false,
 };
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
+const reducer = (state = initialState, {type, payload}) => {
+  switch (type) {
     case ActionType.SAVE_USER_INFO:
-      return {...state, userInfo: action.payload};
-    case ActionType.REQUIRED_AUTHORIZATION:
-      return {...state, authorizationStatus: action.payload};
+      return {...state, userInfo: payload};
+    case ActionType.CHANGE_AUTHORIZATION:
+      return {...state, authorizationStatus: payload};
     case ActionType.CHANGE_CITY:
-      return {...state, city: action.payload, isOpenSortingPopup: DEFAULT_STATE};
+      return {...state, city: payload, isOpenSortingPopup: false};
     case ActionType.CHANGE_SORTING_TYPE:
-      return {...state, sortingType: action.payload, isOpenSortingPopup: false};
+      return {...state, sortingType: payload, isOpenSortingPopup: false};
     case ActionType.RESET_SORTING_TYPE:
-      return {...state, sortingType: DEFAULT_SORTING_TYPE, isOpenSortingPopup: DEFAULT_STATE};
+      return {...state, sortingType: DEFAULT_SORTING_TYPE, isOpenSortingPopup: false};
     case ActionType.OPEN_POPUP:
       return {...state, isOpenSortingPopup: !state.isOpenSortingPopup};
     case ActionType.CHANGE_ACTIVE_OFFER:
-      return {...state, activeOfferId: action.payload};
+      return {...state, activeOfferId: payload};
     case ActionType.LOAD_OFFERS:
-      return {...state, offers: action.payload, isOffersLoaded: true};
+      return {...state, offers: payload, isOffersLoaded: true};
     case ActionType.LOAD_OFFER:
-      return {...state, offer: action.payload, isOfferLoaded: true};
+      return {...state, offer: payload, isOfferLoaded: true};
     case ActionType.LOAD_COMMENTS:
-      return {...state, comments: action.payload, isCommentsLoaded: true};
+      return {...state, comments: payload, isCommentsLoaded: true};
     case ActionType.LOAD_NEAREST_OFFERS:
-      return {...state, nearestOffers: action.payload, isNearbyOffersLoaded: true};
+      return {...state, nearestOffers: payload, isNearbyOffersLoaded: true};
     case ActionType.LOAD_FAVORITE_OFFERS:
-      return {...state, favoriteOffers: action.payload, isFavoritesLoaded: true};
+      return {...state, favoriteOffers: payload, isFavoritesLoaded: true};
     case ActionType.RESET_OFFER:
       return {
         ...state,

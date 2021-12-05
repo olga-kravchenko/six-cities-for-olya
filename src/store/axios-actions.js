@@ -1,5 +1,5 @@
 import {ActionCreator} from "./actions";
-import {AuthorizationStatus, AxiosRoute, AppRoute} from "../constants";
+import {AxiosRoute, AppRoute} from "../constants";
 import {errorToast} from "../utils/utils";
 
 const fetchOffers = () => (dispatch, _, axios) => (
@@ -10,14 +10,14 @@ const fetchOffers = () => (dispatch, _, axios) => (
 const checkAuth = () => (dispatch, _, axios) => (
   axios.get(`${AxiosRoute.LOGIN}`)
     .then(({data}) => dispatch(ActionCreator.saveUserInfo(data)))
-    .then(() => dispatch(ActionCreator.changeAuthStatus(AuthorizationStatus.AUTH)))
+    .then(() => dispatch(ActionCreator.changeAuthStatus(true)))
     .catch(() => errorToast(`User don't authorize`))
 );
 
 const login = ({login: email, password}) => (dispatch, _, axios) => (
   axios.post(`${AxiosRoute.LOGIN}`, {email, password})
     .then(({data}) => {
-      dispatch(ActionCreator.changeAuthStatus(AuthorizationStatus.AUTH));
+      dispatch(ActionCreator.changeAuthStatus(true));
       dispatch(ActionCreator.saveUserInfo(data));
     })
     .then(() => dispatch(ActionCreator.redirectToRoute(`${AppRoute.MAIN}`)))
@@ -26,7 +26,7 @@ const login = ({login: email, password}) => (dispatch, _, axios) => (
 
 const logout = () => (dispatch, _, axios) => (
   axios.get(`${AxiosRoute.LOGOUT}`)
-    .then(() => dispatch(ActionCreator.changeAuthStatus(AuthorizationStatus.NO_AUTH)))
+    .then(() => dispatch(ActionCreator.changeAuthStatus(false)))
 );
 
 const fetchOffer = (id) => (dispatch, _, axios) => (
