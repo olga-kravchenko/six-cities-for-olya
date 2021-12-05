@@ -26,39 +26,13 @@ const Offer = ({
   const {id} = useParams();
 
   useEffect(() => {
-    if (!isOfferLoaded) {
-      onLoadOffer(id);
-    }
-  }, [isOfferLoaded]);
+    onLoadOffer(id);
+    onLoadComments(id);
+    onLoadNearestOffers(id);
+  }, [isOfferLoaded, isCommentsLoaded, isNearbyOffersLoaded]);
 
-  useEffect(() => {
-    if (!isCommentsLoaded) {
-      onLoadComments(id);
-    }
-  }, [isCommentsLoaded]);
-
-  useEffect(() => {
-    if (!isNearbyOffersLoaded) {
-      onLoadNearestOffers(id);
-    }
-  }, [isNearbyOffersLoaded]);
-
-  if (!isCommentsLoaded) {
-    return (
-      <Spinner/>
-    );
-  }
-
-  if (!isOfferLoaded) {
-    return (
-      <Spinner/>
-    );
-  }
-
-  if (!isNearbyOffersLoaded) {
-    return (
-      <Spinner/>
-    );
+  if (!isCommentsLoaded || !isOfferLoaded || !isNearbyOffersLoaded) {
+    return (<Spinner/>);
   }
 
   const {
