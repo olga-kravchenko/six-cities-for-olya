@@ -1,9 +1,7 @@
 import React, {useEffect} from "react";
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import {SortingType} from "../../constants";
 import {ActionCreator} from "../../store/actions";
-import {sortOffersByPriceHighToLow, sortOffersByPriceLowToHigh, sortOffersByRating} from "../../utils/utils";
 import {fetchOffers} from "../../store/axios-actions";
 import SortingTypes from "../sorting-types/sorting-types";
 import Header from "../header/header";
@@ -12,13 +10,10 @@ import Map from "../map/map";
 import Cities from "../cities/cities";
 import EmptyMain from "../empty-main/empty-main";
 import Spinner from "../spinner/spinner";
+import {getRelevantSortingOffers} from "../../utils/utils";
 
 const Main = ({cities, city, offers, sortingType, isOffersLoaded, onLoadOffers, isOfferLoaded, resetOffer}) => {
-  useEffect(() => {
-    if (!isOffersLoaded) {
-      onLoadOffers();
-    }
-  }, [isOffersLoaded]);
+  useEffect(() => onLoadOffers(), []);
 
   useEffect(() => {
     if (isOfferLoaded) {
@@ -26,28 +21,8 @@ const Main = ({cities, city, offers, sortingType, isOffersLoaded, onLoadOffers, 
     }
   }, [isOfferLoaded]);
 
-  const isLoaded = !isOffersLoaded ? <Spinner/> : <EmptyMain/>;
-
-  let callback;
-  switch (sortingType) {
-    case SortingType.POPULAR:
-      callback = false;
-      break;
-    case SortingType.PRICE_LOW_TO_HIGH:
-      callback = sortOffersByPriceLowToHigh;
-      break;
-    case SortingType.PRICE_HIGH_TO_LOW:
-      callback = sortOffersByPriceHighToLow;
-      break;
-    case SortingType.TOP_RATED_FIRST:
-      callback = sortOffersByRating;
-      break;
-  }
-
-  const offerList = callback ?
-    [...offers.filter((e) => e.city.name === city)].sort(callback) :
-    offers.filter((e) => e.city.name === city);
-
+  const componentEmptyOrSpinner = isOffersLoaded ? <EmptyMain/> : <Spinner/>;
+  const offerList = getRelevantSortingOffers(sortingType, offers, city);
   const noOffers = !offerList.length ? `page__main--index-empty` : ``;
 
   return (
@@ -62,7 +37,7 @@ const Main = ({cities, city, offers, sortingType, isOffersLoaded, onLoadOffers, 
           </section>
         </div>
         {!offerList.length ?
-          isLoaded :
+          componentEmptyOrSpinner :
           <div className="cities">
             <div className="cities__places-container container">
               <section className="cities__places places">
@@ -99,6 +74,7 @@ const mapStateToProps = (state) => ({
   offers: state.offers,
   isOffersLoaded: state.isOffersLoaded,
   isOfferLoaded: state.isOfferLoaded,
+  sortingType: state.sortingType,
 });
 
 const mapDispatchToProps = (dispatch) => ({

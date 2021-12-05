@@ -5,7 +5,7 @@ import HeaderMail from "../header-mail/header-mail";
 import HeaderSignIn from "../header-sign-in/header-sign-in";
 import {connect} from "react-redux";
 
-const Header = ({authorizationStatus}) => {
+const Header = ({isAuth}) => {
   return (
     <header className="header">
       <div className="container">
@@ -18,7 +18,7 @@ const Header = ({authorizationStatus}) => {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                {authorizationStatus ? <HeaderMail/> : <HeaderSignIn/>}
+                {isAuth ? <HeaderMail/> : <HeaderSignIn/>}
               </li>
             </ul>
           </nav>
@@ -29,11 +29,11 @@ const Header = ({authorizationStatus}) => {
 };
 
 Header.propTypes = {
-  authorizationStatus: PropTypes.bool.isRequired,
+  isAuth: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
+  isAuth: state.isAuth,
 });
 
 export {Header};

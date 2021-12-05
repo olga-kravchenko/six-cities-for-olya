@@ -3,7 +3,7 @@ import {DEFAULT_CITY, DEFAULT_SORTING_TYPE} from "../constants";
 
 const initialState = {
   userInfo: {email: ``, avatar_url: ``},
-  authorizationStatus: false,
+  isAuth: false,
   city: DEFAULT_CITY,
   sortingType: DEFAULT_SORTING_TYPE,
   isOpenSortingPopup: false,
@@ -24,8 +24,8 @@ const reducer = (state = initialState, {type, payload}) => {
   switch (type) {
     case ActionType.SAVE_USER_INFO:
       return {...state, userInfo: payload};
-    case ActionType.CHANGE_AUTHORIZATION:
-      return {...state, authorizationStatus: payload};
+    case ActionType.CHANGE_AUTH:
+      return {...state, isAuth: payload};
     case ActionType.CHANGE_CITY:
       return {...state, city: payload, isOpenSortingPopup: false};
     case ActionType.CHANGE_SORTING_TYPE:

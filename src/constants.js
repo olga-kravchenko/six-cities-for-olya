@@ -18,11 +18,6 @@ const DEFAULT_CITY = CityNames.PARIS;
 const DEFAULT_SORTING_TYPE = SortingType.POPULAR;
 const DEFAULT_STATE = false;
 
-const AuthorizationStatus = {
-  AUTH: true,
-  NO_AUTH: false,
-};
-
 const AppRoute = {
   MAIN: `/`,
   LOGIN: `/login`,
@@ -53,7 +48,6 @@ export {
   DEFAULT_CITY,
   DEFAULT_SORTING_TYPE,
   DEFAULT_STATE,
-  AuthorizationStatus,
   AppRoute,
   AxiosRoute,
   HttpCode

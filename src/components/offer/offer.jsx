@@ -21,7 +21,7 @@ const Offer = ({
   isOfferLoaded,
   isNearbyOffersLoaded,
   isCommentsLoaded,
-  authorizationStatus,
+  isAuth,
 }) => {
   const {id} = useParams();
 
@@ -161,7 +161,7 @@ const Offer = ({
                 <h2 className="reviews__title">Reviews &middot; <span
                   className="reviews__amount">{comments.length}</span></h2>
                 {comments.length ? <Comments comments={comments}/> : ``}
-                {authorizationStatus ? <CommentForm id={id}/> : ``}
+                {isAuth ? <CommentForm id={id}/> : ``}
               </section>
             </div>
           </div>
@@ -195,7 +195,7 @@ Offer.propTypes = {
   isOfferLoaded: PropTypes.bool,
   isCommentsLoaded: PropTypes.bool,
   isNearbyOffersLoaded: PropTypes.bool,
-  authorizationStatus: PropTypes.bool,
+  isAuth: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
@@ -205,7 +205,7 @@ const mapStateToProps = (state) => ({
   isOfferLoaded: state.isOfferLoaded,
   isCommentsLoaded: state.isCommentsLoaded,
   isNearbyOffersLoaded: state.isNearbyOffersLoaded,
-  authorizationStatus: state.authorizationStatus,
+  isAuth: state.isAuth,
 });
 
 const mapDispatchToProps = (dispatch) => ({

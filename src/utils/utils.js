@@ -1,3 +1,5 @@
+import {SortingType} from "../constants";
+
 const ONE_HANGED_PERCENT = 100;
 const MAX_STAR_QUANTITY = 5;
 
@@ -8,6 +10,23 @@ const sortOffersByPriceHighToLow = (offerA, offerB) => (offerB.price - offerA.pr
 const convertRatingToPercent = (rating) => {
   const integer = Math.round(rating);
   return integer * ONE_HANGED_PERCENT / MAX_STAR_QUANTITY + `%`;
+};
+
+const getRelevantSortingOffers = (sortingType, offers, city) => {
+  let sortingCallback = null;
+  switch (sortingType) {
+    case SortingType.PRICE_LOW_TO_HIGH:
+      sortingCallback = sortOffersByPriceLowToHigh;
+      break;
+    case SortingType.PRICE_HIGH_TO_LOW:
+      sortingCallback = sortOffersByPriceHighToLow;
+      break;
+    case SortingType.TOP_RATED_FIRST:
+      sortingCallback = sortOffersByRating;
+      break;
+  }
+  const filteredOffers = [...offers.filter((e) => e.city.name === city)];
+  return sortingCallback ? filteredOffers.sort(sortingCallback) : filteredOffers;
 };
 
 const sortCities = (offers, cities) => {
@@ -45,6 +64,7 @@ export {
   sortOffersByRating,
   sortOffersByPriceLowToHigh,
   sortOffersByPriceHighToLow,
+  getRelevantSortingOffers,
   sortCities,
   errorToast
 };

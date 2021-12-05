@@ -10,10 +10,9 @@ import {reducer} from "./store/reducer";
 import {CityNames} from "./constants";
 import {ActionCreator} from "./store/actions";
 import {checkAuth} from "./store/axios-actions";
-import {AuthorizationStatus} from "./constants";
 import {redirect} from "./store/middlewares/redirect";
 
-const axiosApi = createAxios(() => store.dispatch(ActionCreator.changeAuthStatus(AuthorizationStatus.NO_AUTH)));
+const axiosApi = createAxios(() => store.dispatch(ActionCreator.changeAuthStatus(false)));
 const store = createStore(
     reducer,
     composeWithDevTools(
