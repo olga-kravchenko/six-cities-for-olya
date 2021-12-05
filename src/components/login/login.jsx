@@ -1,7 +1,7 @@
 import React, {useRef} from "react";
 import Header from "../header/header";
 import PropTypes from "prop-types";
-import {login} from "../../store/api-actions";
+import {login} from "../../store/axios-actions";
 import {connect} from "react-redux";
 
 const Login = ({onSubmitForm}) => {

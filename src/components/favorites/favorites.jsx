@@ -5,7 +5,7 @@ import {sortCities} from "../../utils/utils";
 import Header from "../header/header";
 import FavoritesEmpty from "../favorites-empty/favorites-empty";
 import OfferCard from "../offer-card/offer-card";
-import {fetchFavoriteOffers} from "../../store/api-actions";
+import {fetchFavoriteOffers} from "../../store/axios-actions";
 import {connect} from "react-redux";
 import Spinner from "../spinner/spinner";
 

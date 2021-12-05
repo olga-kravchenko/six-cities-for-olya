@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
-import {logout} from "../../store/api-actions";
+import {logout} from "../../store/axios-actions";
 import {connect} from "react-redux";
 
 const HeaderMail = ({onExitClick, userInfo}) => {

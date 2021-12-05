@@ -1,4 +1,4 @@
-import {ActionType} from "./action";
+import {ActionType} from "./actions";
 import {DEFAULT_CITY, DEFAULT_SORTING_TYPE, DEFAULT_STATE, AuthorizationStatus} from "../constants";
 
 const initialState = {

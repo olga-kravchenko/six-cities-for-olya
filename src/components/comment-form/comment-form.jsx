@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import {postComment} from "../../store/api-actions";
+import {postComment} from "../../store/axios-actions";
 import {connect} from "react-redux";
 
 const CommentForm = ({id, onSubmitComment}) => {

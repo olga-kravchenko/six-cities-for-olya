@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {ActionCreator} from "../../store/action";
+import {ActionCreator} from "../../store/actions";
 import {connect} from "react-redux";
 
 const Cities = ({cities, onCityClick, city}) => {

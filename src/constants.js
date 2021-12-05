@@ -31,13 +31,20 @@ const AppRoute = {
   PAGE_NOT_FOUND: `/page-not-found`,
 };
 
-const ApiRoute = {
+const AxiosRoute = {
   OFFERS: `/hotels`,
   LOGIN: `/login`,
   LOGOUT: `/logout`,
   NEARBY: `/nearby`,
   FAVORITE: `/favorite`,
   COMMENTS: `/comments`,
+};
+
+const HttpCode = {
+  OK: 200,
+  NO_FOUND: 404,
+  UNAUTHORIZED: 401,
+  BAD_REQUEST: 400,
 };
 
 export {
@@ -48,5 +55,6 @@ export {
   DEFAULT_STATE,
   AuthorizationStatus,
   AppRoute,
-  ApiRoute
+  AxiosRoute,
+  HttpCode
 };

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {useParams} from "react-router-dom";
 import {connect} from "react-redux";
 import {convertRatingToPercent} from "../../utils/utils";
-import {fetchComments, fetchNearbyOffer, fetchOffer} from "../../store/api-actions";
+import {fetchComments, fetchNearbyOffer, fetchOffer} from "../../store/axios-actions";
 import Header from "../header/header";
 import CommentForm from "../comment-form/comment-form";
 import OfferCard from "../offer-card/offer-card";

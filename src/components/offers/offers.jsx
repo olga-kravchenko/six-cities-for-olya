@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import OfferCard from "../offer-card/offer-card";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../store/action";
+import {ActionCreator} from "../../store/actions";
 
 const Offers = ({offers, pageType, onOfferHover, onOfferLeave}) => {
   return (

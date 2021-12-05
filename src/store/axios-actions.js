@@ -1,13 +1,13 @@
-import {ActionCreator} from "./action";
-import {AuthorizationStatus, ApiRoute, AppRoute} from "../constants";
+import {ActionCreator} from "./actions";
+import {AuthorizationStatus, AxiosRoute, AppRoute} from "../constants";
 
-const fetchOffers = () => (dispatch, _getState, api) => (
-  api.get(`${ApiRoute.OFFERS}`)
+const fetchOffers = () => (dispatch, _, axios) => (
+  axios.get(`${AxiosRoute.OFFERS}`)
     .then(({data}) => dispatch(ActionCreator.loadOffers(data)))
 );
 
-const checkAuthorization = () => (dispatch, _getState, api) => (
-  api.get(`${ApiRoute.LOGIN}`)
+const checkAuthorization = () => (dispatch, _, axios) => (
+  axios.get(`${AxiosRoute.LOGIN}`)
     .then(({data}) => {
       dispatch(ActionCreator.saveUserInfo(data));
       dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
@@ -17,8 +17,8 @@ const checkAuthorization = () => (dispatch, _getState, api) => (
     })
 );
 
-const login = ({login: email, password}) => (dispatch, _getState, api) => (
-  api.post(`${ApiRoute.LOGIN}`, {email, password})
+const login = ({login: email, password}) => (dispatch, _, axios) => (
+  axios.post(`${AxiosRoute.LOGIN}`, {email, password})
     .then(({data}) => {
       if (email && password) {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
@@ -30,34 +30,34 @@ const login = ({login: email, password}) => (dispatch, _getState, api) => (
     .then(() => dispatch(ActionCreator.redirectToRoute(`${AppRoute.MAIN}`)))
 );
 
-const logout = () => (dispatch, _getState, api) => (
-  api.get(`${ApiRoute.LOGOUT}`)
+const logout = () => (dispatch, _, axios) => (
+  axios.get(`${AxiosRoute.LOGOUT}`)
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)))
 );
 
-const fetchOffer = (id) => (dispatch, _getState, api) => (
-  api.get(`${ApiRoute.OFFERS}/${id}`)
+const fetchOffer = (id) => (dispatch, _, axios) => (
+  axios.get(`${AxiosRoute.OFFERS}/${id}`)
     .then(({data}) => dispatch(ActionCreator.loadOffer(data)))
     .catch(() => dispatch(ActionCreator.redirectToRoute(`${AppRoute.PAGE_NOT_FOUND}`)))
 );
 
-const fetchNearbyOffer = (id) => (dispatch, _getState, api) => (
-  api.get(`${ApiRoute.OFFERS}/${id}${ApiRoute.NEARBY}`)
+const fetchNearbyOffer = (id) => (dispatch, _, axios) => (
+  axios.get(`${AxiosRoute.OFFERS}/${id}${AxiosRoute.NEARBY}`)
     .then(({data}) => dispatch(ActionCreator.loadNearestOffers(data)))
 );
 
-const fetchFavoriteOffers = () => (dispatch, _getState, api) => (
-  api.get(`${ApiRoute.FAVORITE}`)
+const fetchFavoriteOffers = () => (dispatch, _, axios) => (
+  axios.get(`${AxiosRoute.FAVORITE}`)
     .then(({data}) => dispatch(ActionCreator.loadFavoriteOffers(data)))
 );
 
-const fetchComments = (id) => (dispatch, _getState, api) => (
-  api.get(`${ApiRoute.COMMENTS}/${id}`)
+const fetchComments = (id) => (dispatch, _, axios) => (
+  axios.get(`${AxiosRoute.COMMENTS}/${id}`)
     .then(({data}) => dispatch(ActionCreator.loadComments(data)))
 );
 
-const postComment = (id, {comment, rating}) => (dispatch, _getState, api) => (
-  api.post(`${ApiRoute.COMMENTS}/${id}`, {comment, rating})
+const postComment = (id, {comment, rating}) => (dispatch, _, axios) => (
+  axios.post(`${AxiosRoute.COMMENTS}/${id}`, {comment, rating})
     .then(({data}) => dispatch(ActionCreator.loadComments(data)))
 );
 
