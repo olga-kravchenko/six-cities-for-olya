@@ -9,11 +9,11 @@ import App from "./components/app/app";
 import {reducer} from "./store/reducer";
 import {CityNames} from "./constants";
 import {ActionCreator} from "./store/actions";
-import {checkAuthorization} from "./store/axios-actions";
+import {checkAuth} from "./store/axios-actions";
 import {AuthorizationStatus} from "./constants";
 import {redirect} from "./store/middlewares/redirect";
 
-const axiosApi = createAxios(() => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)));
+const axiosApi = createAxios(() => store.dispatch(ActionCreator.changeAuthStatus(AuthorizationStatus.NO_AUTH)));
 const store = createStore(
     reducer,
     composeWithDevTools(
@@ -23,7 +23,7 @@ const store = createStore(
 );
 const cityNames = Object.values(CityNames);
 
-store.dispatch(checkAuthorization());
+store.dispatch(checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>

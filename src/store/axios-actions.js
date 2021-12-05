@@ -6,25 +6,20 @@ const fetchOffers = () => (dispatch, _, axios) => (
     .then(({data}) => dispatch(ActionCreator.loadOffers(data)))
 );
 
-const checkAuthorization = () => (dispatch, _, axios) => (
+const checkAuth = () => (dispatch, _, axios) => (
   axios.get(`${AxiosRoute.LOGIN}`)
-    .then(({data}) => {
-      dispatch(ActionCreator.saveUserInfo(data));
-      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
-    })
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
-    .catch(() => {
-    })
+    .then(({data}) => dispatch(ActionCreator.saveUserInfo(data)))
+    .then(() => dispatch(ActionCreator.changeAuthStatus(AuthorizationStatus.AUTH)))
 );
 
 const login = ({login: email, password}) => (dispatch, _, axios) => (
   axios.post(`${AxiosRoute.LOGIN}`, {email, password})
     .then(({data}) => {
       if (email && password) {
-        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(ActionCreator.changeAuthStatus(AuthorizationStatus.AUTH));
         dispatch(ActionCreator.saveUserInfo(data));
       } else {
-        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+        dispatch(ActionCreator.changeAuthStatus(AuthorizationStatus.NO_AUTH));
       }
     })
     .then(() => dispatch(ActionCreator.redirectToRoute(`${AppRoute.MAIN}`)))
@@ -32,7 +27,7 @@ const login = ({login: email, password}) => (dispatch, _, axios) => (
 
 const logout = () => (dispatch, _, axios) => (
   axios.get(`${AxiosRoute.LOGOUT}`)
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)))
+    .then(() => dispatch(ActionCreator.changeAuthStatus(AuthorizationStatus.NO_AUTH)))
 );
 
 const fetchOffer = (id) => (dispatch, _, axios) => (
@@ -63,7 +58,7 @@ const postComment = (id, {comment, rating}) => (dispatch, _, axios) => (
 
 export {
   fetchOffers,
-  checkAuthorization,
+  checkAuth,
   login,
   logout,
   fetchOffer,
