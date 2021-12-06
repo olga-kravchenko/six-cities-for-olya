@@ -10,7 +10,24 @@ import Map from "../map/map";
 import Cities from "../cities/cities";
 import EmptyMain from "../empty-main/empty-main";
 import Spinner from "../spinner/spinner";
-import {getRelevantSortingOffers} from "../../utils/utils";
+import {SortingType} from "../../constants";
+
+const getRelevantSortingOffers = (sortingType, offers, city) => {
+  let sortingCallback = null;
+  switch (sortingType) {
+    case SortingType.PRICE_LOW_TO_HIGH:
+      sortingCallback = (offerA, offerB) => (offerA.price - offerB.price);
+      break;
+    case SortingType.PRICE_HIGH_TO_LOW:
+      sortingCallback = (offerA, offerB) => (offerB.price - offerA.price);
+      break;
+    case SortingType.TOP_RATED_FIRST:
+      sortingCallback = (offerA, offerB) => (offerB.rating - offerA.rating);
+      break;
+  }
+  const filteredOffers = [...offers.filter((e) => e.city.name === city)];
+  return sortingCallback ? filteredOffers.sort(sortingCallback) : filteredOffers;
+};
 
 const Main = ({cities, city, offers, sortingType, isOffersLoaded, onLoadOffers, isOfferLoaded, resetOffer}) => {
   useEffect(() => onLoadOffers(), []);

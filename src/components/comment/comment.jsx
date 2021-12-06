@@ -5,8 +5,8 @@ import {convertRatingToPercent} from "../../utils/utils";
 
 const Comment = ({comment}) => {
   const {comment: text, date, id, rating, user: {avatar_url, name}} = comment;
-  const commentDate = dayjs(date).format(`MMMM YYYY`);
-  const dateTimeFormat = dayjs(date).format(`YYYY-MM-DD`);
+  const formattedDateForUser = dayjs(date).format(`MMMM YYYY`);
+  const formattedDateForAttribute = dayjs(date).format(`YYYY-MM-DD`);
   const percent = convertRatingToPercent(rating);
 
   return (
@@ -28,7 +28,7 @@ const Comment = ({comment}) => {
         <p className="reviews__text">
           {text}
         </p>
-        <time className="reviews__time" dateTime={dateTimeFormat}>{commentDate}</time>
+        <time className="reviews__time" dateTime={formattedDateForAttribute}>{formattedDateForUser}</time>
       </div>
     </li>
   );

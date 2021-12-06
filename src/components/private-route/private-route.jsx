@@ -4,9 +4,9 @@ import {Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 const PrivateRoute = ({render, path, exact, isAuth}) => (
-  <Route path={path} exact={exact} render={(routeProps) => (
-    isAuth ? render(routeProps) : <Redirect to={`/login`}/>
-  )}
+  <Route path={path} exact={exact} render={
+    (routeProps) => (isAuth ? render(routeProps) : <Redirect to={`/login`}/>)
+  }
   />
 );
 

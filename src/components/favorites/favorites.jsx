@@ -1,13 +1,25 @@
 import React, {useEffect} from "react";
 import PropTypes from "prop-types";
 import {Link} from 'react-router-dom';
-import {sortCities} from "../../utils/utils";
 import Header from "../header/header";
 import FavoritesEmpty from "../favorites-empty/favorites-empty";
 import OfferCard from "../offer-card/offer-card";
 import {fetchFavoriteOffers} from "../../store/axios-actions";
 import {connect} from "react-redux";
 import Spinner from "../spinner/spinner";
+
+const sortCities = (offers, cities) => {
+  const citiesByFavoriteOffers = offers.map((e) => e.city.name);
+  const uniqueCities = [...new Set(citiesByFavoriteOffers)];
+  const sortedCities = [];
+  cities.forEach((city) => {
+    const newCity = uniqueCities.find((e) => e === city);
+    if (newCity) {
+      sortedCities.push(newCity);
+    }
+  });
+  return sortedCities;
+};
 
 const Favorites = ({cities, favoriteOffers, isFavoritesLoaded, onLoadFavorites}) => {
   useEffect(() => {

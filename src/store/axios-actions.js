@@ -1,6 +1,20 @@
 import {ActionCreator} from "./actions";
 import {AxiosRoute, AppRoute} from "../constants";
-import {errorToast} from "../utils/utils";
+
+const errorToast = (message) => {
+  const toastContainer = document.createElement(`div`);
+  toastContainer.classList.add(`toast-container`);
+  document.body.append(toastContainer);
+  const toastItem = document.createElement(`div`);
+  toastItem.textContent = message;
+  toastItem.classList.add(`toast-item`);
+  toastContainer.append(toastItem);
+
+  const ERROR_TIMEOUT = 5000;
+  setTimeout(() => {
+    toastItem.remove();
+  }, ERROR_TIMEOUT);
+};
 
 const fetchOffers = () => (dispatch, _, axios) => (
   axios.get(`${AxiosRoute.OFFERS}`)
