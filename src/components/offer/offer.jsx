@@ -11,27 +11,24 @@ import Map from "../map/map";
 import Comments from "../comments/comments";
 import Spinner from "../spinner/spinner";
 
-const Offer = ({
-  offer,
-  comments,
-  nearestOffers,
-  onLoadOffer,
-  onLoadComments,
-  onLoadNearestOffers,
-  isOfferLoaded,
-  isNearbyOffersLoaded,
-  isCommentsLoaded,
-  isAuth,
-}) => {
+const Offer = (props) => {
+  const {
+    offer,
+    comments,
+    nearestOffers,
+    onLoadOffer,
+    isOfferLoaded,
+    isNearbyOffersLoaded,
+    isCommentsLoaded,
+    isAuth,
+  } = props;
   const {id} = useParams();
 
   useEffect(() => {
     onLoadOffer(id);
-    onLoadComments(id);
-    onLoadNearestOffers(id);
-  }, [isOfferLoaded, isCommentsLoaded, isNearbyOffersLoaded]);
+  }, [id]);
 
-  if (!isCommentsLoaded || !isOfferLoaded || !isNearbyOffersLoaded) {
+  if (!(isCommentsLoaded && isOfferLoaded && isNearbyOffersLoaded)) {
     return (<Spinner/>);
   }
 
@@ -164,8 +161,6 @@ Offer.propTypes = {
   comments: PropTypes.array,
   nearestOffers: PropTypes.array,
   onLoadOffer: PropTypes.func,
-  onLoadComments: PropTypes.func,
-  onLoadNearestOffers: PropTypes.func,
   isOfferLoaded: PropTypes.bool,
   isCommentsLoaded: PropTypes.bool,
   isNearbyOffersLoaded: PropTypes.bool,
@@ -185,11 +180,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onLoadOffer(id) {
     dispatch(fetchOffer(id));
-  },
-  onLoadComments(id) {
     dispatch(fetchComments(id));
-  },
-  onLoadNearestOffers(id) {
     dispatch(fetchNearbyOffer(id));
   },
 });
