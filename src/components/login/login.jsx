@@ -3,10 +3,16 @@ import Header from "../header/header";
 import PropTypes from "prop-types";
 import {login} from "../../store/axios-actions";
 import {connect} from "react-redux";
+import {Redirect} from "react-router-dom";
+import {AppRoute} from "../../constants";
 
-const Login = ({onSubmitForm}) => {
+const Login = ({onSubmitForm, isAuth}) => {
   const loginRef = useRef();
   const passwordRef = useRef();
+
+  if (isAuth) {
+    return (<Redirect to={AppRoute.FAVORITES}/>);
+  }
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -67,7 +73,12 @@ const Login = ({onSubmitForm}) => {
 
 Login.propTypes = {
   onSubmitForm: PropTypes.func.isRequired,
+  isAuth: PropTypes.bool,
 };
+
+const mapStateToProps = (state) => ({
+  isAuth: state.isAuth,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmitForm(authData) {
@@ -76,4 +87,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {Login};
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

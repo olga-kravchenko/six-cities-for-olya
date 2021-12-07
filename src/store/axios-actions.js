@@ -18,20 +18,20 @@ const errorToast = (message) => {
 
 const showErrorMassage = (err) => errorToast(`Error ${err.response.status} : ${err.response.statusText}`);
 
-const fetchOffers = () => (dispatch, _, axios) => (
-  axios.get(`${AxiosRoute.OFFERS}`)
+const fetchOffers = () => (dispatch, _, axiosApi) => (
+  axiosApi.get(`${AxiosRoute.OFFERS}`)
     .then(({data}) => dispatch(ActionCreator.loadOffers(data)))
 );
 
-const checkAuth = () => (dispatch, _, axios) => (
-  axios.get(`${AxiosRoute.LOGIN}`)
+const checkAuth = () => (dispatch, _, axiosApi) => (
+  axiosApi.get(`${AxiosRoute.LOGIN}`)
     .then(({data}) => dispatch(ActionCreator.saveUserInfo(data)))
     .then(() => dispatch(ActionCreator.changeAuthStatus(true)))
     .catch(showErrorMassage)
 );
 
-const login = ({login: email, password}) => (dispatch, _, axios) => (
-  axios.post(`${AxiosRoute.LOGIN}`, {email, password})
+const login = ({login: email, password}) => (dispatch, _, axiosApi) => (
+  axiosApi.post(`${AxiosRoute.LOGIN}`, {email, password})
     .then(({data}) => {
       dispatch(ActionCreator.changeAuthStatus(true));
       dispatch(ActionCreator.saveUserInfo(data));
@@ -40,34 +40,34 @@ const login = ({login: email, password}) => (dispatch, _, axios) => (
     .catch(showErrorMassage)
 );
 
-const logout = () => (dispatch, _, axios) => (
-  axios.get(`${AxiosRoute.LOGOUT}`)
+const logout = () => (dispatch, _, axiosApi) => (
+  axiosApi.get(`${AxiosRoute.LOGOUT}`)
     .then(() => dispatch(ActionCreator.changeAuthStatus(false)))
 );
 
-const fetchOffer = (id) => (dispatch, _, axios) => (
-  axios.get(`${AxiosRoute.OFFERS}/${id}`)
+const fetchOffer = (id) => (dispatch, _, axiosApi) => (
+  axiosApi.get(`${AxiosRoute.OFFERS}/${id}`)
     .then(({data}) => dispatch(ActionCreator.loadOffer(data)))
     .catch(() => dispatch(ActionCreator.redirectToRoute(`${AppRoute.PAGE_NOT_FOUND}`)))
 );
 
-const fetchNearbyOffer = (id) => (dispatch, _, axios) => (
-  axios.get(`${AxiosRoute.OFFERS}/${id}${AxiosRoute.NEARBY}`)
+const fetchNearbyOffer = (id) => (dispatch, _, axiosApi) => (
+  axiosApi.get(`${AxiosRoute.OFFERS}/${id}${AxiosRoute.NEARBY}`)
     .then(({data}) => dispatch(ActionCreator.loadNearestOffers(data)))
 );
 
-const fetchFavoriteOffers = () => (dispatch, _, axios) => (
-  axios.get(`${AxiosRoute.FAVORITE}`)
+const fetchFavoriteOffers = () => (dispatch, _, axiosApi) => (
+  axiosApi.get(`${AxiosRoute.FAVORITE}`)
     .then(({data}) => dispatch(ActionCreator.loadFavoriteOffers(data)))
 );
 
-const fetchComments = (id) => (dispatch, _, axios) => (
-  axios.get(`${AxiosRoute.COMMENTS}/${id}`)
+const fetchComments = (id) => (dispatch, _, axiosApi) => (
+  axiosApi.get(`${AxiosRoute.COMMENTS}/${id}`)
     .then(({data}) => dispatch(ActionCreator.loadComments(data)))
 );
 
-const postComment = (id, comment) => (dispatch, _, axios) => (
-  axios.post(`${AxiosRoute.COMMENTS}/${id}`, comment)
+const postComment = (id, comment) => (dispatch, _, axiosApi) => (
+  axiosApi.post(`${AxiosRoute.COMMENTS}/${id}`, comment)
     .then(({data}) => dispatch(ActionCreator.loadComments(data)))
     .catch(showErrorMassage)
 );
