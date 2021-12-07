@@ -3,32 +3,18 @@ import PropTypes from "prop-types";
 import {useParams} from "react-router-dom";
 import {connect} from "react-redux";
 import {convertRatingToPercent} from "../../utils/utils";
-import {fetchComments, fetchNearbyOffer, fetchOffer} from "../../store/axios-actions";
+import {fetchOffer} from "../../store/axios-actions";
 import Header from "../header/header";
-import CommentForm from "../comment-form/comment-form";
-import OfferCard from "../offer-card/offer-card";
 import Map from "../map/map";
-import Comments from "../comments/comments";
 import Spinner from "../spinner/spinner";
+import Reviews from "../reviews/reviews";
+import NearestOffers from "../nearest-offers/nearest-offers";
 
-const Offer = (props) => {
-  const {
-    offer,
-    comments,
-    nearestOffers,
-    onLoadOffer,
-    isOfferLoaded,
-    isNearbyOffersLoaded,
-    isCommentsLoaded,
-    isAuth,
-  } = props;
+const Offer = ({offer, nearestOffers, onLoadOffer}) => {
   const {id} = useParams();
+  useEffect(() => onLoadOffer(id), [id]);
 
-  useEffect(() => {
-    onLoadOffer(id);
-  }, [id]);
-
-  if (!(isCommentsLoaded && isOfferLoaded && isNearbyOffersLoaded)) {
+  if (offer.id !== +id) {
     return (<Spinner/>);
   }
 
@@ -128,29 +114,16 @@ const Offer = (props) => {
                   </p>
                 </div>
               </div>
-              <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span
-                  className="reviews__amount">{comments.length}</span></h2>
-                {comments.length ? <Comments comments={comments}/> : ``}
-                {isAuth ? <CommentForm id={id}/> : ``}
-              </section>
+              <Reviews id={id}/>
             </div>
           </div>
           <section className="property__map map">
-            <Map offerList={nearestOffers}
-              style={{height: `100%`, width: `1144px`, margin: `0 auto`}}/>
+            {nearestOffers.length ?
+              <Map offerList={nearestOffers} style={{height: `100%`, width: `1144px`, margin: `0 auto`}}/> :
+              <Spinner/>}
           </section>
         </section>
-        <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            {nearestOffers.length ?
-              <div className="near-places__list places__list">
-                {nearestOffers.map((o, i) => <OfferCard key={i} offer={o} pageType="near"/>)}
-              </div> :
-              <h3 className="near-places__title">Not found : (</h3>}
-          </section>
-        </div>
+        <NearestOffers id={id}/>
       </main>
     </div>
   );
@@ -158,30 +131,18 @@ const Offer = (props) => {
 
 Offer.propTypes = {
   offer: PropTypes.object,
-  comments: PropTypes.array,
   nearestOffers: PropTypes.array,
   onLoadOffer: PropTypes.func,
-  isOfferLoaded: PropTypes.bool,
-  isCommentsLoaded: PropTypes.bool,
-  isNearbyOffersLoaded: PropTypes.bool,
-  isAuth: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
   offer: state.offer,
-  comments: state.comments,
   nearestOffers: state.nearestOffers,
-  isOfferLoaded: state.isOfferLoaded,
-  isCommentsLoaded: state.isCommentsLoaded,
-  isNearbyOffersLoaded: state.isNearbyOffersLoaded,
-  isAuth: state.isAuth,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadOffer(id) {
     dispatch(fetchOffer(id));
-    dispatch(fetchComments(id));
-    dispatch(fetchNearbyOffer(id));
   },
 });
 

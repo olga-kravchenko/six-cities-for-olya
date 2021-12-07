@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const CommentProp = PropTypes.shape({
+const ReviewProp = PropTypes.shape({
   comment: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
@@ -13,4 +13,4 @@ const CommentProp = PropTypes.shape({
   })
 });
 
-export default CommentProp;
+export default ReviewProp;

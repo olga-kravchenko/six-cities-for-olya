@@ -1,9 +1,9 @@
 import React from "react";
-import CommentProp from "./comment.prop";
+import ReviewProp from "./reviewProp";
 import dayjs from "dayjs";
 import {convertRatingToPercent} from "../../utils/utils";
 
-const Comment = ({comment}) => {
+const Review = ({comment}) => {
   const {comment: text, date, id, rating, user: {avatar_url, name}} = comment;
   const formattedDateForUser = dayjs(date).format(`MMMM YYYY`);
   const formattedDateForAttribute = dayjs(date).format(`YYYY-MM-DD`);
@@ -34,8 +34,8 @@ const Comment = ({comment}) => {
   );
 };
 
-Comment.propTypes = {
-  comment: CommentProp
+Review.propTypes = {
+  comment: ReviewProp
 };
 
-export default Comment;
+export default Review;

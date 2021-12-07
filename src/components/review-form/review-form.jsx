@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {postComment} from "../../store/axios-actions";
 import {connect} from "react-redux";
 
-const CommentForm = ({id, onSubmitComment}) => {
+const ReviewForm = ({id, onSubmitComment}) => {
   const MIN_SYMBOL_QUANTITY = 50;
   const [userForm, setUserForm] = useState({
     review: ``,
@@ -81,7 +81,7 @@ const CommentForm = ({id, onSubmitComment}) => {
   );
 };
 
-CommentForm.propTypes = {
+ReviewForm.propTypes = {
   id: PropTypes.string,
   onSubmitComment: PropTypes.func.isRequired
 };
@@ -92,5 +92,5 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export {CommentForm};
-export default connect(null, mapDispatchToProps)(CommentForm);
+export {ReviewForm};
+export default connect(null, mapDispatchToProps)(ReviewForm);

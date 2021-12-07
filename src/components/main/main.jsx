@@ -1,7 +1,6 @@
 import React, {useEffect} from "react";
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import {ActionCreator} from "../../store/actions";
 import {fetchOffers} from "../../store/axios-actions";
 import SortingTypes from "../sorting-types/sorting-types";
 import Header from "../header/header";
@@ -29,14 +28,8 @@ const getRelevantSortingOffers = (sortingType, offers, city) => {
   return sortingCallback ? filteredOffers.sort(sortingCallback) : filteredOffers;
 };
 
-const Main = ({cities, city, offers, sortingType, isOffersLoaded, onLoadOffers, isOfferLoaded, resetOffer}) => {
+const Main = ({cities, city, offers, sortingType, isOffersLoaded, onLoadOffers}) => {
   useEffect(() => onLoadOffers(), []);
-
-  useEffect(() => {
-    if (isOfferLoaded) {
-      resetOffer();
-    }
-  }, [isOfferLoaded]);
 
   const componentEmptyOrSpinner = isOffersLoaded ? <EmptyMain/> : <Spinner/>;
   const offerList = getRelevantSortingOffers(sortingType, offers, city);
@@ -82,15 +75,12 @@ Main.propTypes = {
   sortingType: PropTypes.string,
   isOffersLoaded: PropTypes.bool.isRequired,
   onLoadOffers: PropTypes.func.isRequired,
-  isOfferLoaded: PropTypes.bool.isRequired,
-  resetOffer: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
   offers: state.offers,
   isOffersLoaded: state.isOffersLoaded,
-  isOfferLoaded: state.isOfferLoaded,
   sortingType: state.sortingType,
 });
 
@@ -98,9 +88,6 @@ const mapDispatchToProps = (dispatch) => ({
   onLoadOffers() {
     dispatch(fetchOffers());
   },
-  resetOffer() {
-    dispatch(ActionCreator.resetOffer());
-  }
 });
 
 export {Main};

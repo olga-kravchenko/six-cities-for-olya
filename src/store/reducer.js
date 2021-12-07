@@ -49,12 +49,7 @@ const reducer = (state = initialState, {type, payload}) => {
     case ActionType.RESET_OFFER:
       return {
         ...state,
-        chosenOffer: {},
-        isOfferLoaded: false,
-        nearByOffers: [],
-        isNearbyOffersLoaded: false,
         isFavoritesLoaded: false,
-        isCommentsLoaded: false
       };
     default:
       return state;

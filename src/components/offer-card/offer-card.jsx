@@ -86,7 +86,6 @@ const mapDispatchToProps = (dispatch) => ({
   onOfferTitleClick(typeCity) {
     dispatch(ActionCreator.changeCity(typeCity));
     dispatch(ActionCreator.resetSortingType());
-    dispatch(ActionCreator.resetOffer());
   },
 });
 

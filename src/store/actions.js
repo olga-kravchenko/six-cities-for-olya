@@ -64,9 +64,6 @@ const ActionCreator = {
     type: ActionType.LOAD_FAVORITE_OFFERS,
     payload: offers,
   }),
-  resetOffer: () => ({
-    type: ActionType.RESET_OFFER,
-  }),
   redirectToRoute: (url) => ({
     type: ActionType.REDIRECT_TO_ROUTE,
     payload: url,
