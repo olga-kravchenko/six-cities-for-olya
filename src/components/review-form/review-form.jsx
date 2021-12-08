@@ -1,26 +1,33 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
+import {postComment} from "../../store/axios-actions";
+import {connect} from "react-redux";
 
-const CommentForm = ({onSubmitComment}) => {
-  const MIN_SYMBOLS_QUANTITY = 50;
+const ReviewForm = ({id, onSubmitComment}) => {
+  const MIN_SYMBOL_QUANTITY = 50;
   const [userForm, setUserForm] = useState({
     review: ``,
     rating: ``
   });
 
-  const isEnoughSymbols = userForm.review.length >= MIN_SYMBOLS_QUANTITY;
-  const blocking = isEnoughSymbols && userForm.rating ? `` : `disable`;
+  const isEnoughSymbols = userForm.review.length >= MIN_SYMBOL_QUANTITY;
+  const isDisable = isEnoughSymbols && userForm.rating;
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    onSubmitComment(userForm);
-
+    onSubmitComment(id, {
+      comment: userForm.review,
+      rating: userForm.rating,
+    });
+    document.querySelector(`.reviews__form`).reset();
+    setUserForm({...userForm, review: ``, rating: ``});
   };
+
   const handleFieldChange = (evt) => {
     const {name, value} = evt.target;
     setUserForm({...userForm, [name]: value});
-
   };
+
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
@@ -62,20 +69,28 @@ const CommentForm = ({onSubmitComment}) => {
       </div>
       <textarea className="reviews__textarea form__textarea" id="review" name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={handleFieldChange}/>
+        onChange={handleFieldChange} maxLength="300"/>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay
           with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={blocking}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={isDisable ? `` : `disable`}>Submit</button>
       </div>
     </form>
   );
 };
 
-CommentForm.propTypes = {
+ReviewForm.propTypes = {
+  id: PropTypes.string,
   onSubmitComment: PropTypes.func.isRequired
 };
 
-export default CommentForm;
+const mapDispatchToProps = (dispatch) => ({
+  onSubmitComment(id, authData) {
+    dispatch(postComment(id, authData));
+  }
+});
+
+export {ReviewForm};
+export default connect(null, mapDispatchToProps)(ReviewForm);

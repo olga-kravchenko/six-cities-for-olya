@@ -1,12 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import OfferCard from "../offer-card/offer-card";
-import {ActionCreator} from "../../store/action";
 import {connect} from "react-redux";
+import {ActionCreator} from "../../store/actions";
 
 const Offers = ({offers, pageType, onOfferHover, onOfferLeave}) => {
   return (
-    <div className="cities__places-list places__list tabs__content"
+    <div
+      className="cities__places-list places__list tabs__content"
       onMouseOver={onOfferHover}
       onMouseLeave={onOfferLeave}
     >

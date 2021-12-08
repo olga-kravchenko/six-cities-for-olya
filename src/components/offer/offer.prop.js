@@ -14,11 +14,11 @@ const OfferProp = PropTypes.shape({
   goods: PropTypes.arrayOf(PropTypes.string.isRequired),
   host: PropTypes.shape({
     avatar_url: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     is_pro: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired
   }),
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   images: PropTypes.arrayOf(PropTypes.string.isRequired),
   is_favorite: PropTypes.bool.isRequired,
   is_premium: PropTypes.bool.isRequired,
@@ -30,7 +30,7 @@ const OfferProp = PropTypes.shape({
   max_adults: PropTypes.number.isRequired,
   preview_image: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-  rating: PropTypes.string.isRequired,
+  rating: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired
 });

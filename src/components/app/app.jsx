@@ -1,42 +1,35 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import {connect} from "react-redux";
+import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
+import browserHistory from "../../browser-history";
+import {AppRoute} from "../../constants";
 import Main from "../main/main";
 import Login from "../login/login";
 import Favorites from "../favorites/favorites";
-import PageNotFound from "../page-not-found/page-not-found";
 import Offer from "../offer/offer";
+import PrivateRoute from "../private-route/private-route";
+import PageNotFound from "../page-not-found/page-not-found";
 
-const App = ({offers, isLogged, cities}) => {
-  const favoriteOffers = offers.filter((offer) => offer.is_favorite);
+const App = ({cities}) => {
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
-        <Route path="/" exact>
-          <Main
-            cities={cities}
-            isLogged={isLogged}
-          />
+        <Route path={AppRoute.MAIN} exact>
+          <Main cities={cities}/>
         </Route>
-        <Route path="/login" exact>
-          <Login isLogged={isLogged}/>
+        <Route path={AppRoute.LOGIN} exact>
+          <Login/>
         </Route>
-        <Route path="/favorites" exact>
-          <Favorites
-            cities={cities}
-            offers={favoriteOffers}
-            isLogged={isLogged}
-          />
-        </Route>
-        <Route path="/offer/:id" exact>
-          <Offer
-            isLogged={isLogged}
-            onSubmitComment={() => {}}
-          />
+        <PrivateRoute
+          exact
+          path={AppRoute.FAVORITES}
+          render={() => <Favorites cities={cities}/>}
+        />
+        <Route path={AppRoute.OFFER} exact>
+          <Offer/>
         </Route>
         <Route>
-          <PageNotFound isLogged={isLogged}/>
+          <PageNotFound/>
         </Route>
       </Switch>
     </BrowserRouter>
@@ -44,14 +37,7 @@ const App = ({offers, isLogged, cities}) => {
 };
 
 App.propTypes = {
-  offers: PropTypes.array.isRequired,
-  isLogged: PropTypes.bool.isRequired,
-  cities: PropTypes.array
+  cities: PropTypes.array,
 };
 
-const mapStateToProps = (state) => ({
-  offers: state.offers,
-});
-
-export {App};
-export default connect(mapStateToProps, null)(App);
+export default App;

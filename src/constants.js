@@ -16,6 +16,37 @@ const SortingType = {
 
 const DEFAULT_CITY = CityNames.PARIS;
 const DEFAULT_SORTING_TYPE = SortingType.POPULAR;
-const DEFAULT_STATE = false;
 
-export {CityNames, SortingType, DEFAULT_CITY, DEFAULT_SORTING_TYPE, DEFAULT_STATE};
+const AppRoute = {
+  MAIN: `/`,
+  LOGIN: `/login`,
+  FAVORITES: `/favorites`,
+  OFFER: `/offer/:id`,
+  PAGE_NOT_FOUND: `/page-not-found`,
+};
+
+const AxiosRoute = {
+  OFFERS: `/hotels`,
+  LOGIN: `/login`,
+  LOGOUT: `/logout`,
+  NEARBY: `/nearby`,
+  FAVORITE: `/favorite`,
+  COMMENTS: `/comments`,
+};
+
+const HttpCode = {
+  OK: 200,
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  NO_FOUND: 404,
+};
+
+export {
+  CityNames,
+  SortingType,
+  DEFAULT_CITY,
+  DEFAULT_SORTING_TYPE,
+  AppRoute,
+  AxiosRoute,
+  HttpCode
+};

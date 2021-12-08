@@ -1,13 +1,13 @@
 import React from "react";
-import CommentProp from "./comment.prop";
+import ReviewProp from "./reviewProp";
 import dayjs from "dayjs";
 import {convertRatingToPercent} from "../../utils/utils";
 
-const Comment = ({comment}) => {
-  const {comment: text, date, id, rating, user: {avatar_url, name}} = comment;
-  const commentDate = dayjs(date).format(`MMMM YYYY`);
-  const dateTimeFormat = dayjs(date).format(`YYYY-MM-DD`);
-  const percent = convertRatingToPercent(rating);
+const Review = (props) => {
+  const {comment: text, date, id, rating, user: {avatar_url, name}} = props.comment;
+  const formattedDateForUser = dayjs(date).format(`MMMM YYYY`);
+  const formattedDateForAttribute = dayjs(date).format(`YYYY-MM-DD`);
+  const ratingPercent = convertRatingToPercent(rating);
 
   return (
     <li className="reviews__item" id={id}>
@@ -21,21 +21,21 @@ const Comment = ({comment}) => {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: `${percent}`}}/>
+            <span style={{width: `${ratingPercent}`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <p className="reviews__text">
           {text}
         </p>
-        <time className="reviews__time" dateTime={dateTimeFormat}>{commentDate}</time>
+        <time className="reviews__time" dateTime={formattedDateForAttribute}>{formattedDateForUser}</time>
       </div>
     </li>
   );
 };
 
-Comment.propTypes = {
-  comment: CommentProp
+Review.propTypes = {
+  comment: ReviewProp
 };
 
-export default Comment;
+export default Review;

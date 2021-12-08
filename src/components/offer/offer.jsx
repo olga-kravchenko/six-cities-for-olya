@@ -1,35 +1,23 @@
-import React from "react";
+import React, {useEffect} from "react";
 import PropTypes from "prop-types";
-import {Redirect, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {connect} from "react-redux";
-import {convertRatingToPercent, getRandomNumber} from "../../utils/utils";
-import {generateComment} from "../../mocks/offers";
+import {convertRatingToPercent} from "../../utils/utils";
+import {fetchOffer} from "../../store/axios-actions";
 import Header from "../header/header";
-import CommentForm from "../comment-form/comment-form";
-import OfferCard from "../offer-card/offer-card";
 import Map from "../map/map";
-import Comments from "../comments/comments";
-import HeaderSignIn from "../header-sign-in/header-sign-in";
-import HeaderMail from "../header-mail/header-mail";
+import Spinner from "../spinner/spinner";
+import Reviews from "../reviews/reviews";
+import NearestOffers from "../nearest-offers/nearest-offers";
 
-const Offer = ({isLogged, onSubmitComment, offerList}) => {
-  const MAX_COMMENT_QUANTITY = 5;
-  const SHOWN_OFFER_QUANTITY = 3;
-
-  const comments = new Array(getRandomNumber(0, MAX_COMMENT_QUANTITY))
-    .fill(null)
-    .map(generateComment);
-
+const Offer = ({offer, nearestOffers, onLoadOffer}) => {
   const {id} = useParams();
-  const index = offerList.findIndex((offer) => offer.id === id);
-  if (index === -1) {
-    return (
-      <Redirect to="/page-not-found"/>
-    );
+  useEffect(() => onLoadOffer(id), [id]);
+
+  if (offer.id !== +id) {
+    return (<Spinner/>);
   }
 
-  const nearOffers = [...offerList].filter((offer) => offer.id !== id).slice(0, SHOWN_OFFER_QUANTITY);
-  const offer = offerList[index];
   const {
     bedrooms,
     max_adults,
@@ -51,7 +39,7 @@ const Offer = ({isLogged, onSubmitComment, offerList}) => {
 
   return (
     <div className="page">
-      <Header render={() => (isLogged ? <HeaderMail/> : <HeaderSignIn/>)}/>
+      <Header/>
       <main className="page__main page__main--property">
         <section className="property" id={id}>
           <div className="property__gallery-container container">
@@ -126,44 +114,37 @@ const Offer = ({isLogged, onSubmitComment, offerList}) => {
                   </p>
                 </div>
               </div>
-              <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span
-                  className="reviews__amount">{comments.length}</span></h2>
-                {comments.length ? <Comments comments={comments}/> : ``}
-                <CommentForm onSubmitComment={onSubmitComment}/>
-              </section>
+              <Reviews id={id} offer={offer}/>
             </div>
           </div>
           <section className="property__map map">
-            <Map offerList={nearOffers.length ? nearOffers : offerList}
-              style={{height: `100%`, width: `1144px`, margin: `0 auto`}}/>
+            {nearestOffers.length ?
+              <Map offerList={nearestOffers} style={{height: `100%`, width: `1144px`, margin: `0 auto`}}/> :
+              <Spinner/>}
           </section>
         </section>
-        <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            {nearOffers.length ?
-              <div className="near-places__list places__list">
-                {nearOffers.map((o, i) => <OfferCard key={i} offer={o} pageType="near"/>)}
-              </div> :
-              <h3 className="near-places__title">Not found : (</h3>}
-          </section>
-        </div>
+        <NearestOffers id={id}/>
       </main>
     </div>
   );
 };
 
 Offer.propTypes = {
-  isLogged: PropTypes.bool.isRequired,
-  onSubmitComment: PropTypes.func.isRequired,
-  offerList: PropTypes.array.isRequired,
+  offer: PropTypes.object,
+  nearestOffers: PropTypes.array,
+  onLoadOffer: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
-  offerList: state.offerList,
-  city: state.city
+  offer: state.offer,
+  nearestOffers: state.nearestOffers,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadOffer(id) {
+    dispatch(fetchOffer(id));
+  },
 });
 
 export {Offer};
-export default connect(mapStateToProps)(Offer);
+export default connect(mapStateToProps, mapDispatchToProps)(Offer);

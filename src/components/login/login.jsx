@@ -1,34 +1,66 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, {useRef} from "react";
 import Header from "../header/header";
-import HeaderSignIn from "../header-sign-in/header-sign-in";
-import HeaderMail from "../header-mail/header-mail";
+import PropTypes from "prop-types";
+import {login} from "../../store/axios-actions";
+import {connect} from "react-redux";
+import {Redirect} from "react-router-dom";
+import {AppRoute} from "../../constants";
 
-const Login = ({isLogged}) => {
+const Login = ({onSubmitForm, isAuth}) => {
+  const loginRef = useRef();
+  const passwordRef = useRef();
+
+  if (isAuth) {
+    return (<Redirect to={AppRoute.FAVORITES}/>);
+  }
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    onSubmitForm({
+      login: loginRef.current.value,
+      password: passwordRef.current.value,
+    });
+  };
+
   return (
     <div className="page page--gray page--login">
-      <Header render={() => (isLogged ? <HeaderMail/> : <HeaderSignIn/>)}/>
+      <Header/>
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
+            <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input" type="email" name="email" placeholder="Email" required=""/>
+                <input
+                  ref={loginRef}
+                  className="login__input form__input"
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  required=""/>
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-                <input className="login__input form__input" type="password" name="password" placeholder="Password"
+                <input
+                  ref={passwordRef}
+                  className="login__input form__input"
+                  type="password"
+                  name="password"
+                  placeholder="Password"
                   required=""/>
               </div>
-              <button className="login__submit form__submit button" type="submit">Sign in</button>
+              <button
+                className="login__submit form__submit button"
+                type="submit">
+                Sign in
+              </button>
             </form>
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
+              <a className="locations__item-link" href="/">
                 <span>Amsterdam</span>
               </a>
             </div>
@@ -40,7 +72,19 @@ const Login = ({isLogged}) => {
 };
 
 Login.propTypes = {
-  isLogged: PropTypes.bool.isRequired
+  onSubmitForm: PropTypes.func.isRequired,
+  isAuth: PropTypes.bool,
 };
 
-export default Login;
+const mapStateToProps = (state) => ({
+  isAuth: state.isAuth,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onSubmitForm(authData) {
+    dispatch(login(authData));
+  }
+});
+
+export {Login};
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

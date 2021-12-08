@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import OfferProp from "../offer/offer.prop";
-import {useHistory} from "react-router-dom";
-import {convertRatingToPercent} from "../../utils/utils";
-import {ActionCreator} from "../../store/action";
 import {connect} from "react-redux";
+import {useHistory} from "react-router-dom";
+import {ActionCreator} from "../../store/actions";
+import {convertRatingToPercent} from "../../utils/utils";
 
 const OfferCard = ({offer, pageType, onOfferTitleClick}) => {
   const {price, title, type, preview_image, id, is_favorite, rating} = offer;
@@ -34,9 +34,9 @@ const OfferCard = ({offer, pageType, onOfferTitleClick}) => {
 
   const onTitleClick = (evt) => {
     evt.preventDefault();
+    onOfferTitleClick(offer.city.name, id);
     history.push(pathToOffer);
     window.scrollTo(0, 0);
-    onOfferTitleClick(offer.city.name);
   };
 
   return (
@@ -85,9 +85,7 @@ OfferCard.propTypes = {
 const mapDispatchToProps = (dispatch) => ({
   onOfferTitleClick(typeCity) {
     dispatch(ActionCreator.changeCity(typeCity));
-    dispatch(ActionCreator.findRelevantOffers());
     dispatch(ActionCreator.resetSortingType());
-    dispatch(ActionCreator.resetCity());
   },
 });
 

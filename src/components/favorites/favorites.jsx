@@ -1,20 +1,45 @@
-import React from "react";
+import React, {useEffect} from "react";
 import PropTypes from "prop-types";
 import {Link} from 'react-router-dom';
-import {sortCities} from "../../utils/utils";
 import Header from "../header/header";
 import FavoritesEmpty from "../favorites-empty/favorites-empty";
 import OfferCard from "../offer-card/offer-card";
-import HeaderSignIn from "../header-sign-in/header-sign-in";
-import HeaderMail from "../header-mail/header-mail";
+import {fetchFavoriteOffers} from "../../store/axios-actions";
+import {connect} from "react-redux";
+import Spinner from "../spinner/spinner";
 
-const Favorites = ({offers, isLogged, cities}) => {
-  const isNoOffers = offers.length === 0;
-  const citiesNames = sortCities(offers, cities);
+const sortCities = (offers, cities) => {
+  const citiesByFavoriteOffers = offers.map((e) => e.city.name);
+  const uniqueCities = [...new Set(citiesByFavoriteOffers)];
+  const sortedCities = [];
+  cities.forEach((city) => {
+    const newCity = uniqueCities.find((e) => e === city);
+    if (newCity) {
+      sortedCities.push(newCity);
+    }
+  });
+  return sortedCities;
+};
+
+const Favorites = ({cities, favoriteOffers, isFavoritesLoaded, onLoadFavorites}) => {
+  useEffect(() => {
+    if (!isFavoritesLoaded) {
+      onLoadFavorites();
+    }
+  }, [isFavoritesLoaded]);
+
+  if (!isFavoritesLoaded) {
+    return (
+      <Spinner/>
+    );
+  }
+
+  const isNoOffers = favoriteOffers.length === 0;
+  const citiesNames = sortCities(favoriteOffers, cities);
 
   return (
     <div className="page">
-      <Header render={() => (isLogged ? <HeaderMail/> : <HeaderSignIn/>)}/>
+      <Header/>
       {isNoOffers ?
         <FavoritesEmpty/> :
         <main className="page__main page__main--favorites">
@@ -23,7 +48,7 @@ const Favorites = ({offers, isLogged, cities}) => {
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
                 {citiesNames.map((city, i) => {
-                  const filteringOffers = offers.filter((e) => e.city.name === city);
+                  const filteringOffers = favoriteOffers.filter((e) => e.city.name === city);
                   return (
                     <li className="favorites__locations-items" key={i}>
                       <div className="favorites__locations locations locations--current">
@@ -55,9 +80,22 @@ const Favorites = ({offers, isLogged, cities}) => {
 };
 
 Favorites.propTypes = {
-  offers: PropTypes.array.isRequired,
-  isLogged: PropTypes.bool.isRequired,
-  cities: PropTypes.array
+  cities: PropTypes.array,
+  favoriteOffers: PropTypes.array.isRequired,
+  isFavoritesLoaded: PropTypes.bool,
+  onLoadFavorites: PropTypes.func,
 };
 
-export default Favorites;
+const mapStateToProps = (state) => ({
+  isFavoritesLoaded: state.isFavoritesLoaded,
+  favoriteOffers: state.favoriteOffers,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadFavorites() {
+    dispatch(fetchFavoriteOffers());
+  }
+});
+
+export {Favorites};
+export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
