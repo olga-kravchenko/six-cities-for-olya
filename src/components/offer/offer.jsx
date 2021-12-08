@@ -114,7 +114,7 @@ const Offer = ({offer, nearestOffers, onLoadOffer}) => {
                   </p>
                 </div>
               </div>
-              <Reviews id={id}/>
+              <Reviews id={id} offer={offer}/>
             </div>
           </div>
           <section className="property__map map">

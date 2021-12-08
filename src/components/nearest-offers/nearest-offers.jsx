@@ -8,10 +8,6 @@ import Spinner from "../spinner/spinner";
 const NearestOffers = ({nearestOffers, id, onLoadNearestOffers}) => {
   useEffect(() => onLoadNearestOffers(id), [id]);
 
-  if (!id) {
-    return (<Spinner/>);
-  }
-
   return (
     <div className="container">
       <section className="near-places places">
@@ -20,7 +16,7 @@ const NearestOffers = ({nearestOffers, id, onLoadNearestOffers}) => {
           <div className="near-places__list places__list">
             {nearestOffers.map((o, i) => <OfferCard key={i} offer={o} pageType="near"/>)}
           </div> :
-          <h3 className="near-places__title">Not found : (</h3>}
+          <Spinner/>}
       </section>
     </div>
   );

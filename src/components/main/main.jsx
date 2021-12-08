@@ -15,13 +15,13 @@ const getRelevantSortingOffers = (sortingType, offers, city) => {
   let sortingCallback = null;
   switch (sortingType) {
     case SortingType.PRICE_LOW_TO_HIGH:
-      sortingCallback = (offerA, offerB) => (offerA.price - offerB.price);
+      sortingCallback = (firstOffer, secondOffer) => (firstOffer.price - secondOffer.price);
       break;
     case SortingType.PRICE_HIGH_TO_LOW:
-      sortingCallback = (offerA, offerB) => (offerB.price - offerA.price);
+      sortingCallback = (firstOffer, secondOffer) => (secondOffer.price - firstOffer.price);
       break;
     case SortingType.TOP_RATED_FIRST:
-      sortingCallback = (offerA, offerB) => (offerB.rating - offerA.rating);
+      sortingCallback = (firstOffer, secondOffer) => (secondOffer.rating - firstOffer.rating);
       break;
   }
   const filteredOffers = [...offers.filter((e) => e.city.name === city)];

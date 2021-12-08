@@ -6,12 +6,12 @@ import {connect} from "react-redux";
 import Spinner from "../spinner/spinner";
 import Review from "../review/review";
 
-const Reviews = ({comments, isAuth, id, onLoadComments}) => {
+const Reviews = ({comments, isAuth, id, offer, onLoadComments}) => {
   useEffect(() => {
     onLoadComments(id);
   }, [id]);
 
-  if (!id) {
+  if (offer.id !== +id) {
     return (<Spinner/>);
   }
 
@@ -31,6 +31,7 @@ const Reviews = ({comments, isAuth, id, onLoadComments}) => {
 
 Reviews.propTypes = {
   id: PropTypes.string,
+  offer: PropTypes.object,
   isAuth: PropTypes.bool,
   comments: PropTypes.array,
   onLoadComments: PropTypes.func,

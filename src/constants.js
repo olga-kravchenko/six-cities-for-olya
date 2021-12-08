@@ -16,7 +16,6 @@ const SortingType = {
 
 const DEFAULT_CITY = CityNames.PARIS;
 const DEFAULT_SORTING_TYPE = SortingType.POPULAR;
-const DEFAULT_STATE = false;
 
 const AppRoute = {
   MAIN: `/`,
@@ -37,9 +36,9 @@ const AxiosRoute = {
 
 const HttpCode = {
   OK: 200,
-  NO_FOUND: 404,
-  UNAUTHORIZED: 401,
   BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  NO_FOUND: 404,
 };
 
 export {
@@ -47,7 +46,6 @@ export {
   SortingType,
   DEFAULT_CITY,
   DEFAULT_SORTING_TYPE,
-  DEFAULT_STATE,
   AppRoute,
   AxiosRoute,
   HttpCode

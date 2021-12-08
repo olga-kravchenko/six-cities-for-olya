@@ -3,11 +3,11 @@ import ReviewProp from "./reviewProp";
 import dayjs from "dayjs";
 import {convertRatingToPercent} from "../../utils/utils";
 
-const Review = ({comment}) => {
-  const {comment: text, date, id, rating, user: {avatar_url, name}} = comment;
+const Review = (props) => {
+  const {comment: text, date, id, rating, user: {avatar_url, name}} = props.comment;
   const formattedDateForUser = dayjs(date).format(`MMMM YYYY`);
   const formattedDateForAttribute = dayjs(date).format(`YYYY-MM-DD`);
-  const percent = convertRatingToPercent(rating);
+  const ratingPercent = convertRatingToPercent(rating);
 
   return (
     <li className="reviews__item" id={id}>
@@ -21,7 +21,7 @@ const Review = ({comment}) => {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: `${percent}`}}/>
+            <span style={{width: `${ratingPercent}`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
