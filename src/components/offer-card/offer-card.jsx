@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import OfferProp from "../offer/offer.prop";
 import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
-import {ActionCreator} from "../../store/actions";
+import {changeCity, resetFavorite, resetSortingType} from "../../store/actions";
 import {convertRatingToPercent} from "../../utils/utils";
 
 const OfferCard = ({offer, pageType, onOfferTitleClick}) => {
@@ -84,9 +84,9 @@ OfferCard.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   onOfferTitleClick(typeCity) {
-    dispatch(ActionCreator.changeCity(typeCity));
-    dispatch(ActionCreator.resetSortingType());
-    dispatch(ActionCreator.resetFavorite());
+    dispatch(changeCity(typeCity));
+    dispatch(resetSortingType());
+    dispatch(resetFavorite());
   },
 });
 

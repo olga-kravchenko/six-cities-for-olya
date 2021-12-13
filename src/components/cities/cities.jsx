@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {ActionCreator} from "../../store/actions";
+import {changeCity, resetSortingType} from "../../store/actions";
 import {connect} from "react-redux";
 
 const Cities = ({cities, onCityClick, city}) => {
@@ -35,8 +35,8 @@ const mapDispatchToProps = (dispatch) => ({
     evt.preventDefault();
     const cityName = evt.target.textContent;
     document.querySelector(`.cities__places`).scrollTo(0, 0);
-    dispatch(ActionCreator.changeCity(cityName));
-    dispatch(ActionCreator.resetSortingType());
+    dispatch(changeCity(cityName));
+    dispatch(resetSortingType());
   },
 });
 

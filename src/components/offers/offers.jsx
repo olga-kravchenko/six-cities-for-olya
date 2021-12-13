@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import OfferCard from "../offer-card/offer-card";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../store/actions";
+import {changeActiveOffer} from "../../store/actions";
 
 const Offers = ({offers, pageType, onOfferHover, onOfferLeave}) => {
   return (
@@ -30,12 +30,12 @@ const mapDispatchToProps = (dispatch) => ({
       return;
     }
     const hoverElementId = evt.target.closest(`article`).id;
-    dispatch(ActionCreator.changeActiveOffer(hoverElementId));
+    dispatch(changeActiveOffer(hoverElementId));
   },
   onOfferLeave(evt) {
     evt.preventDefault();
     const leaveElementId = ``;
-    dispatch(ActionCreator.changeActiveOffer(leaveElementId));
+    dispatch(changeActiveOffer(leaveElementId));
   },
 });
 

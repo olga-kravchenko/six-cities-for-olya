@@ -8,11 +8,11 @@ import {composeWithDevTools} from "redux-devtools-extension";
 import App from "./components/app/app";
 import {reducer} from "./store/reducer";
 import {CityNames} from "./constants";
-import {ActionCreator} from "./store/actions";
+import {changeAuthStatus} from "./store/actions";
 import {checkAuth} from "./store/axios-actions";
 import {redirect} from "./store/middlewares/redirect";
 
-const axiosApi = createAxios(() => store.dispatch(ActionCreator.changeAuthStatus(false)));
+const axiosApi = createAxios(() => store.dispatch(changeAuthStatus(false)));
 const store = createStore(
     reducer,
     composeWithDevTools(

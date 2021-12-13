@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../store/actions";
+import {changeSortingType, openPopup} from "../../store/actions";
 import {SortingType} from "../../constants";
 
 const SortingTypes = ({sortingType, onSortingTypeClick, isOpenSortingPopup, onSortingPopupClick}) => {
@@ -45,10 +45,10 @@ const mapDispatchToProps = (dispatch) => ({
   onSortingTypeClick(evt) {
     evt.preventDefault();
     const sortingType = evt.target.textContent;
-    dispatch(ActionCreator.changeSortingType(sortingType));
+    dispatch(changeSortingType(sortingType));
   },
   onSortingPopupClick() {
-    dispatch(ActionCreator.openPopup());
+    dispatch(openPopup());
   }
 });
 

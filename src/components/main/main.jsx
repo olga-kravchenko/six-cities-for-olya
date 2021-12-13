@@ -10,7 +10,7 @@ import Cities from "../cities/cities";
 import EmptyMain from "../empty-main/empty-main";
 import Spinner from "../spinner/spinner";
 import {SortingType} from "../../constants";
-import {ActionCreator} from "../../store/actions";
+import {resetFavorite} from "../../store/actions";
 
 const getRelevantSortingOffers = (sortingType, offers, city) => {
   let sortingCallback = null;
@@ -88,7 +88,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onLoadOffers() {
     dispatch(fetchOffers());
-    dispatch(ActionCreator.resetFavorite());
+    dispatch(resetFavorite());
   },
 });
 
