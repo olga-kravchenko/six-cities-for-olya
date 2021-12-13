@@ -47,7 +47,7 @@ const Map = ({offerList, style, city, activeOfferId}) => {
   }, [city, activeOfferId]);
 
   return (
-    <div id="map" style={style} ref={mapRef}/>
+    <div id="map" style={style}/>
   );
 };
 
