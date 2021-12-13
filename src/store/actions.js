@@ -7,14 +7,14 @@ const ActionType = {
   CHANGE_SORTING_TYPE: `main/changeSortingType`,
   OPEN_POPUP: `main/openPopup`,
   RESET_SORTING_TYPE: `main/resetSortingType`,
-  CHANGE_ACTIVE_OFFER: `offer/changeActiveOffer`,
   LOAD_OFFERS: `main/loadOffers`,
+  CHANGE_ACTIVE_OFFER: `offer/changeActiveOffer`,
   LOAD_OFFER: `offer/loadOffer`,
   LOAD_COMMENTS: `offer/loadComments`,
   LOAD_NEAREST_OFFERS: `offer/loadNearestOffers`,
-  LOAD_FAVORITE_OFFERS: `offer/loadFavoriteOffers`,
-  RESET_OFFER: `offer/resetOffer`,
-  REDIRECT_TO_ROUTE: `main/redirectToRoute`,
+  LOAD_FAVORITE_OFFERS: `favorites/loadFavoriteOffers`,
+  RESET_FAVORITES: `favorites/resetFavorite`,
+  REDIRECT_TO_ROUTE: `redirect/redirectToRoute`,
 };
 
 const ActionCreator = {
@@ -67,6 +67,9 @@ const ActionCreator = {
   redirectToRoute: (url) => ({
     type: ActionType.REDIRECT_TO_ROUTE,
     payload: url,
+  }),
+  resetFavorite: () => ({
+    type: ActionType.RESET_FAVORITES,
   }),
 };
 

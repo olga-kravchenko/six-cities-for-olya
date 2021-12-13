@@ -43,7 +43,7 @@ const reducer = (state = initialState, {type, payload}) => {
       return {...state, nearestOffers: payload};
     case ActionType.LOAD_FAVORITE_OFFERS:
       return {...state, favoriteOffers: payload, isFavoritesLoaded: true};
-    case ActionType.RESET_OFFER:
+    case ActionType.RESET_FAVORITES:
       return {
         ...state,
         isFavoritesLoaded: false,
