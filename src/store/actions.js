@@ -1,4 +1,5 @@
 import {SortingType} from "../constants";
+import {createAction} from '@reduxjs/toolkit';
 
 const ActionType = {
   SAVE_USER_INFO: `user/saveUserInfo`,
@@ -17,72 +18,74 @@ const ActionType = {
   REDIRECT_TO_ROUTE: `redirect/redirectToRoute`,
 };
 
-
-const saveUserInfo = (info) => ({
-  type: ActionType.SAVE_USER_INFO,
-  payload: info,
+const saveUserInfo = createAction(ActionType.SAVE_USER_INFO, (info) => {
+  return {
+    payload: info
+  };
 });
 
-const changeAuthStatus = (status) => ({
-  type: ActionType.CHANGE_AUTH,
-  payload: status,
+const changeAuthStatus = createAction(ActionType.CHANGE_AUTH, (status) => {
+  return {
+    payload: status,
+  };
 });
 
-const changeCity = (city) => ({
-  type: ActionType.CHANGE_CITY,
-  payload: city,
+const changeCity = createAction(ActionType.CHANGE_CITY, (city) => {
+  return {
+    payload: city,
+  };
 });
 
-const changeSortingType = (sortingType = SortingType.POPULAR) => ({
-  type: ActionType.CHANGE_SORTING_TYPE,
-  payload: sortingType,
+const changeSortingType = createAction(ActionType.CHANGE_SORTING_TYPE, (sortingType = SortingType.POPULAR) => {
+  return {
+    payload: sortingType,
+  };
 });
 
-const openPopup = () => ({
-  type: ActionType.OPEN_POPUP,
+const openPopup = createAction(ActionType.OPEN_POPUP);
+const resetSortingType = createAction(ActionType.RESET_SORTING_TYPE);
+const resetFavorite = createAction(ActionType.RESET_FAVORITES);
+
+const changeActiveOffer = createAction(ActionType.CHANGE_ACTIVE_OFFER, (offerId = ``) => {
+  return {
+    payload: offerId,
+  };
 });
 
-const resetSortingType = () => ({
-  type: ActionType.RESET_SORTING_TYPE,
+const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => {
+  return {
+    payload: offers
+  };
 });
 
-const changeActiveOffer = (offerId = ``) => ({
-  type: ActionType.CHANGE_ACTIVE_OFFER,
-  payload: offerId,
+const loadOffer = createAction(ActionType.LOAD_OFFER, (offer) => {
+  return {
+    payload: offer,
+  };
 });
 
-const loadOffers = (offers) => ({
-  type: ActionType.LOAD_OFFERS,
-  payload: offers
+const loadComments = createAction(ActionType.LOAD_COMMENTS, (comments) => {
+  return {
+    payload: comments,
+  };
 });
 
-const loadOffer = (offer) => ({
-  type: ActionType.LOAD_OFFER,
-  payload: offer,
+const loadNearestOffers = createAction(ActionType.LOAD_NEAREST_OFFERS, (offers) => {
+  return {
+    payload: offers,
+  };
 });
 
-const loadComments = (comments) => ({
-  type: ActionType.LOAD_COMMENTS,
-  payload: comments,
+const loadFavoriteOffers = createAction(ActionType.LOAD_FAVORITE_OFFERS, (offers) => {
+  return {
+    payload: offers,
+  };
 });
 
-const loadNearestOffers = (offers) => ({
-  type: ActionType.LOAD_NEAREST_OFFERS,
-  payload: offers,
-});
-
-const loadFavoriteOffers = (offers) => ({
-  type: ActionType.LOAD_FAVORITE_OFFERS,
-  payload: offers,
-});
-
-const redirectToRoute = (url) => ({
-  type: ActionType.REDIRECT_TO_ROUTE,
-  payload: url,
-});
-
-const resetFavorite = () => ({
-  type: ActionType.RESET_FAVORITES,
+const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => {
+  return {
+    payload: url,
+  };
 });
 
 export {
