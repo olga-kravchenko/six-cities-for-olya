@@ -1,4 +1,4 @@
-import {combineReducers} from "redux";
+import {combineReducers} from "@reduxjs/toolkit";
 import {userDataReducer} from "./user-data/user-data";
 import {favoritesDataReducer} from "./favorites-data/favorites-data";
 import {mainDataReducer} from "./main-data/main-data";
