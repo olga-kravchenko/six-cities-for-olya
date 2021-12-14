@@ -135,9 +135,9 @@ Offer.propTypes = {
   onLoadOffer: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
-  offer: state.offer,
-  nearestOffers: state.nearestOffers,
+const mapStateToProps = ({OFFER}) => ({
+  offer: OFFER.offer,
+  nearestOffers: OFFER.nearestOffers,
 });
 
 const mapDispatchToProps = (dispatch) => ({

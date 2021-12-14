@@ -86,9 +86,9 @@ Favorites.propTypes = {
   onLoadFavorites: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
-  isFavoritesLoaded: state.isFavoritesLoaded,
-  favoriteOffers: state.favoriteOffers,
+const mapStateToProps = ({FAVORITES}) => ({
+  isFavoritesLoaded: FAVORITES.isFavoritesLoaded,
+  favoriteOffers: FAVORITES.favoriteOffers,
 });
 
 const mapDispatchToProps = (dispatch) => ({

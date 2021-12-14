@@ -76,8 +76,8 @@ Login.propTypes = {
   isAuth: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => ({
-  isAuth: state.isAuth,
+const mapStateToProps = ({USER}) => ({
+  isAuth: USER.isAuth,
 });
 
 const mapDispatchToProps = (dispatch) => ({

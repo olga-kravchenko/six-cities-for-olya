@@ -36,9 +36,9 @@ SortingTypes.propTypes = {
   onSortingPopupClick: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
-  sortingType: state.sortingType,
-  isOpenSortingPopup: state.isOpenSortingPopup
+const mapStateToProps = ({MAIN}) => ({
+  sortingType: MAIN.sortingType,
+  isOpenSortingPopup: MAIN.isOpenSortingPopup
 });
 
 const mapDispatchToProps = (dispatch) => ({

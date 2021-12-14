@@ -37,9 +37,9 @@ Reviews.propTypes = {
   onLoadComments: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
-  comments: state.comments,
-  isAuth: state.isAuth,
+const mapStateToProps = ({OFFER, USER}) => ({
+  comments: OFFER.comments,
+  isAuth: USER.isAuth,
 });
 
 const mapDispatchToProps = (dispatch) => ({

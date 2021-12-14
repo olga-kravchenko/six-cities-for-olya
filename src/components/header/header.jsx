@@ -32,8 +32,8 @@ Header.propTypes = {
   isAuth: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  isAuth: state.isAuth,
+const mapStateToProps = ({USER}) => ({
+  isAuth: USER.isAuth,
 });
 
 export {Header};

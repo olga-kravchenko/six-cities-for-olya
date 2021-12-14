@@ -58,9 +58,9 @@ Map.propTypes = {
   activeOfferId: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
-  city: state.city,
-  activeOfferId: state.activeOfferId
+const mapStateToProps = ({MAIN}) => ({
+  city: MAIN.city,
+  activeOfferId: MAIN.activeOfferId
 });
 
 export {Map};

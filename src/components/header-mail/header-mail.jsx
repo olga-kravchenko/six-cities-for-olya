@@ -23,8 +23,8 @@ HeaderMail.propTypes = {
   userInfo: PropTypes.object,
 };
 
-const mapStateToProps = (state) => ({
-  userInfo: state.userInfo,
+const mapStateToProps = ({USER}) => ({
+  userInfo: USER.userInfo,
 });
 
 const mapDispatchToProps = (dispatch) => ({
