@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {changeCity, resetSortingType} from "../../store/actions";
 import {connect} from "react-redux";
+import {getCity} from "../../store/main-data/selectors";
 
 const Cities = ({cities, onCityClick, city}) => {
   return (
@@ -26,8 +27,8 @@ Cities.propTypes = {
   city: PropTypes.string,
 };
 
-const mapStateToProps = ({MAIN}) => ({
-  city: MAIN.city,
+const mapStateToProps = (state) => ({
+  city: getCity(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

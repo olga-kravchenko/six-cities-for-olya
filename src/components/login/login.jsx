@@ -5,6 +5,7 @@ import {login} from "../../store/axios-actions";
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 import {AppRoute} from "../../constants";
+import {getAuthStatus} from "../../store/user-data/selectors";
 
 const Login = ({onSubmitForm, isAuth}) => {
   const loginRef = useRef();
@@ -76,8 +77,8 @@ Login.propTypes = {
   isAuth: PropTypes.bool,
 };
 
-const mapStateToProps = ({USER}) => ({
-  isAuth: USER.isAuth,
+const mapStateToProps = (state) => ({
+  isAuth: getAuthStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -7,6 +7,7 @@ import OfferCard from "../offer-card/offer-card";
 import {fetchFavoriteOffers} from "../../store/axios-actions";
 import {connect} from "react-redux";
 import Spinner from "../spinner/spinner";
+import {getFavoriteOffers, getLoadedFavoritesStatus} from "../../store/favorites-data/selectors";
 
 const sortCities = (offers, cities) => {
   const citiesByFavoriteOffers = offers.map((e) => e.city.name);
@@ -86,9 +87,9 @@ Favorites.propTypes = {
   onLoadFavorites: PropTypes.func,
 };
 
-const mapStateToProps = ({FAVORITES}) => ({
-  isFavoritesLoaded: FAVORITES.isFavoritesLoaded,
-  favoriteOffers: FAVORITES.favoriteOffers,
+const mapStateToProps = (state) => ({
+  isFavoritesLoaded: getLoadedFavoritesStatus(state),
+  favoriteOffers: getFavoriteOffers(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

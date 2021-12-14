@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import HeaderMail from "../header-mail/header-mail";
 import HeaderSignIn from "../header-sign-in/header-sign-in";
 import {connect} from "react-redux";
+import {getAuthStatus} from "../../store/user-data/selectors";
 
 const Header = ({isAuth}) => {
   return (
@@ -32,8 +33,8 @@ Header.propTypes = {
   isAuth: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({USER}) => ({
-  isAuth: USER.isAuth,
+const mapStateToProps = (state) => ({
+  isAuth: getAuthStatus(state),
 });
 
 export {Header};

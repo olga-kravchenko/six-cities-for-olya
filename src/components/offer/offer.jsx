@@ -9,6 +9,7 @@ import Map from "../map/map";
 import Spinner from "../spinner/spinner";
 import Reviews from "../reviews/reviews";
 import NearestOffers from "../nearest-offers/nearest-offers";
+import {getNearestOffers, getOffer} from "../../store/offer-data/selectors";
 
 const Offer = ({offer, nearestOffers, onLoadOffer}) => {
   const {id} = useParams();
@@ -135,9 +136,9 @@ Offer.propTypes = {
   onLoadOffer: PropTypes.func,
 };
 
-const mapStateToProps = ({OFFER}) => ({
-  offer: OFFER.offer,
-  nearestOffers: OFFER.nearestOffers,
+const mapStateToProps = (state) => ({
+  offer: getOffer(state),
+  nearestOffers: getNearestOffers(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

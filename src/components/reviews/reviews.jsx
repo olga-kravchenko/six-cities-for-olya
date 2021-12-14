@@ -5,6 +5,8 @@ import {fetchComments} from "../../store/axios-actions";
 import {connect} from "react-redux";
 import Spinner from "../spinner/spinner";
 import Review from "../review/review";
+import {getComments} from "../../store/offer-data/selectors";
+import {getAuthStatus} from "../../store/user-data/selectors";
 
 const Reviews = ({comments, isAuth, id, offer, onLoadComments}) => {
   useEffect(() => {
@@ -37,9 +39,9 @@ Reviews.propTypes = {
   onLoadComments: PropTypes.func,
 };
 
-const mapStateToProps = ({OFFER, USER}) => ({
-  comments: OFFER.comments,
-  isAuth: USER.isAuth,
+const mapStateToProps = (state) => ({
+  comments: getComments(state),
+  isAuth: getAuthStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

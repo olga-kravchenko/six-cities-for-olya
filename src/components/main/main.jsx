@@ -11,6 +11,7 @@ import EmptyMain from "../empty-main/empty-main";
 import Spinner from "../spinner/spinner";
 import {SortingType} from "../../constants";
 import {resetFavorite} from "../../store/actions";
+import {getCity, getOffers, getOffersLoadedStatus, getSortingType} from "../../store/main-data/selectors";
 
 const getRelevantSortingOffers = (sortingType, offers, city) => {
   let sortingCallback = null;
@@ -78,11 +79,11 @@ Main.propTypes = {
   onLoadOffers: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({MAIN}) => ({
-  city: MAIN.city,
-  offers: MAIN.offers,
-  isOffersLoaded: MAIN.isOffersLoaded,
-  sortingType: MAIN.sortingType,
+const mapStateToProps = (state) => ({
+  city: getCity(state),
+  offers: getOffers(state),
+  isOffersLoaded: getOffersLoadedStatus(state),
+  sortingType: getSortingType(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

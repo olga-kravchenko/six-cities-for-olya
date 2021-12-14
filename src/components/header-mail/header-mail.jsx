@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {logout} from "../../store/axios-actions";
 import {connect} from "react-redux";
+import {getUserInfo} from "../../store/user-data/selectors";
 
 const HeaderMail = ({onExitClick, userInfo}) => {
   return (
@@ -23,8 +24,8 @@ HeaderMail.propTypes = {
   userInfo: PropTypes.object,
 };
 
-const mapStateToProps = ({USER}) => ({
-  userInfo: USER.userInfo,
+const mapStateToProps = (state) => ({
+  userInfo: getUserInfo(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

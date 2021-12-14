@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {changeSortingType, openPopup} from "../../store/actions";
 import {SortingType} from "../../constants";
+import {getOpenSortingPopupStatus, getSortingType} from "../../store/main-data/selectors";
 
 const SortingTypes = ({sortingType, onSortingTypeClick, isOpenSortingPopup, onSortingPopupClick}) => {
   const types = Object.values(SortingType);
@@ -36,9 +37,9 @@ SortingTypes.propTypes = {
   onSortingPopupClick: PropTypes.func,
 };
 
-const mapStateToProps = ({MAIN}) => ({
-  sortingType: MAIN.sortingType,
-  isOpenSortingPopup: MAIN.isOpenSortingPopup
+const mapStateToProps = (state) => ({
+  sortingType: getSortingType(state),
+  isOpenSortingPopup: getOpenSortingPopupStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

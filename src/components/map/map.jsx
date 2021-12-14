@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import leaflet from 'leaflet';
 import "leaflet/dist/leaflet.css";
+import {getActiveOfferId, getCity} from "../../store/main-data/selectors";
 
 const Map = ({offerList, style, city, activeOfferId}) => {
   const mapRef = useRef();
@@ -58,9 +59,9 @@ Map.propTypes = {
   activeOfferId: PropTypes.string,
 };
 
-const mapStateToProps = ({MAIN}) => ({
-  city: MAIN.city,
-  activeOfferId: MAIN.activeOfferId
+const mapStateToProps = (state) => ({
+  city: getCity(state),
+  activeOfferId: getActiveOfferId(state),
 });
 
 export {Map};
