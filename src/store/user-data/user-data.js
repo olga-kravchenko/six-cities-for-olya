@@ -1,19 +1,18 @@
-import {ActionType} from "../actions";
+import {saveUserInfo, changeAuthStatus} from "../actions";
+import {createReducer} from "@reduxjs/toolkit";
 
 const initialState = {
   userInfo: {email: ``, avatar_url: ``},
   isAuth: false,
 };
 
-const userDataReducer = (state = initialState, {type, payload}) => {
-  switch (type) {
-    case ActionType.SAVE_USER_INFO:
-      return {...state, userInfo: payload};
-    case ActionType.CHANGE_AUTH:
-      return {...state, isAuth: payload};
-    default:
-      return state;
-  }
-};
+const userDataReducer = createReducer(initialState, (builder) => {
+  builder.addCase(saveUserInfo, (state, action) => {
+    state.userInfo = action.payload;
+  });
+  builder.addCase(changeAuthStatus, (state, action) => {
+    state.isAuth = action.payload;
+  });
+});
 
 export {userDataReducer};

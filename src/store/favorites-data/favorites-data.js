@@ -1,22 +1,19 @@
-import {ActionType} from "../actions";
+import {createReducer} from '@reduxjs/toolkit';
+import {loadFavoriteOffers, resetFavorite} from "../actions";
 
 const initialState = {
   favoriteOffers: [],
   isFavoritesLoaded: false,
 };
 
-const favoritesDataReducer = (state = initialState, {type, payload}) => {
-  switch (type) {
-    case ActionType.LOAD_FAVORITE_OFFERS:
-      return {...state, favoriteOffers: payload, isFavoritesLoaded: true};
-    case ActionType.RESET_FAVORITES:
-      return {
-        ...state,
-        isFavoritesLoaded: false,
-      };
-    default:
-      return state;
-  }
-};
+const favoritesDataReducer = createReducer(initialState, (builder) => {
+  builder.addCase(loadFavoriteOffers, (state, action) => {
+    state.favoriteOffers = action.payload;
+    state.isFavoritesLoaded = true;
+  });
+  builder.addCase(resetFavorite, (state) => {
+    state.isFavoritesLoaded = false;
+  });
+});
 
 export {favoritesDataReducer};

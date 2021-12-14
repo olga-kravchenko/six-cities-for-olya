@@ -1,13 +1,22 @@
 import React from "react";
-import PropTypes from "prop-types";
-import {connect} from "react-redux";
 import {changeSortingType, openPopup} from "../../store/actions";
 import {SortingType} from "../../constants";
-import {getOpenSortingPopupStatus, getSortingType} from "../../store/main-data/selectors";
+import {useSelector, useDispatch} from "react-redux";
 
-const SortingTypes = ({sortingType, onSortingTypeClick, isOpenSortingPopup, onSortingPopupClick}) => {
+const SortingTypes = () => {
+  const {sortingType, isOpenSortingPopup} = useSelector((state) => state.MAIN);
+  const dispatch = useDispatch();
   const types = Object.values(SortingType);
   const openSortingPopUp = isOpenSortingPopup ? `places__options--opened` : ``;
+
+  const onSortingTypeClick = (evt) => {
+    evt.preventDefault();
+    dispatch(changeSortingType(evt.target.textContent));
+  };
+
+  const onSortingPopupClick = () => {
+    dispatch(openPopup());
+  };
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -30,28 +39,5 @@ const SortingTypes = ({sortingType, onSortingTypeClick, isOpenSortingPopup, onSo
     </form>
   );
 };
-SortingTypes.propTypes = {
-  sortingType: PropTypes.string,
-  onSortingTypeClick: PropTypes.func,
-  isOpenSortingPopup: PropTypes.bool,
-  onSortingPopupClick: PropTypes.func,
-};
 
-const mapStateToProps = (state) => ({
-  sortingType: getSortingType(state),
-  isOpenSortingPopup: getOpenSortingPopupStatus(state)
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSortingTypeClick(evt) {
-    evt.preventDefault();
-    const sortingType = evt.target.textContent;
-    dispatch(changeSortingType(sortingType));
-  },
-  onSortingPopupClick() {
-    dispatch(openPopup());
-  }
-});
-
-export {SortingTypes};
-export default connect(mapStateToProps, mapDispatchToProps)(SortingTypes);
+export default SortingTypes;

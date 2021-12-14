@@ -1,13 +1,13 @@
 import React, {useRef} from "react";
 import Header from "../header/header";
-import PropTypes from "prop-types";
 import {login} from "../../store/axios-actions";
-import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 import {AppRoute} from "../../constants";
-import {getAuthStatus} from "../../store/user-data/selectors";
+import {useSelector, useDispatch} from "react-redux";
 
-const Login = ({onSubmitForm, isAuth}) => {
+const Login = () => {
+  const {isAuth} = useSelector((state) => state.USER);
+  const dispatch = useDispatch();
   const loginRef = useRef();
   const passwordRef = useRef();
 
@@ -17,10 +17,10 @@ const Login = ({onSubmitForm, isAuth}) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    onSubmitForm({
+    dispatch(login({
       login: loginRef.current.value,
       password: passwordRef.current.value,
-    });
+    }));
   };
 
   return (
@@ -72,20 +72,4 @@ const Login = ({onSubmitForm, isAuth}) => {
   );
 };
 
-Login.propTypes = {
-  onSubmitForm: PropTypes.func.isRequired,
-  isAuth: PropTypes.bool,
-};
-
-const mapStateToProps = (state) => ({
-  isAuth: getAuthStatus(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmitForm(authData) {
-    dispatch(login(authData));
-  }
-});
-
-export {Login};
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;

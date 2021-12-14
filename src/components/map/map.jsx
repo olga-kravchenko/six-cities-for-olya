@@ -1,11 +1,11 @@
 import React, {useEffect, useRef} from 'react';
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
 import leaflet from 'leaflet';
 import "leaflet/dist/leaflet.css";
-import {getActiveOfferId, getCity} from "../../store/main-data/selectors";
+import {useSelector} from "react-redux";
 
-const Map = ({offerList, style, city, activeOfferId}) => {
+const Map = ({offerList, style}) => {
+  const {city, activeOfferId} = useSelector((state) => state.MAIN);
   const mapRef = useRef();
   const cityInfo = offerList.find((e) => e.city.location).city;
   const {location} = cityInfo;
@@ -55,14 +55,6 @@ const Map = ({offerList, style, city, activeOfferId}) => {
 Map.propTypes = {
   offerList: PropTypes.array.isRequired,
   style: PropTypes.object.isRequired,
-  city: PropTypes.string,
-  activeOfferId: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
-  city: getCity(state),
-  activeOfferId: getActiveOfferId(state),
-});
-
-export {Map};
-export default connect(mapStateToProps, null)(Map);
+export default Map;

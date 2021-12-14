@@ -2,12 +2,15 @@ import React, {useEffect} from "react";
 import OfferCard from "../offer-card/offer-card";
 import PropTypes from "prop-types";
 import {fetchNearbyOffer} from "../../store/axios-actions";
-import {connect} from "react-redux";
 import Spinner from "../spinner/spinner";
-import {getNearestOffers} from "../../store/offer-data/selectors";
+import {useSelector, useDispatch} from "react-redux";
 
-const NearestOffers = ({nearestOffers, id, onLoadNearestOffers}) => {
-  useEffect(() => onLoadNearestOffers(id), [id]);
+const NearestOffers = ({id}) => {
+  const {nearestOffers} = useSelector((state) => state.OFFER);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchNearbyOffer(id));
+  }, [id]);
 
   return (
     <div className="container">
@@ -25,19 +28,6 @@ const NearestOffers = ({nearestOffers, id, onLoadNearestOffers}) => {
 
 NearestOffers.propTypes = {
   id: PropTypes.string,
-  nearestOffers: PropTypes.array,
-  onLoadNearestOffers: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
-  nearestOffers: getNearestOffers(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadNearestOffers(id) {
-    dispatch(fetchNearbyOffer(id));
-  },
-});
-
-export {NearestOffers};
-export default connect(mapStateToProps, mapDispatchToProps)(NearestOffers);
+export default NearestOffers;

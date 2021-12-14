@@ -5,9 +5,8 @@ import Header from "../header/header";
 import FavoritesEmpty from "../favorites-empty/favorites-empty";
 import OfferCard from "../offer-card/offer-card";
 import {fetchFavoriteOffers} from "../../store/axios-actions";
-import {connect} from "react-redux";
 import Spinner from "../spinner/spinner";
-import {getFavoriteOffers, getLoadedFavoritesStatus} from "../../store/favorites-data/selectors";
+import {useSelector, useDispatch} from "react-redux";
 
 const sortCities = (offers, cities) => {
   const citiesByFavoriteOffers = offers.map((e) => e.city.name);
@@ -22,10 +21,13 @@ const sortCities = (offers, cities) => {
   return sortedCities;
 };
 
-const Favorites = ({cities, favoriteOffers, isFavoritesLoaded, onLoadFavorites}) => {
+const Favorites = ({cities}) => {
+  const {favoriteOffers, isFavoritesLoaded} = useSelector((state) => state.FAVORITES);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (!isFavoritesLoaded) {
-      onLoadFavorites();
+      dispatch(fetchFavoriteOffers());
     }
   }, [isFavoritesLoaded]);
 
@@ -82,21 +84,6 @@ const Favorites = ({cities, favoriteOffers, isFavoritesLoaded, onLoadFavorites})
 
 Favorites.propTypes = {
   cities: PropTypes.array,
-  favoriteOffers: PropTypes.array.isRequired,
-  isFavoritesLoaded: PropTypes.bool,
-  onLoadFavorites: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
-  isFavoritesLoaded: getLoadedFavoritesStatus(state),
-  favoriteOffers: getFavoriteOffers(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadFavorites() {
-    dispatch(fetchFavoriteOffers());
-  }
-});
-
-export {Favorites};
-export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
+export default Favorites;

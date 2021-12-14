@@ -1,10 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {changeCity, resetSortingType} from "../../store/actions";
-import {connect} from "react-redux";
-import {getCity} from "../../store/main-data/selectors";
+import {useSelector, useDispatch} from "react-redux";
 
-const Cities = ({cities, onCityClick, city}) => {
+const Cities = ({cities}) => {
+  const {city} = useSelector((state) => state.MAIN);
+  const dispatch = useDispatch();
+
+  const onCityClick = (evt) => {
+    evt.preventDefault();
+    const cityName = evt.target.textContent;
+    document.querySelector(`.cities__places`).scrollTo(0, 0);
+    dispatch(changeCity(cityName));
+    dispatch(resetSortingType());
+  };
+
   return (
     <ul className="locations__list tabs__list">
       {cities.map((cityName, i) => {
@@ -23,23 +33,6 @@ const Cities = ({cities, onCityClick, city}) => {
 
 Cities.propTypes = {
   cities: PropTypes.array.isRequired,
-  onCityClick: PropTypes.func,
-  city: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
-  city: getCity(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onCityClick(evt) {
-    evt.preventDefault();
-    const cityName = evt.target.textContent;
-    document.querySelector(`.cities__places`).scrollTo(0, 0);
-    dispatch(changeCity(cityName));
-    dispatch(resetSortingType());
-  },
-});
-
-export {Cities};
-export default connect(mapStateToProps, mapDispatchToProps)(Cities);
+export default Cities;

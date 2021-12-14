@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
 import PropTypes from 'prop-types';
-import {connect} from "react-redux";
 import {fetchOffers} from "../../store/axios-actions";
 import SortingTypes from "../sorting-types/sorting-types";
 import Header from "../header/header";
@@ -11,7 +10,7 @@ import EmptyMain from "../empty-main/empty-main";
 import Spinner from "../spinner/spinner";
 import {SortingType} from "../../constants";
 import {resetFavorite} from "../../store/actions";
-import {getCity, getOffers, getOffersLoadedStatus, getSortingType} from "../../store/main-data/selectors";
+import {useSelector, useDispatch} from "react-redux";
 
 const getRelevantSortingOffers = (sortingType, offers, city) => {
   let sortingCallback = null;
@@ -30,8 +29,14 @@ const getRelevantSortingOffers = (sortingType, offers, city) => {
   return sortingCallback ? filteredOffers.sort(sortingCallback) : filteredOffers;
 };
 
-const Main = ({cities, city, offers, sortingType, isOffersLoaded, onLoadOffers}) => {
-  useEffect(() => onLoadOffers(), []);
+const Main = ({cities}) => {
+  const {city, offers, sortingType, isOffersLoaded} = useSelector((state) => state.MAIN);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchOffers());
+    dispatch(resetFavorite());
+  }, []);
 
   const componentEmptyOrSpinner = isOffersLoaded ? <EmptyMain/> : <Spinner/>;
   const offerList = getRelevantSortingOffers(sortingType, offers, city);
@@ -72,26 +77,7 @@ const Main = ({cities, city, offers, sortingType, isOffersLoaded, onLoadOffers})
 
 Main.propTypes = {
   cities: PropTypes.array,
-  city: PropTypes.string.isRequired,
-  offers: PropTypes.array.isRequired,
-  sortingType: PropTypes.string,
-  isOffersLoaded: PropTypes.bool.isRequired,
-  onLoadOffers: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  city: getCity(state),
-  offers: getOffers(state),
-  isOffersLoaded: getOffersLoadedStatus(state),
-  sortingType: getSortingType(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadOffers() {
-    dispatch(fetchOffers());
-    dispatch(resetFavorite());
-  },
-});
-
 export {Main};
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;

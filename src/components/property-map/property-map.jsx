@@ -12,9 +12,7 @@ const PropertyMap = ({nearestOffers}) => {
 };
 
 PropertyMap.propTypes = {
-  id: PropTypes.string,
   nearestOffers: PropTypes.array,
-  onLoadNearestOffers: PropTypes.func,
 };
 
 export default PropertyMap;

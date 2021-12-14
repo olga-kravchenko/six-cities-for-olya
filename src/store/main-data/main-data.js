@@ -1,4 +1,5 @@
-import {ActionType} from "../actions";
+import {createReducer} from '@reduxjs/toolkit';
+import {changeCity, changeSortingType, openPopup, changeActiveOffer, loadOffers} from "../actions";
 import {DEFAULT_CITY, DEFAULT_SORTING_TYPE} from "../../constants";
 
 const initialState = {
@@ -10,23 +11,25 @@ const initialState = {
   isOffersLoaded: false,
 };
 
-const mainDataReducer = (state = initialState, {type, payload}) => {
-  switch (type) {
-    case ActionType.CHANGE_CITY:
-      return {...state, city: payload, isOpenSortingPopup: false};
-    case ActionType.CHANGE_SORTING_TYPE:
-      return {...state, sortingType: payload, isOpenSortingPopup: false};
-    case ActionType.RESET_SORTING_TYPE:
-      return {...state, sortingType: DEFAULT_SORTING_TYPE, isOpenSortingPopup: false};
-    case ActionType.OPEN_POPUP:
-      return {...state, isOpenSortingPopup: !state.isOpenSortingPopup};
-    case ActionType.CHANGE_ACTIVE_OFFER:
-      return {...state, activeOfferId: payload};
-    case ActionType.LOAD_OFFERS:
-      return {...state, offers: payload, isOffersLoaded: true};
-    default:
-      return state;
-  }
-};
+const mainDataReducer = createReducer(initialState, (builder) => {
+  builder.addCase(changeCity, (state, action) => {
+    state.city = action.payload;
+    state.isOpenSortingPopup = false;
+  });
+  builder.addCase(changeSortingType, (state, action) => {
+    state.sortingType = action.payload;
+    state.isOpenSortingPopup = false;
+  });
+  builder.addCase(openPopup, (state) => {
+    state.isOpenSortingPopup = !state.isOpenSortingPopup;
+  });
+  builder.addCase(changeActiveOffer, (state, action) => {
+    state.activeOfferId = action.payload;
+  });
+  builder.addCase(loadOffers, (state, action) => {
+    state.offers = action.payload;
+    state.isOffersLoaded = true;
+  });
+});
 
 export {mainDataReducer};

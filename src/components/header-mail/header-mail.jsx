@@ -1,11 +1,11 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import PropTypes from "prop-types";
 import {logout} from "../../store/axios-actions";
-import {connect} from "react-redux";
-import {getUserInfo} from "../../store/user-data/selectors";
+import {useSelector, useDispatch} from "react-redux";
 
-const HeaderMail = ({onExitClick, userInfo}) => {
+const HeaderMail = () => {
+  const {userInfo} = useSelector((state) => state.USER);
+  const dispatch = useDispatch();
   return (
     <>
       <Link className="header__nav-link header__nav-link--profile" to="/favorites">
@@ -13,26 +13,10 @@ const HeaderMail = ({onExitClick, userInfo}) => {
         </div>
         <span className="header__user-name user__name">{userInfo.email}</span>
       </Link>
-      <a onClick={onExitClick}>
+      <a onClick={(authData) => dispatch(logout(authData))}>
         <p>Выход</p>
       </a>
     </>);
 };
 
-HeaderMail.propTypes = {
-  onExitClick: PropTypes.func.isRequired,
-  userInfo: PropTypes.object,
-};
-
-const mapStateToProps = (state) => ({
-  userInfo: getUserInfo(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onExitClick(authData) {
-    dispatch(logout(authData));
-  }
-});
-
-export {HeaderMail};
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderMail);
+export default HeaderMail;

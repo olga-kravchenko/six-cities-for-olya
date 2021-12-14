@@ -1,7 +1,5 @@
 import React, {useEffect} from "react";
-import PropTypes from "prop-types";
 import {useParams} from "react-router-dom";
-import {connect} from "react-redux";
 import {convertRatingToPercent} from "../../utils/utils";
 import {fetchOffer} from "../../store/axios-actions";
 import Header from "../header/header";
@@ -9,11 +7,15 @@ import Map from "../map/map";
 import Spinner from "../spinner/spinner";
 import Reviews from "../reviews/reviews";
 import NearestOffers from "../nearest-offers/nearest-offers";
-import {getNearestOffers, getOffer} from "../../store/offer-data/selectors";
+import {useSelector, useDispatch} from "react-redux";
 
-const Offer = ({offer, nearestOffers, onLoadOffer}) => {
+const Offer = () => {
+  const {nearestOffers, offer} = useSelector((state) => state.OFFER);
+  const dispatch = useDispatch();
   const {id} = useParams();
-  useEffect(() => onLoadOffer(id), [id]);
+  useEffect(() => {
+    dispatch(fetchOffer(id));
+  }, [id]);
 
   if (offer.id !== +id) {
     return (<Spinner/>);
@@ -130,22 +132,4 @@ const Offer = ({offer, nearestOffers, onLoadOffer}) => {
   );
 };
 
-Offer.propTypes = {
-  offer: PropTypes.object,
-  nearestOffers: PropTypes.array,
-  onLoadOffer: PropTypes.func,
-};
-
-const mapStateToProps = (state) => ({
-  offer: getOffer(state),
-  nearestOffers: getNearestOffers(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadOffer(id) {
-    dispatch(fetchOffer(id));
-  },
-});
-
-export {Offer};
-export default connect(mapStateToProps, mapDispatchToProps)(Offer);
+export default Offer;

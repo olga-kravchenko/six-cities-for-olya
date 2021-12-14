@@ -1,12 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import OfferProp from "../offer/offer.prop";
-import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {changeCity, resetFavorite, resetSortingType} from "../../store/actions";
 import {convertRatingToPercent} from "../../utils/utils";
+import {useDispatch} from "react-redux";
 
-const OfferCard = ({offer, pageType, onOfferTitleClick}) => {
+const OfferCard = ({offer, pageType}) => {
+  const dispatch = useDispatch();
   const {price, title, type, preview_image, id, is_favorite, rating} = offer;
   const percent = convertRatingToPercent(rating);
   const history = useHistory();
@@ -34,7 +35,9 @@ const OfferCard = ({offer, pageType, onOfferTitleClick}) => {
 
   const onTitleClick = (evt) => {
     evt.preventDefault();
-    onOfferTitleClick(offer.city.name, id);
+    dispatch(changeCity(offer.city.name));
+    dispatch(resetSortingType());
+    dispatch(resetFavorite());
     history.push(pathToOffer);
     window.scrollTo(0, 0);
   };
@@ -79,16 +82,6 @@ const OfferCard = ({offer, pageType, onOfferTitleClick}) => {
 OfferCard.propTypes = {
   offer: OfferProp,
   pageType: PropTypes.string.isRequired,
-  onOfferTitleClick: PropTypes.func,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onOfferTitleClick(typeCity) {
-    dispatch(changeCity(typeCity));
-    dispatch(resetSortingType());
-    dispatch(resetFavorite());
-  },
-});
-
-export {OfferCard};
-export default connect(null, mapDispatchToProps)(OfferCard);
+export default OfferCard;
