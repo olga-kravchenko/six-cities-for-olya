@@ -6,7 +6,7 @@ const initialState = {
   sortingType: DEFAULT_SORTING_TYPE,
 };
 
-const sortingDataReducer = createReducer(initialState, (builder) => {
+const sortingTypeDataReducer = createReducer(initialState, (builder) => {
   builder.addCase(changeSortingType, (state, action) => {
     state.sortingType = action.payload;
   });
@@ -15,4 +15,4 @@ const sortingDataReducer = createReducer(initialState, (builder) => {
   });
 });
 
-export {sortingDataReducer};
+export {sortingTypeDataReducer};

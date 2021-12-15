@@ -12,7 +12,7 @@ import {useSelector, useDispatch} from "react-redux";
 
 
 const Main = () => {
-  const {offers, isOffersLoaded} = useSelector((state) => state.MAIN);
+  const {offers, isOffersLoaded} = useSelector((state) => state.OFFERS);
   const {city} = useSelector((state) => state.CITY);
   const dispatch = useDispatch();
 

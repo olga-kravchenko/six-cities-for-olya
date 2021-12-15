@@ -23,7 +23,7 @@ const getRelevantSortingOffers = (sortingType, filteredOffers) => {
 
 
 const Offers = ({offers, pageType}) => {
-  const {sortingType} = useSelector((state) => state.SORTING);
+  const {sortingType} = useSelector((state) => state.SORTING_TYPE);
   const dispatch = useDispatch();
   const offerList = getRelevantSortingOffers(sortingType, offers);
   const onOfferHover = (evt) => {

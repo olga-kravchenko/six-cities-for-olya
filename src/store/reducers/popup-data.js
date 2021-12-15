@@ -5,7 +5,7 @@ const initialState = {
   isOpenSortingPopup: false,
 };
 
-const sortingPopupDataReducer = createReducer(initialState, (builder) => {
+const popupDataReducer = createReducer(initialState, (builder) => {
   builder.addCase(openPopup, (state) => {
     state.isOpenSortingPopup = !state.isOpenSortingPopup;
   });
@@ -14,4 +14,4 @@ const sortingPopupDataReducer = createReducer(initialState, (builder) => {
   });
 });
 
-export {sortingPopupDataReducer};
+export {popupDataReducer};

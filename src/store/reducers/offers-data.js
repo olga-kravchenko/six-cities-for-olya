@@ -6,11 +6,11 @@ const initialState = {
   isOffersLoaded: false,
 };
 
-const mainDataReducer = createReducer(initialState, (builder) => {
+const offersDataReducer = createReducer(initialState, (builder) => {
   builder.addCase(loadOffers, (state, action) => {
     state.offers = action.payload;
     state.isOffersLoaded = true;
   });
 });
 
-export {mainDataReducer};
+export {offersDataReducer};

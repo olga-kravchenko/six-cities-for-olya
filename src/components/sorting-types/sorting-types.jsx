@@ -4,7 +4,7 @@ import {SortingType} from "../../constants";
 import {useSelector, useDispatch} from "react-redux";
 
 const SortingTypes = () => {
-  const {sortingType} = useSelector((state) => state.SORTING);
+  const {sortingType} = useSelector((state) => state.SORTING_TYPE);
   const {isOpenSortingPopup} = useSelector((state) => state.POPUP);
   const dispatch = useDispatch();
   const types = Object.values(SortingType);
