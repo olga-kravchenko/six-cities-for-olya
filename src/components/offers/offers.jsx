@@ -2,10 +2,30 @@ import React from "react";
 import PropTypes from "prop-types";
 import OfferCard from "../offer-card/offer-card";
 import {changeActiveOffer} from "../../store/actions";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {SortingType} from "../../constants";
+
+const getRelevantSortingOffers = (sortingType, filteredOffers) => {
+  let sortingCallback = null;
+  switch (sortingType) {
+    case SortingType.PRICE_LOW_TO_HIGH:
+      sortingCallback = (firstOffer, secondOffer) => (firstOffer.price - secondOffer.price);
+      break;
+    case SortingType.PRICE_HIGH_TO_LOW:
+      sortingCallback = (firstOffer, secondOffer) => (secondOffer.price - firstOffer.price);
+      break;
+    case SortingType.TOP_RATED_FIRST:
+      sortingCallback = (firstOffer, secondOffer) => (secondOffer.rating - firstOffer.rating);
+      break;
+  }
+  return sortingCallback ? filteredOffers.sort(sortingCallback) : filteredOffers;
+};
+
 
 const Offers = ({offers, pageType}) => {
+  const {sortingType} = useSelector((state) => state.SORTING);
   const dispatch = useDispatch();
+  const offerList = getRelevantSortingOffers(sortingType, offers);
   const onOfferHover = (evt) => {
     evt.preventDefault();
     if (evt.target.tagName === `DIV`) {
@@ -27,7 +47,7 @@ const Offers = ({offers, pageType}) => {
       onMouseOver={onOfferHover}
       onMouseLeave={onOfferLeave}
     >
-      {offers.map((offer, i) => <OfferCard key={i} offer={offer} pageType={pageType}/>)}
+      {offerList.map((offer, i) => <OfferCard key={i} offer={offer} pageType={pageType}/>)}
     </div>
   );
 };

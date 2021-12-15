@@ -7,6 +7,7 @@ const ActionType = {
   CHANGE_CITY: `main/changeCity`,
   CHANGE_SORTING_TYPE: `main/changeSortingType`,
   OPEN_POPUP: `main/openPopup`,
+  CLOSE_POPUP: `main/closePopup`,
   RESET_SORTING_TYPE: `main/resetSortingType`,
   LOAD_OFFERS: `main/loadOffers`,
   CHANGE_ACTIVE_OFFER: `offer/changeActiveOffer`,
@@ -43,6 +44,7 @@ const changeSortingType = createAction(ActionType.CHANGE_SORTING_TYPE, (sortingT
 });
 
 const openPopup = createAction(ActionType.OPEN_POPUP);
+const closePopup = createAction(ActionType.CLOSE_POPUP);
 const resetSortingType = createAction(ActionType.RESET_SORTING_TYPE);
 const resetFavorite = createAction(ActionType.RESET_FAVORITES);
 
@@ -95,6 +97,7 @@ export {
   changeCity,
   changeSortingType,
   openPopup,
+  closePopup,
   resetSortingType,
   changeActiveOffer,
   loadOffers,

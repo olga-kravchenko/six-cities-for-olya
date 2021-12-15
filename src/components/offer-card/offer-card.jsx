@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import OfferProp from "../offer/offer.prop";
 import {useHistory} from "react-router-dom";
-import {changeCity, resetFavorite, resetSortingType} from "../../store/actions";
+import {changeCity, closePopup, resetFavorite, resetSortingType} from "../../store/actions";
 import {convertRatingToPercent} from "../../utils/utils";
 import {useDispatch} from "react-redux";
 
@@ -37,6 +37,7 @@ const OfferCard = ({offer, pageType}) => {
     evt.preventDefault();
     dispatch(changeCity(offer.city.name));
     dispatch(resetSortingType());
+    dispatch(closePopup());
     dispatch(resetFavorite());
     history.push(pathToOffer);
     window.scrollTo(0, 0);

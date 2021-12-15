@@ -1,5 +1,5 @@
 import React, {memo} from "react";
-import {changeCity, resetSortingType} from "../../store/actions";
+import {changeCity, closePopup, resetSortingType} from "../../store/actions";
 import {useSelector, useDispatch} from "react-redux";
 import {CityNames} from "../../constants";
 
@@ -14,6 +14,7 @@ const Cities = () => {
     document.querySelector(`.cities__places`).scrollTo(0, 0);
     dispatch(changeCity(cityName));
     dispatch(resetSortingType());
+    dispatch(closePopup());
   };
 
   return (

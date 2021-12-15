@@ -7,30 +7,12 @@ import Map from "../map/map";
 import Cities from "../cities/cities";
 import EmptyMain from "../empty-main/empty-main";
 import Spinner from "../spinner/spinner";
-import {SortingType} from "../../constants";
 import {resetFavorite} from "../../store/actions";
 import {useSelector, useDispatch} from "react-redux";
 
-const getRelevantSortingOffers = (sortingType, offers, city) => {
-  let sortingCallback = null;
-  switch (sortingType) {
-    case SortingType.PRICE_LOW_TO_HIGH:
-      sortingCallback = (firstOffer, secondOffer) => (firstOffer.price - secondOffer.price);
-      break;
-    case SortingType.PRICE_HIGH_TO_LOW:
-      sortingCallback = (firstOffer, secondOffer) => (secondOffer.price - firstOffer.price);
-      break;
-    case SortingType.TOP_RATED_FIRST:
-      sortingCallback = (firstOffer, secondOffer) => (secondOffer.rating - firstOffer.rating);
-      break;
-  }
-  const filteredOffers = [...offers.filter((e) => e.city.name === city)];
-  return sortingCallback ? filteredOffers.sort(sortingCallback) : filteredOffers;
-};
 
 const Main = () => {
   const {offers, isOffersLoaded} = useSelector((state) => state.MAIN);
-  const {sortingType} = useSelector((state) => state.SORTING);
   const {city} = useSelector((state) => state.CITY);
   const dispatch = useDispatch();
 
@@ -40,8 +22,8 @@ const Main = () => {
   }, []);
 
   const componentEmptyOrSpinner = isOffersLoaded ? <EmptyMain/> : <Spinner/>;
-  const offerList = getRelevantSortingOffers(sortingType, offers, city);
-  const noOffers = !offerList.length ? `page__main--index-empty` : ``;
+  const filteredOffers = [...offers.filter((e) => e.city.name === city)];
+  const noOffers = !filteredOffers.length ? `page__main--index-empty` : ``;
 
   return (
     <div className="page page--gray page--main">
@@ -54,19 +36,19 @@ const Main = () => {
             <Cities/>
           </section>
         </div>
-        {!offerList.length ?
+        {!filteredOffers.length ?
           componentEmptyOrSpinner :
           <div className="cities">
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{offerList.length} places to stay in {city}</b>
+                <b className="places__found">{filteredOffers.length} places to stay in {city}</b>
                 <SortingTypes/>
-                <Offers pageType="cities" offers={offerList}/>
+                <Offers pageType="cities" offers={filteredOffers}/>
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <Map offerList={offerList} style={{height: `100%`}}/>
+                  <Map offerList={filteredOffers} style={{height: `100%`}}/>
                 </section>
               </div>
             </div>
