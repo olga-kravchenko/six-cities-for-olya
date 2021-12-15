@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {useParams} from "react-router-dom";
 import {convertRatingToPercent} from "../../utils/utils";
-import {fetchOffer} from "../../store/axios-actions";
+import {fetchOffer, postFavoriteOffer} from "../../store/axios-actions";
 import Header from "../header/header";
 import Map from "../map/map";
 import Spinner from "../spinner/spinner";
@@ -39,6 +39,14 @@ const Offer = () => {
   const percent = convertRatingToPercent(rating);
   const userAvatarPro = is_pro ? `property__avatar-wrapper--pro` : ``;
   const favoriteOffer = is_favorite ? `property__bookmark-button--active` : ``;
+  const status = is_favorite ? 0 : 1;
+
+  const onBookMarkClick = (evt) => {
+    evt.preventDefault();
+    dispatch(postFavoriteOffer(id, status));
+    const button = document.querySelector(`.property__bookmark-button`);
+    button.classList.toggle(`property__bookmark-button--active`);
+  };
 
   return (
     <div className="page">
@@ -63,7 +71,7 @@ const Offer = () => {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={`property__bookmark-button button ${favoriteOffer}`} type="button">
+                <button className={`property__bookmark-button button ${favoriteOffer}`} type="button" onClick={onBookMarkClick}>
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"/>
                   </svg>

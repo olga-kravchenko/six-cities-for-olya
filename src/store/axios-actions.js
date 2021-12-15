@@ -76,6 +76,11 @@ const postComment = (id, comment) => (dispatch, _, axiosApi) => (
     .catch(showErrorMassage)
 );
 
+const postFavoriteOffer = (id, status) => (dispatch, _, axiosApi) => (
+  axiosApi.post(`${AxiosRoute.FAVORITE}/${id}/${status}`)
+    .catch(() => dispatch(redirectToRoute(`${AppRoute.LOGIN}`)))
+);
+
 export {
   fetchOffers,
   checkAuth,
@@ -85,5 +90,6 @@ export {
   fetchNearbyOffer,
   fetchFavoriteOffers,
   fetchComments,
-  postComment
+  postComment,
+  postFavoriteOffer
 };

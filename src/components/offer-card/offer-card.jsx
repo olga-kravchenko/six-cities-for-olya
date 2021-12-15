@@ -5,6 +5,7 @@ import {useHistory} from "react-router-dom";
 import {changeCity, closePopup, resetFavorite, resetSortingType} from "../../store/actions";
 import {convertRatingToPercent} from "../../utils/utils";
 import {useDispatch} from "react-redux";
+import {postFavoriteOffer} from "../../store/axios-actions";
 
 const OfferCard = ({offer, pageType}) => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const OfferCard = ({offer, pageType}) => {
 
   const citiesOrNearPlaceCard = pageType === `cities` ? `cities__place-card` : `near-places__card`;
   const favoriteOffer = is_favorite ? `place-card__bookmark-button--active` : ``;
+  const status = is_favorite ? 0 : 1;
 
   let articlePlaceCard;
   let offerImageWidth;
@@ -43,6 +45,14 @@ const OfferCard = ({offer, pageType}) => {
     window.scrollTo(0, 0);
   };
 
+  const onBookMarkClick = (evt) => {
+    evt.preventDefault();
+    dispatch(postFavoriteOffer(id, status));
+    const article = document.getElementById(`${id}`);
+    const button = article.querySelector(`.place-card__bookmark-button`);
+    button.classList.toggle(`place-card__bookmark-button--active`);
+  };
+
   return (
     <article className={`${articlePlaceCard} place-card`} id={id}>
       <div className={`${pageType}__image-wrapper place-card__image-wrapper`}>
@@ -58,7 +68,7 @@ const OfferCard = ({offer, pageType}) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button button ${favoriteOffer}`} type="button">
+          <button className={`place-card__bookmark-button button ${favoriteOffer}`} type="button" onClick={onBookMarkClick}>
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>
             </svg>
