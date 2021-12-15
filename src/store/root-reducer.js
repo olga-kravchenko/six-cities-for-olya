@@ -1,11 +1,11 @@
 import {combineReducers} from "@reduxjs/toolkit";
-import {userDataReducer} from "./user-data/user-data";
-import {favoritesDataReducer} from "./favorites-data/favorites-data";
-import {mainDataReducer} from "./main-data/main-data";
-import {offerDataReducer} from "./offer-data/offer-data";
-import {cityDataReducer} from "./city-data/city-data";
-import {sortingDataReducer} from "./sorting-data/sorting-data";
-import {activeOfferDataReducer} from "./active-offer-data/active-offer-data";
+import {userDataReducer} from "./reducers/user-data";
+import {favoritesDataReducer} from "./reducers/favorites-data";
+import {mainDataReducer} from "./reducers/main-data";
+import {offerDataReducer} from "./reducers/offer-data";
+import {cityDataReducer} from "./reducers/city-data";
+import {sortingDataReducer} from "./reducers/sorting-data";
+import {activeOfferDataReducer} from "./reducers/active-offer-data";
 
 const Namespace = {
   SORTING: `SORTING`,
