@@ -11,7 +11,9 @@ const Cities = () => {
   const onCityClick = (evt) => {
     evt.preventDefault();
     const cityName = evt.target.textContent;
-    document.querySelector(`.cities__places`).scrollTo(0, 0);
+    if (document.querySelector(`.cities__places`)) {
+      document.querySelector(`.cities__places`).scrollTo(0, 0);
+    }
     dispatch(changeCity(cityName));
     dispatch(resetSortingType());
     dispatch(closePopup());

@@ -6,6 +6,7 @@ const ActionType = {
   CHANGE_AUTH: `user/changeAuthStatus`,
   CHANGE_CITY: `city/changeCity`,
   LOAD_OFFERS: `offers/loadOffers`,
+  LOAD_OFFERS_WITH_ERROR: `offers/loadOffersWithError`,
   CHANGE_SORTING_TYPE: `sortingType/changeSortingType`,
   RESET_SORTING_TYPE: `sortingType/resetSortingType`,
   OPEN_POPUP: `popup/openPopup`,
@@ -23,6 +24,7 @@ const saveUserInfo = createAction(ActionType.SAVE_USER_INFO, (info) => ({payload
 const changeAuthStatus = createAction(ActionType.CHANGE_AUTH, (status) => ({payload: status}));
 const changeCity = createAction(ActionType.CHANGE_CITY, (city) => ({payload: city}));
 const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => ({payload: offers}));
+const loadOffersWithError = createAction(ActionType.LOAD_OFFERS_WITH_ERROR);
 const changeSortingType = createAction(ActionType.CHANGE_SORTING_TYPE, (sortingType = SortingType.POPULAR) => ({payload: sortingType}));
 const resetSortingType = createAction(ActionType.RESET_SORTING_TYPE);
 const openPopup = createAction(ActionType.OPEN_POPUP);
@@ -41,6 +43,7 @@ export {
   changeAuthStatus,
   changeCity,
   loadOffers,
+  loadOffersWithError,
   changeSortingType,
   resetSortingType,
   openPopup,

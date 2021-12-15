@@ -1,4 +1,4 @@
-import {changeAuthStatus, saveUserInfo, loadOffers, loadOffer, loadComments, loadNearestOffers, loadFavoriteOffers, redirectToRoute} from "./actions";
+import {changeAuthStatus, saveUserInfo, loadOffers, loadOffer, loadOffersWithError, loadComments, loadNearestOffers, loadFavoriteOffers, redirectToRoute} from "./actions";
 import {AxiosRoute, AppRoute} from "../constants";
 
 const errorToast = (message) => {
@@ -21,6 +21,10 @@ const showErrorMassage = (err) => errorToast(`Error ${err.response.status} : ${e
 const fetchOffers = () => (dispatch, _, axiosApi) => (
   axiosApi.get(`${AxiosRoute.OFFERS}`)
     .then(({data}) => dispatch(loadOffers(data)))
+    .catch((err) => {
+      showErrorMassage(err);
+      dispatch(loadOffersWithError());
+    })
 );
 
 const checkAuth = () => (dispatch, _, axiosApi) => (

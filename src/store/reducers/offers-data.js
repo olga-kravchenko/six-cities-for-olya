@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {loadOffers} from "../actions";
+import {loadOffers, loadOffersWithError} from "../actions";
 
 const initialState = {
   offers: [],
@@ -9,6 +9,9 @@ const initialState = {
 const offersDataReducer = createReducer(initialState, (builder) => {
   builder.addCase(loadOffers, (state, action) => {
     state.offers = action.payload;
+    state.isOffersLoaded = true;
+  });
+  builder.addCase(loadOffersWithError, (state) => {
     state.isOffersLoaded = true;
   });
 });
