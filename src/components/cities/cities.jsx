@@ -1,10 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, {memo} from "react";
 import {changeCity, resetSortingType} from "../../store/actions";
 import {useSelector, useDispatch} from "react-redux";
+import {CityNames} from "../../constants";
 
-const Cities = ({cities}) => {
-  const {city} = useSelector((state) => state.MAIN);
+const Cities = () => {
+  const cities = Object.values(CityNames);
+  const {city} = useSelector((state) => state.CITY);
   const dispatch = useDispatch();
 
   const onCityClick = (evt) => {
@@ -31,8 +32,4 @@ const Cities = ({cities}) => {
   );
 };
 
-Cities.propTypes = {
-  cities: PropTypes.array.isRequired,
-};
-
-export default Cities;
+export default memo(Cities);

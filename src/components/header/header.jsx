@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import {Link} from "react-router-dom";
 import HeaderMail from "../header-mail/header-mail";
 import HeaderSignIn from "../header-sign-in/header-sign-in";
@@ -29,4 +29,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

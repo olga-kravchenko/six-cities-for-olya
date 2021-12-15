@@ -1,10 +1,10 @@
-import React from "react";
+import React, {memo} from "react";
 import {changeSortingType, openPopup} from "../../store/actions";
 import {SortingType} from "../../constants";
 import {useSelector, useDispatch} from "react-redux";
 
 const SortingTypes = () => {
-  const {sortingType, isOpenSortingPopup} = useSelector((state) => state.MAIN);
+  const {sortingType, isOpenSortingPopup} = useSelector((state) => state.SORTING);
   const dispatch = useDispatch();
   const types = Object.values(SortingType);
   const openSortingPopUp = isOpenSortingPopup ? `places__options--opened` : ``;
@@ -40,4 +40,4 @@ const SortingTypes = () => {
   );
 };
 
-export default SortingTypes;
+export default memo(SortingTypes);

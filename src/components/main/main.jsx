@@ -1,5 +1,4 @@
 import React, {useEffect} from "react";
-import PropTypes from 'prop-types';
 import {fetchOffers} from "../../store/axios-actions";
 import SortingTypes from "../sorting-types/sorting-types";
 import Header from "../header/header";
@@ -29,8 +28,10 @@ const getRelevantSortingOffers = (sortingType, offers, city) => {
   return sortingCallback ? filteredOffers.sort(sortingCallback) : filteredOffers;
 };
 
-const Main = ({cities}) => {
-  const {city, offers, sortingType, isOffersLoaded} = useSelector((state) => state.MAIN);
+const Main = () => {
+  const {offers, isOffersLoaded} = useSelector((state) => state.MAIN);
+  const {sortingType} = useSelector((state) => state.SORTING);
+  const {city} = useSelector((state) => state.CITY);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -50,7 +51,7 @@ const Main = ({cities}) => {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <Cities cities={cities}/>
+            <Cities/>
           </section>
         </div>
         {!offerList.length ?
@@ -75,9 +76,4 @@ const Main = ({cities}) => {
   );
 };
 
-Main.propTypes = {
-  cities: PropTypes.array,
-};
-
-export {Main};
 export default Main;

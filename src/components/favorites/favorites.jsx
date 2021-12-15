@@ -1,5 +1,4 @@
 import React, {useEffect} from "react";
-import PropTypes from "prop-types";
 import {Link} from 'react-router-dom';
 import Header from "../header/header";
 import FavoritesEmpty from "../favorites-empty/favorites-empty";
@@ -7,6 +6,7 @@ import OfferCard from "../offer-card/offer-card";
 import {fetchFavoriteOffers} from "../../store/axios-actions";
 import Spinner from "../spinner/spinner";
 import {useSelector, useDispatch} from "react-redux";
+import {CityNames} from "../../constants";
 
 const sortCities = (offers, cities) => {
   const citiesByFavoriteOffers = offers.map((e) => e.city.name);
@@ -21,7 +21,8 @@ const sortCities = (offers, cities) => {
   return sortedCities;
 };
 
-const Favorites = ({cities}) => {
+const Favorites = () => {
+  const cities = Object.values(CityNames);
   const {favoriteOffers, isFavoritesLoaded} = useSelector((state) => state.FAVORITES);
   const dispatch = useDispatch();
 
@@ -80,10 +81,6 @@ const Favorites = ({cities}) => {
       </footer>
     </div>
   );
-};
-
-Favorites.propTypes = {
-  cities: PropTypes.array,
 };
 
 export default Favorites;

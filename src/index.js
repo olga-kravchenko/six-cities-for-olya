@@ -4,7 +4,6 @@ import createAxios from "./services/axios";
 import {Provider} from "react-redux";
 import App from "./components/app/app";
 import rootReducer from "./store/root-reducer";
-import {CityNames} from "./constants";
 import {changeAuthStatus} from "./store/actions";
 import {checkAuth} from "./store/axios-actions";
 import {redirect} from "./store/middlewares/redirect";
@@ -20,13 +19,12 @@ const store = configureStore({
       },
     }).concat(redirect)
 });
-const cityNames = Object.values(CityNames);
 
 store.dispatch(checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>
-      <App cities={cityNames}/>
+      <App/>
     </Provider>,
     document.querySelector(`#root`)
 );
