@@ -21,11 +21,11 @@ const getRelevantSortingOffers = (sortingType, filteredOffers) => {
   return sortingCallback ? filteredOffers.sort(sortingCallback) : filteredOffers;
 };
 
-
 const Offers = ({offers, pageType}) => {
   const {sortingType} = useSelector((state) => state.SORTING_TYPE);
   const dispatch = useDispatch();
   const offerList = getRelevantSortingOffers(sortingType, offers);
+
   const onOfferHover = (evt) => {
     evt.preventDefault();
     if (evt.target.tagName === `DIV`) {
@@ -42,11 +42,7 @@ const Offers = ({offers, pageType}) => {
   };
 
   return (
-    <div
-      className="cities__places-list places__list tabs__content"
-      onMouseOver={onOfferHover}
-      onMouseLeave={onOfferLeave}
-    >
+    <div className="cities__places-list places__list tabs__content" onMouseOver={onOfferHover} onMouseLeave={onOfferLeave}>
       {offerList.map((offer, i) => <OfferCard key={i} offer={offer} pageType={pageType}/>)}
     </div>
   );

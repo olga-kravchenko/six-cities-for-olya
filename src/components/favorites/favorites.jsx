@@ -22,24 +22,19 @@ const sortCities = (offers, cities) => {
 };
 
 const Favorites = () => {
-  const cities = Object.values(CityNames);
-  const {favoriteOffers, isFavoritesLoaded} = useSelector((state) => state.FAVORITES);
   const dispatch = useDispatch();
-
+  const {favoriteOffers, isFavoritesLoaded} = useSelector((state) => state.FAVORITES);
   useEffect(() => {
-    if (!isFavoritesLoaded) {
-      dispatch(fetchFavoriteOffers());
-    }
+    dispatch(fetchFavoriteOffers());
   }, [isFavoritesLoaded]);
 
-  if (!isFavoritesLoaded) {
-    return (
-      <Spinner/>
-    );
-  }
-
+  const cities = Object.values(CityNames);
   const isNoOffers = favoriteOffers.length === 0;
   const citiesNames = sortCities(favoriteOffers, cities);
+
+  if (!isFavoritesLoaded) {
+    return (<Spinner/>);
+  }
 
   return (
     <div className="page">
@@ -71,9 +66,7 @@ const Favorites = () => {
               </ul>
             </section>
           </div>
-        </main>
-      }
-
+        </main>}
       <footer className="footer container">
         <Link className="footer__logo-link" to="/">
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>

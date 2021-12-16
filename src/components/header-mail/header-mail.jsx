@@ -6,6 +6,7 @@ import {useSelector, useDispatch} from "react-redux";
 const HeaderMail = () => {
   const {userInfo} = useSelector((state) => state.USER);
   const dispatch = useDispatch();
+
   return (
     <>
       <Link className="header__nav-link header__nav-link--profile" to="/favorites">

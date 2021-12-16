@@ -47,6 +47,7 @@ const login = ({login: email, password}) => (dispatch, _, axiosApi) => (
 const logout = () => (dispatch, _, axiosApi) => (
   axiosApi.get(`${AxiosRoute.LOGOUT}`)
     .then(() => dispatch(changeAuthStatus(false)))
+    .then(() => dispatch(redirectToRoute(`${AppRoute.MAIN}`)))
 );
 
 const fetchOffer = (id) => (dispatch, _, axiosApi) => (

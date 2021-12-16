@@ -7,18 +7,14 @@ import Map from "../map/map";
 import Cities from "../cities/cities";
 import EmptyMain from "../empty-main/empty-main";
 import Spinner from "../spinner/spinner";
-import {resetFavorite} from "../../store/actions";
 import {useSelector, useDispatch} from "react-redux";
-
 
 const Main = () => {
   const {offers, isOffersLoaded} = useSelector((state) => state.OFFERS);
   const {city} = useSelector((state) => state.CITY);
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(fetchOffers());
-    dispatch(resetFavorite());
   }, []);
 
   const componentEmptyOrSpinner = isOffersLoaded ? <EmptyMain/> : <Spinner/>;
@@ -28,7 +24,6 @@ const Main = () => {
   return (
     <div className="page page--gray page--main">
       <Header/>
-
       <main className={`page__main page__main--index ${noOffers}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import OfferProp from "../offer/offer.prop";
 import {useHistory} from "react-router-dom";
-import {changeCity, closePopup, resetFavorite, resetSortingType} from "../../store/actions";
+import {changeCity, closePopup, resetSortingType} from "../../store/actions";
 import {convertRatingToPercent} from "../../utils/utils";
 import {useDispatch} from "react-redux";
 import {postFavoriteOffer} from "../../store/axios-actions";
@@ -40,7 +40,6 @@ const OfferCard = ({offer, pageType}) => {
     dispatch(changeCity(offer.city.name));
     dispatch(resetSortingType());
     dispatch(closePopup());
-    dispatch(resetFavorite());
     history.push(pathToOffer);
     window.scrollTo(0, 0);
   };
@@ -48,9 +47,7 @@ const OfferCard = ({offer, pageType}) => {
   const onBookMarkClick = (evt) => {
     evt.preventDefault();
     dispatch(postFavoriteOffer(id, status));
-    const article = document.getElementById(`${id}`);
-    const button = article.querySelector(`.place-card__bookmark-button`);
-    button.classList.toggle(`place-card__bookmark-button--active`);
+    evt.target.closest(`button`).classList.toggle(`place-card__bookmark-button--active`);
   };
 
   return (

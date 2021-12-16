@@ -4,13 +4,13 @@ import {postComment} from "../../store/axios-actions";
 import {useDispatch} from "react-redux";
 
 const ReviewForm = ({id}) => {
-  const MIN_SYMBOL_QUANTITY = 50;
   const dispatch = useDispatch();
   const [userForm, setUserForm] = useState({
     review: ``,
     rating: ``
   });
 
+  const MIN_SYMBOL_QUANTITY = 50;
   const isEnoughSymbols = userForm.review.length >= MIN_SYMBOL_QUANTITY;
   const isDisable = isEnoughSymbols && userForm.rating;
 
