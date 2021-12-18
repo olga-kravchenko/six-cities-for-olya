@@ -8,14 +8,14 @@ const initialState = {
 };
 
 const offerDataReducer = createReducer(initialState, (builder) => {
-  builder.addCase(loadOffer, (state, action) => {
-    state.offer = action.payload;
+  builder.addCase(loadOffer, (state, {payload}) => {
+    state.offer = payload;
   });
-  builder.addCase(loadComments, (state, action) => {
-    state.comments = action.payload;
+  builder.addCase(loadComments, (state, {payload}) => {
+    state.comments = payload;
   });
-  builder.addCase(loadNearestOffers, (state, action) => {
-    state.nearestOffers = action.payload;
+  builder.addCase(loadNearestOffers, (state, {payload}) => {
+    state.nearestOffers = payload;
   });
 });
 

@@ -6,8 +6,8 @@ const initialState = {
 };
 
 const activeOfferDataReducer = createReducer(initialState, (builder) => {
-  builder.addCase(changeActiveOffer, (state, action) => {
-    state.activeOfferId = action.payload;
+  builder.addCase(changeActiveOffer, (state, {payload}) => {
+    state.activeOfferId = payload;
   });
 });
 

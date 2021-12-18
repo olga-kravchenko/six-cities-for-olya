@@ -7,8 +7,8 @@ const initialState = {
 };
 
 const favoritesDataReducer = createReducer(initialState, (builder) => {
-  builder.addCase(loadFavoriteOffers, (state, action) => {
-    state.favoriteOffers = action.payload;
+  builder.addCase(loadFavoriteOffers, (state, {payload}) => {
+    state.favoriteOffers = payload;
     state.isFavoritesLoaded = true;
   });
 });

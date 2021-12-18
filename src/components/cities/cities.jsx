@@ -1,11 +1,13 @@
 import React, {memo} from "react";
 import {changeCity, closePopup, resetSortingType} from "../../store/actions";
 import {useSelector, useDispatch} from "react-redux";
-import {CityNames} from "../../constants";
+import {CityNames, DEFAULT_SORTING_TYPE} from "../../constants";
 
 const Cities = () => {
   const cities = Object.values(CityNames);
   const {city} = useSelector((state) => state.CITY);
+  const {sortingType} = useSelector((state) => state.SORTING_TYPE);
+  const {isOpenSortingPopup} = useSelector((state) => state.POPUP);
   const dispatch = useDispatch();
 
   const onCityClick = (evt) => {
@@ -15,8 +17,12 @@ const Cities = () => {
       document.querySelector(`.cities__places`).scrollTo(0, 0);
     }
     dispatch(changeCity(cityName));
-    dispatch(resetSortingType());
-    dispatch(closePopup());
+    if (sortingType !== DEFAULT_SORTING_TYPE) {
+      dispatch(resetSortingType());
+    }
+    if (isOpenSortingPopup) {
+      dispatch(closePopup());
+    }
   };
 
   return (

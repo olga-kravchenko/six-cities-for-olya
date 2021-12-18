@@ -7,11 +7,11 @@ const initialState = {
 };
 
 const userDataReducer = createReducer(initialState, (builder) => {
-  builder.addCase(saveUserInfo, (state, action) => {
-    state.userInfo = action.payload;
+  builder.addCase(saveUserInfo, (state, {payload}) => {
+    state.userInfo = payload;
   });
-  builder.addCase(changeAuthStatus, (state, action) => {
-    state.isAuth = action.payload;
+  builder.addCase(changeAuthStatus, (state, {payload}) => {
+    state.isAuth = payload;
   });
 });
 

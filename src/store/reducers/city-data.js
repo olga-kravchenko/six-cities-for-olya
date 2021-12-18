@@ -7,8 +7,8 @@ const initialState = {
 };
 
 const cityDataReducer = createReducer(initialState, (builder) => {
-  builder.addCase(changeCity, (state, action) => {
-    state.city = action.payload;
+  builder.addCase(changeCity, (state, {payload}) => {
+    state.city = payload;
   });
 });
 
