@@ -5,6 +5,7 @@ const changeAuthStatus = createAction(`user/changeAuthStatus`);
 
 const changeCity = createAction(`city/changeCity`);
 const loadOffers = createAction(`offers/loadOffers`);
+const updateOffers = createAction(`offers/updateOffers`);
 const loadOffersWithError = createAction(`offers/loadOffersWithError`);
 const changeSortingType = createAction(`sortingType/changeSortingType`);
 const resetSortingType = createAction(`sortingType/resetSortingType`);
@@ -17,7 +18,6 @@ const loadComments = createAction(`offer/loadComments`);
 const loadNearestOffers = createAction(`offer/loadNearestOffers`);
 
 const loadFavoriteOffers = createAction(`favorites/loadFavoriteOffers`);
-const resetFavorite = createAction(`favorites/resetFavorite`);
 const redirectToRoute = createAction(`redirect/redirectToRoute`);
 
 export {
@@ -25,6 +25,7 @@ export {
   changeAuthStatus,
   changeCity,
   loadOffers,
+  updateOffers,
   loadOffersWithError,
   changeSortingType,
   resetSortingType,
@@ -35,6 +36,5 @@ export {
   loadComments,
   loadNearestOffers,
   loadFavoriteOffers,
-  resetFavorite,
   redirectToRoute
 };
