@@ -18,6 +18,7 @@ const loadComments = createAction(`offer/loadComments`);
 const loadNearestOffers = createAction(`offer/loadNearestOffers`);
 
 const loadFavoriteOffers = createAction(`favorites/loadFavoriteOffers`);
+const updateFavoritesOffers = createAction(`favorites/updateFavoritesOffers`);
 const redirectToRoute = createAction(`redirect/redirectToRoute`);
 
 export {
@@ -36,5 +37,6 @@ export {
   loadComments,
   loadNearestOffers,
   loadFavoriteOffers,
+  updateFavoritesOffers,
   redirectToRoute
 };

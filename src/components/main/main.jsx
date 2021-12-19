@@ -14,8 +14,11 @@ const Main = () => {
   const {city} = useSelector((state) => state.CITY);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchOffers());
-  }, []);
+    if (!isOffersLoaded) {
+      dispatch(fetchOffers());
+    }
+  }, []
+  );
 
   const componentEmptyOrSpinner = isOffersLoaded ? <EmptyMain/> : <Spinner/>;
   const filteredOffers = [...offers.filter((e) => e.city.name === city)];

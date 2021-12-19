@@ -1,4 +1,16 @@
-import {changeAuthStatus, saveUserInfo, loadOffers, loadOffer, loadOffersWithError, loadComments, loadNearestOffers, loadFavoriteOffers, redirectToRoute} from "./actions";
+import {
+  changeAuthStatus,
+  saveUserInfo,
+  loadOffers,
+  loadOffer,
+  loadOffersWithError,
+  loadComments,
+  loadNearestOffers,
+  loadFavoriteOffers,
+  updateFavoritesOffers,
+  redirectToRoute,
+  updateOffers
+} from "./actions";
 import {AxiosRoute, AppRoute} from "../constants";
 
 const errorToast = (message) => {
@@ -79,7 +91,11 @@ const postComment = (id, comment) => (dispatch, _, axiosApi) => (
 
 const postFavoriteOffer = (id, status) => (dispatch, _, axiosApi) => (
   axiosApi.post(`${AxiosRoute.FAVORITE}/${id}/${status}`)
-    .catch(() => dispatch(redirectToRoute(`${AppRoute.LOGIN}`)))
+    .then(({data}) => {
+      dispatch(updateOffers(data));
+      return data;
+    })
+    .then((data) => dispatch(updateFavoritesOffers(data)))
 );
 
 export {
