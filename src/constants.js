@@ -35,10 +35,7 @@ const AxiosRoute = {
 };
 
 const HttpCode = {
-  OK: 200,
-  BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
-  NO_FOUND: 404,
 };
 
 export {

@@ -1,32 +1,30 @@
 import React from "react";
 import ReactDOM from 'react-dom';
-import {createStore, applyMiddleware} from "redux";
-import thunk from "redux-thunk";
 import createAxios from "./services/axios";
 import {Provider} from "react-redux";
-import {composeWithDevTools} from "redux-devtools-extension";
 import App from "./components/app/app";
-import {reducer} from "./store/reducer";
-import {CityNames} from "./constants";
-import {ActionCreator} from "./store/actions";
+import rootReducer from "./store/root-reducer";
+import {changeAuthStatus} from "./store/actions";
 import {checkAuth} from "./store/axios-actions";
 import {redirect} from "./store/middlewares/redirect";
+import {configureStore} from "@reduxjs/toolkit";
 
-const axiosApi = createAxios(() => store.dispatch(ActionCreator.changeAuthStatus(false)));
-const store = createStore(
-    reducer,
-    composeWithDevTools(
-        applyMiddleware(thunk.withExtraArgument(axiosApi)),
-        applyMiddleware(redirect)
-    )
-);
-const cityNames = Object.values(CityNames);
+const axiosApi = createAxios(() => store.dispatch(changeAuthStatus(false)));
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: axiosApi
+      },
+    }).concat(redirect)
+});
 
 store.dispatch(checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>
-      <App cities={cityNames}/>
+      <App/>
     </Provider>,
     document.querySelector(`#root`)
 );

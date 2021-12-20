@@ -1,24 +1,25 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 import {postComment} from "../../store/axios-actions";
-import {connect} from "react-redux";
+import {useDispatch} from "react-redux";
 
-const ReviewForm = ({id, onSubmitComment}) => {
-  const MIN_SYMBOL_QUANTITY = 50;
+const ReviewForm = ({id}) => {
+  const dispatch = useDispatch();
   const [userForm, setUserForm] = useState({
     review: ``,
     rating: ``
   });
 
+  const MIN_SYMBOL_QUANTITY = 50;
   const isEnoughSymbols = userForm.review.length >= MIN_SYMBOL_QUANTITY;
   const isDisable = isEnoughSymbols && userForm.rating;
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    onSubmitComment(id, {
+    dispatch(postComment(id, {
       comment: userForm.review,
       rating: userForm.rating,
-    });
+    }));
     document.querySelector(`.reviews__form`).reset();
     setUserForm({...userForm, review: ``, rating: ``});
   };
@@ -83,14 +84,6 @@ const ReviewForm = ({id, onSubmitComment}) => {
 
 ReviewForm.propTypes = {
   id: PropTypes.string,
-  onSubmitComment: PropTypes.func.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onSubmitComment(id, authData) {
-    dispatch(postComment(id, authData));
-  }
-});
-
-export {ReviewForm};
-export default connect(null, mapDispatchToProps)(ReviewForm);
+export default ReviewForm;

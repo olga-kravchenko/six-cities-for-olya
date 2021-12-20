@@ -2,13 +2,16 @@ import React, {useEffect} from "react";
 import CommentForm from "../review-form/review-form";
 import PropTypes from "prop-types";
 import {fetchComments} from "../../store/axios-actions";
-import {connect} from "react-redux";
 import Spinner from "../spinner/spinner";
 import Review from "../review/review";
+import {useSelector, useDispatch} from "react-redux";
 
-const Reviews = ({comments, isAuth, id, offer, onLoadComments}) => {
+const Reviews = ({id}) => {
+  const {comments, offer} = useSelector((state) => state.OFFER);
+  const {isAuth} = useSelector((state) => state.USER);
+  const dispatch = useDispatch();
   useEffect(() => {
-    onLoadComments(id);
+    dispatch(fetchComments(id));
   }, [id]);
 
   if (offer.id !== +id) {
@@ -31,23 +34,7 @@ const Reviews = ({comments, isAuth, id, offer, onLoadComments}) => {
 
 Reviews.propTypes = {
   id: PropTypes.string,
-  offer: PropTypes.object,
-  isAuth: PropTypes.bool,
-  comments: PropTypes.array,
-  onLoadComments: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
-  comments: state.comments,
-  isAuth: state.isAuth,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadComments(id) {
-    dispatch(fetchComments(id));
-  },
-});
-
-export {Reviews};
-export default connect(mapStateToProps, mapDispatchToProps)(Reviews);
+export default Reviews;
 

@@ -1,12 +1,12 @@
 import React, {useEffect} from "react";
-import PropTypes from "prop-types";
 import {Link} from 'react-router-dom';
 import Header from "../header/header";
 import FavoritesEmpty from "../favorites-empty/favorites-empty";
 import OfferCard from "../offer-card/offer-card";
 import {fetchFavoriteOffers} from "../../store/axios-actions";
-import {connect} from "react-redux";
 import Spinner from "../spinner/spinner";
+import {useSelector, useDispatch} from "react-redux";
+import {CityNames} from "../../constants";
 
 const sortCities = (offers, cities) => {
   const citiesByFavoriteOffers = offers.map((e) => e.city.name);
@@ -21,21 +21,22 @@ const sortCities = (offers, cities) => {
   return sortedCities;
 };
 
-const Favorites = ({cities, favoriteOffers, isFavoritesLoaded, onLoadFavorites}) => {
+const Favorites = () => {
+  const dispatch = useDispatch();
+  const {favoriteOffers, isFavoritesLoaded} = useSelector((state) => state.FAVORITES);
   useEffect(() => {
     if (!isFavoritesLoaded) {
-      onLoadFavorites();
+      dispatch(fetchFavoriteOffers());
     }
-  }, [isFavoritesLoaded]);
+  }, []);
 
-  if (!isFavoritesLoaded) {
-    return (
-      <Spinner/>
-    );
-  }
-
+  const cities = Object.values(CityNames);
   const isNoOffers = favoriteOffers.length === 0;
   const citiesNames = sortCities(favoriteOffers, cities);
+
+  if (!isFavoritesLoaded) {
+    return (<Spinner/>);
+  }
 
   return (
     <div className="page">
@@ -67,9 +68,7 @@ const Favorites = ({cities, favoriteOffers, isFavoritesLoaded, onLoadFavorites})
               </ul>
             </section>
           </div>
-        </main>
-      }
-
+        </main>}
       <footer className="footer container">
         <Link className="footer__logo-link" to="/">
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
@@ -79,23 +78,4 @@ const Favorites = ({cities, favoriteOffers, isFavoritesLoaded, onLoadFavorites})
   );
 };
 
-Favorites.propTypes = {
-  cities: PropTypes.array,
-  favoriteOffers: PropTypes.array.isRequired,
-  isFavoritesLoaded: PropTypes.bool,
-  onLoadFavorites: PropTypes.func,
-};
-
-const mapStateToProps = (state) => ({
-  isFavoritesLoaded: state.isFavoritesLoaded,
-  favoriteOffers: state.favoriteOffers,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadFavorites() {
-    dispatch(fetchFavoriteOffers());
-  }
-});
-
-export {Favorites};
-export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
+export default Favorites;

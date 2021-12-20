@@ -1,12 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import OfferProp from "../offer/offer.prop";
-import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
-import {ActionCreator} from "../../store/actions";
+import {changeCity, closePopup, resetSortingType} from "../../store/actions";
 import {convertRatingToPercent} from "../../utils/utils";
+import {useDispatch} from "react-redux";
+import {postFavoriteOffer} from "../../store/axios-actions";
 
-const OfferCard = ({offer, pageType, onOfferTitleClick}) => {
+const OfferCard = ({offer, pageType}) => {
+  const dispatch = useDispatch();
   const {price, title, type, preview_image, id, is_favorite, rating} = offer;
   const percent = convertRatingToPercent(rating);
   const history = useHistory();
@@ -14,6 +16,7 @@ const OfferCard = ({offer, pageType, onOfferTitleClick}) => {
 
   const citiesOrNearPlaceCard = pageType === `cities` ? `cities__place-card` : `near-places__card`;
   const favoriteOffer = is_favorite ? `place-card__bookmark-button--active` : ``;
+  const status = is_favorite ? 0 : 1;
 
   let articlePlaceCard;
   let offerImageWidth;
@@ -34,9 +37,16 @@ const OfferCard = ({offer, pageType, onOfferTitleClick}) => {
 
   const onTitleClick = (evt) => {
     evt.preventDefault();
-    onOfferTitleClick(offer.city.name, id);
+    dispatch(changeCity(offer.city.name));
+    dispatch(resetSortingType());
+    dispatch(closePopup());
     history.push(pathToOffer);
     window.scrollTo(0, 0);
+  };
+
+  const onBookMarkClick = (evt) => {
+    evt.preventDefault();
+    dispatch(postFavoriteOffer(id, status));
   };
 
   return (
@@ -54,7 +64,7 @@ const OfferCard = ({offer, pageType, onOfferTitleClick}) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button button ${favoriteOffer}`} type="button">
+          <button className={`place-card__bookmark-button button ${favoriteOffer}`} type="button" onClick={onBookMarkClick}>
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>
             </svg>
@@ -79,15 +89,6 @@ const OfferCard = ({offer, pageType, onOfferTitleClick}) => {
 OfferCard.propTypes = {
   offer: OfferProp,
   pageType: PropTypes.string.isRequired,
-  onOfferTitleClick: PropTypes.func,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onOfferTitleClick(typeCity) {
-    dispatch(ActionCreator.changeCity(typeCity));
-    dispatch(ActionCreator.resetSortingType());
-  },
-});
-
-export {OfferCard};
-export default connect(null, mapDispatchToProps)(OfferCard);
+export default OfferCard;

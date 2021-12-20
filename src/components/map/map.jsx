@@ -1,10 +1,12 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, memo} from 'react';
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
 import leaflet from 'leaflet';
 import "leaflet/dist/leaflet.css";
+import {useSelector} from "react-redux";
 
-const Map = ({offerList, style, city, activeOfferId}) => {
+const Map = ({offerList, style}) => {
+  const {city} = useSelector((state) => state.CITY);
+  const {activeOfferId} = useSelector((state) => state.ACTIVE_OFFER);
   const mapRef = useRef();
   const cityInfo = offerList.find((e) => e.city.location).city;
   const {location} = cityInfo;
@@ -47,21 +49,13 @@ const Map = ({offerList, style, city, activeOfferId}) => {
   }, [city, activeOfferId]);
 
   return (
-    <div id="map" style={style} ref={mapRef}/>
+    <div id="map" style={style}/>
   );
 };
 
 Map.propTypes = {
   offerList: PropTypes.array.isRequired,
   style: PropTypes.object.isRequired,
-  city: PropTypes.string,
-  activeOfferId: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
-  city: state.city,
-  activeOfferId: state.activeOfferId
-});
-
-export {Map};
-export default connect(mapStateToProps, null)(Map);
+export default memo(Map);

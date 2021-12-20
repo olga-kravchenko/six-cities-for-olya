@@ -1,9 +1,30 @@
-import React from "react";
-import PropTypes from "prop-types";
-import {ActionCreator} from "../../store/actions";
-import {connect} from "react-redux";
+import React, {memo} from "react";
+import {changeCity, closePopup, resetSortingType} from "../../store/actions";
+import {useSelector, useDispatch} from "react-redux";
+import {CityNames, DEFAULT_SORTING_TYPE} from "../../constants";
 
-const Cities = ({cities, onCityClick, city}) => {
+const Cities = () => {
+  const cities = Object.values(CityNames);
+  const {city} = useSelector((state) => state.CITY);
+  const {sortingType} = useSelector((state) => state.SORTING_TYPE);
+  const {isOpenSortingPopup} = useSelector((state) => state.POPUP);
+  const dispatch = useDispatch();
+
+  const onCityClick = (evt) => {
+    evt.preventDefault();
+    const cityName = evt.target.textContent;
+    if (document.querySelector(`.cities__places`)) {
+      document.querySelector(`.cities__places`).scrollTo(0, 0);
+    }
+    dispatch(changeCity(cityName));
+    if (sortingType !== DEFAULT_SORTING_TYPE) {
+      dispatch(resetSortingType());
+    }
+    if (isOpenSortingPopup) {
+      dispatch(closePopup());
+    }
+  };
+
   return (
     <ul className="locations__list tabs__list">
       {cities.map((cityName, i) => {
@@ -20,25 +41,4 @@ const Cities = ({cities, onCityClick, city}) => {
   );
 };
 
-Cities.propTypes = {
-  cities: PropTypes.array.isRequired,
-  onCityClick: PropTypes.func,
-  city: PropTypes.string,
-};
-
-const mapStateToProps = (state) => ({
-  city: state.city,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onCityClick(evt) {
-    evt.preventDefault();
-    const cityName = evt.target.textContent;
-    document.querySelector(`.cities__places`).scrollTo(0, 0);
-    dispatch(ActionCreator.changeCity(cityName));
-    dispatch(ActionCreator.resetSortingType());
-  },
-});
-
-export {Cities};
-export default connect(mapStateToProps, mapDispatchToProps)(Cities);
+export default memo(Cities);

@@ -1,18 +1,21 @@
 import React, {useEffect} from "react";
-import PropTypes from "prop-types";
 import {useParams} from "react-router-dom";
-import {connect} from "react-redux";
 import {convertRatingToPercent} from "../../utils/utils";
-import {fetchOffer} from "../../store/axios-actions";
+import {fetchOffer, postFavoriteOffer} from "../../store/axios-actions";
 import Header from "../header/header";
 import Map from "../map/map";
 import Spinner from "../spinner/spinner";
 import Reviews from "../reviews/reviews";
 import NearestOffers from "../nearest-offers/nearest-offers";
+import {useSelector, useDispatch} from "react-redux";
 
-const Offer = ({offer, nearestOffers, onLoadOffer}) => {
+const Offer = () => {
+  const {nearestOffers, offer} = useSelector((state) => state.OFFER);
+  const dispatch = useDispatch();
   const {id} = useParams();
-  useEffect(() => onLoadOffer(id), [id]);
+  useEffect(() => {
+    dispatch(fetchOffer(id));
+  }, [id]);
 
   if (offer.id !== +id) {
     return (<Spinner/>);
@@ -36,6 +39,14 @@ const Offer = ({offer, nearestOffers, onLoadOffer}) => {
   const percent = convertRatingToPercent(rating);
   const userAvatarPro = is_pro ? `property__avatar-wrapper--pro` : ``;
   const favoriteOffer = is_favorite ? `property__bookmark-button--active` : ``;
+  const status = is_favorite ? 0 : 1;
+
+  const onBookMarkClick = (evt) => {
+    evt.preventDefault();
+    dispatch(postFavoriteOffer(id, status));
+    const button = document.querySelector(`.property__bookmark-button`);
+    button.classList.toggle(`property__bookmark-button--active`);
+  };
 
   return (
     <div className="page">
@@ -60,7 +71,7 @@ const Offer = ({offer, nearestOffers, onLoadOffer}) => {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={`property__bookmark-button button ${favoriteOffer}`} type="button">
+                <button className={`property__bookmark-button button ${favoriteOffer}`} type="button" onClick={onBookMarkClick}>
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"/>
                   </svg>
@@ -129,22 +140,4 @@ const Offer = ({offer, nearestOffers, onLoadOffer}) => {
   );
 };
 
-Offer.propTypes = {
-  offer: PropTypes.object,
-  nearestOffers: PropTypes.array,
-  onLoadOffer: PropTypes.func,
-};
-
-const mapStateToProps = (state) => ({
-  offer: state.offer,
-  nearestOffers: state.nearestOffers,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadOffer(id) {
-    dispatch(fetchOffer(id));
-  },
-});
-
-export {Offer};
-export default connect(mapStateToProps, mapDispatchToProps)(Offer);
+export default Offer;

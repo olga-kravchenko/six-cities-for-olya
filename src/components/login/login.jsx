@@ -1,31 +1,33 @@
-import React, {useRef} from "react";
+import React, {useRef, useEffect} from "react";
 import Header from "../header/header";
-import PropTypes from "prop-types";
 import {login} from "../../store/axios-actions";
-import {connect} from "react-redux";
-import {Redirect} from "react-router-dom";
 import {AppRoute} from "../../constants";
+import {useSelector, useDispatch} from "react-redux";
+import browserHistory from "../../browser-history";
 
-const Login = ({onSubmitForm, isAuth}) => {
+const Login = () => {
+  const {isAuth} = useSelector((state) => state.USER);
+  const dispatch = useDispatch();
   const loginRef = useRef();
   const passwordRef = useRef();
 
-  if (isAuth) {
-    return (<Redirect to={AppRoute.FAVORITES}/>);
-  }
+  useEffect(() => {
+    if (isAuth) {
+      browserHistory.push(AppRoute.FAVORITES);
+    }
+  }, [isAuth]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    onSubmitForm({
+    dispatch(login({
       login: loginRef.current.value,
       password: passwordRef.current.value,
-    });
+    }));
   };
 
   return (
     <div className="page page--gray page--login">
       <Header/>
-
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
@@ -71,20 +73,4 @@ const Login = ({onSubmitForm, isAuth}) => {
   );
 };
 
-Login.propTypes = {
-  onSubmitForm: PropTypes.func.isRequired,
-  isAuth: PropTypes.bool,
-};
-
-const mapStateToProps = (state) => ({
-  isAuth: state.isAuth,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmitForm(authData) {
-    dispatch(login(authData));
-  }
-});
-
-export {Login};
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;

@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import browserHistory from "../../browser-history";
 import {AppRoute} from "../../constants";
@@ -10,21 +9,17 @@ import Offer from "../offer/offer";
 import PrivateRoute from "../private-route/private-route";
 import PageNotFound from "../page-not-found/page-not-found";
 
-const App = ({cities}) => {
+const App = () => {
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
         <Route path={AppRoute.MAIN} exact>
-          <Main cities={cities}/>
+          <Main/>
         </Route>
         <Route path={AppRoute.LOGIN} exact>
           <Login/>
         </Route>
-        <PrivateRoute
-          exact
-          path={AppRoute.FAVORITES}
-          render={() => <Favorites cities={cities}/>}
-        />
+        <PrivateRoute exact path={AppRoute.FAVORITES} render={() => <Favorites/>}/>
         <Route path={AppRoute.OFFER} exact>
           <Offer/>
         </Route>
@@ -34,10 +29,6 @@ const App = ({cities}) => {
       </Switch>
     </BrowserRouter>
   );
-};
-
-App.propTypes = {
-  cities: PropTypes.array,
 };
 
 export default App;
