@@ -19,11 +19,7 @@ const App = () => {
         <Route path={AppRoute.LOGIN} exact>
           <Login/>
         </Route>
-        <PrivateRoute
-          exact
-          path={AppRoute.FAVORITES}
-          render={() => <Favorites/>}
-        />
+        <PrivateRoute exact path={AppRoute.FAVORITES} render={() => <Favorites/>}/>
         <Route path={AppRoute.OFFER} exact>
           <Offer/>
         </Route>

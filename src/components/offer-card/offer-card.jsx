@@ -47,7 +47,6 @@ const OfferCard = ({offer, pageType}) => {
   const onBookMarkClick = (evt) => {
     evt.preventDefault();
     dispatch(postFavoriteOffer(id, status));
-    evt.target.closest(`button`).classList.toggle(`place-card__bookmark-button--active`);
   };
 
   return (

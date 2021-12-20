@@ -6,11 +6,8 @@ const initialState = {
   isFavoritesLoaded: false,
 };
 
-const replaceElement = (offers, element) => {
-  const index = offers.findIndex((offer) => offer.id === element.id);
-  if (index !== -1) {
-    offers[index] = element;
-  }
+const addElement = (offers, element) => {
+  offers.push(element);
   return offers;
 };
 
@@ -29,7 +26,7 @@ const favoritesDataReducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(updateFavoritesOffers, (state, {payload}) => {
     if (payload.is_favorite) {
-      state.favoriteOffers = replaceElement(state.favoriteOffers, payload);
+      state.favoriteOffers = addElement(state.favoriteOffers, payload);
     } else {
       state.favoriteOffers = removeElement(state.favoriteOffers, payload);
     }

@@ -1,9 +1,9 @@
-import React, {useRef} from "react";
+import React, {useRef, useEffect} from "react";
 import Header from "../header/header";
 import {login} from "../../store/axios-actions";
-import {Redirect} from "react-router-dom";
 import {AppRoute} from "../../constants";
 import {useSelector, useDispatch} from "react-redux";
+import browserHistory from "../../browser-history";
 
 const Login = () => {
   const {isAuth} = useSelector((state) => state.USER);
@@ -11,9 +11,11 @@ const Login = () => {
   const loginRef = useRef();
   const passwordRef = useRef();
 
-  if (isAuth) {
-    return (<Redirect to={AppRoute.FAVORITES}/>);
-  }
+  useEffect(() => {
+    if (isAuth) {
+      browserHistory.push(AppRoute.FAVORITES);
+    }
+  }, [isAuth]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();

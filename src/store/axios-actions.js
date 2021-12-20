@@ -49,10 +49,10 @@ const checkAuth = () => (dispatch, _, axiosApi) => (
 const login = ({login: email, password}) => (dispatch, _, axiosApi) => (
   axiosApi.post(`${AxiosRoute.LOGIN}`, {email, password})
     .then(({data}) => {
-      dispatch(changeAuthStatus(true));
       dispatch(saveUserInfo(data));
+      dispatch(redirectToRoute(`${AppRoute.MAIN}`));
+      dispatch(changeAuthStatus(true));
     })
-    .then(() => dispatch(redirectToRoute(`${AppRoute.MAIN}`)))
     .catch(showErrorMassage)
 );
 
@@ -96,6 +96,7 @@ const postFavoriteOffer = (id, status) => (dispatch, _, axiosApi) => (
       return data;
     })
     .then((data) => dispatch(updateFavoritesOffers(data)))
+    .catch(() => dispatch(redirectToRoute(`${AppRoute.LOGIN}`)))
 );
 
 export {

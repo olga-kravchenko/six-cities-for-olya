@@ -25,8 +25,10 @@ const Favorites = () => {
   const dispatch = useDispatch();
   const {favoriteOffers, isFavoritesLoaded} = useSelector((state) => state.FAVORITES);
   useEffect(() => {
-    dispatch(fetchFavoriteOffers());
-  }, [isFavoritesLoaded]);
+    if (!isFavoritesLoaded) {
+      dispatch(fetchFavoriteOffers());
+    }
+  }, []);
 
   const cities = Object.values(CityNames);
   const isNoOffers = favoriteOffers.length === 0;
