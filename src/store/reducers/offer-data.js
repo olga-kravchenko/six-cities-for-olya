@@ -7,7 +7,7 @@ const initialState = {
   nearestOffers: [],
 };
 
-const offerDataReducer = createReducer(initialState, (builder) => {
+const offerData = createReducer(initialState, (builder) => {
   builder.addCase(loadOffer, (state, {payload}) => {
     state.offer = payload;
   });
@@ -19,4 +19,4 @@ const offerDataReducer = createReducer(initialState, (builder) => {
   });
 });
 
-export {offerDataReducer};
+export {initialState, offerData};

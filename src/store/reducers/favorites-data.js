@@ -1,25 +1,13 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {loadFavoriteOffers, updateFavoritesOffers} from "../actions";
+import {addElement, removeElement} from "../../utils/utils";
 
 const initialState = {
   favoriteOffers: [],
   isFavoritesLoaded: false,
 };
 
-const addElement = (offers, element) => {
-  offers.push(element);
-  return offers;
-};
-
-const removeElement = (offers, element) => {
-  const index = offers.findIndex((offer) => offer.id === element.id);
-  if (index > -1) {
-    offers.splice(index, 1);
-  }
-  return offers;
-};
-
-const favoritesDataReducer = createReducer(initialState, (builder) => {
+const favoritesData = createReducer(initialState, (builder) => {
   builder.addCase(loadFavoriteOffers, (state, {payload}) => {
     state.favoriteOffers = payload;
     state.isFavoritesLoaded = true;
@@ -33,4 +21,4 @@ const favoritesDataReducer = createReducer(initialState, (builder) => {
   });
 });
 
-export {favoritesDataReducer};
+export {initialState, favoritesData};

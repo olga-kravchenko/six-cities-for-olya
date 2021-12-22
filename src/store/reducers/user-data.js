@@ -6,7 +6,7 @@ const initialState = {
   isAuth: false,
 };
 
-const userDataReducer = createReducer(initialState, (builder) => {
+const userData = createReducer(initialState, (builder) => {
   builder.addCase(saveUserInfo, (state, {payload}) => {
     state.userInfo = payload;
   });
@@ -15,4 +15,4 @@ const userDataReducer = createReducer(initialState, (builder) => {
   });
 });
 
-export {userDataReducer};
+export {initialState, userData};

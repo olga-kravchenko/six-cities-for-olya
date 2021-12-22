@@ -75,7 +75,7 @@ describe(`Action creators work correctly`, () => {
   });
 
   it(`Action creator for changeSortingType returns correct action`, () => {
-    const expectedSortingType = {};
+    const expectedSortingType = `SortingType`;
     const expectedAction = {
       type: ActionType.CHANGE_SORTING_TYPE,
       payload: expectedSortingType,

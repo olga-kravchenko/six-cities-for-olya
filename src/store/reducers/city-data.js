@@ -6,10 +6,10 @@ const initialState = {
   city: DEFAULT_CITY,
 };
 
-const cityDataReducer = createReducer(initialState, (builder) => {
+const cityData = createReducer(initialState, (builder) => {
   builder.addCase(changeCity, (state, {payload}) => {
     state.city = payload;
   });
 });
 
-export {cityDataReducer};
+export {initialState, cityData};

@@ -1,12 +1,12 @@
 import {combineReducers} from "@reduxjs/toolkit";
-import {userDataReducer} from "./reducers/user-data";
-import {cityDataReducer} from "./reducers/city-data";
-import {offersDataReducer} from "./reducers/offers-data";
-import {sortingTypeDataReducer} from "./reducers/sorting-type-data";
-import {popupDataReducer} from "./reducers/popup-data";
-import {activeOfferDataReducer} from "./reducers/active-offer-data";
-import {offerDataReducer} from "./reducers/offer-data";
-import {favoritesDataReducer} from "./reducers/favorites-data";
+import {userData} from "./reducers/user-data";
+import {cityData} from "./reducers/city-data";
+import {offersData} from "./reducers/offers-data";
+import {sortingTypeData} from "./reducers/sorting-type-data";
+import {popupData} from "./reducers/popup-data";
+import {activeOfferData} from "./reducers/active-offer-data";
+import {offerData} from "./reducers/offer-data";
+import {favoritesData} from "./reducers/favorites-data";
 
 const Namespace = {
   USER: `USER`,
@@ -20,14 +20,14 @@ const Namespace = {
 };
 
 const rootReducer = combineReducers({
-  [Namespace.USER]: userDataReducer,
-  [Namespace.CITY]: cityDataReducer,
-  [Namespace.OFFERS]: offersDataReducer,
-  [Namespace.SORTING_TYPE]: sortingTypeDataReducer,
-  [Namespace.POPUP]: popupDataReducer,
-  [Namespace.ACTIVE_OFFER]: activeOfferDataReducer,
-  [Namespace.OFFER]: offerDataReducer,
-  [Namespace.FAVORITES]: favoritesDataReducer,
+  [Namespace.USER]: userData,
+  [Namespace.CITY]: cityData,
+  [Namespace.OFFERS]: offersData,
+  [Namespace.SORTING_TYPE]: sortingTypeData,
+  [Namespace.POPUP]: popupData,
+  [Namespace.ACTIVE_OFFER]: activeOfferData,
+  [Namespace.OFFER]: offerData,
+  [Namespace.FAVORITES]: favoritesData,
 });
 
 export {Namespace};
