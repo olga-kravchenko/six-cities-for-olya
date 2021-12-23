@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should LoadingScreen render correctly 1`] = `
+<div>
+  <div
+    class="container-loader"
+  >
+    <div
+      class="item-loader"
+    >
+      <div
+        class="loader01"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Should Spinner render correctly 1`] = `
+<div>
+  <div
+    class="container-loader"
+  >
+    <div
+      class="item-loader"
+    >
+      <div
+        class="loader01"
+      />
+    </div>
+  </div>
+</div>
+`;
