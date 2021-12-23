@@ -9,7 +9,7 @@ import {checkAuth} from "./store/axios-actions";
 import {redirect} from "./store/middlewares/redirect";
 import {configureStore} from "@reduxjs/toolkit";
 
-const axiosApi = createAxios(() => store.dispatch(changeAuthStatus(false)));
+const axiosApi = createAxios(() => store.dispatch(changeAuthStatus()));
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>

@@ -1,6 +1,12 @@
 import {initialState, offersData} from "./offers-data";
 import {loadOffers, updateOffers, loadOffersWithError} from "../actions";
 import {replaceElement} from "../../utils/utils";
+import MockAdapter from 'axios-mock-adapter';
+import createAxios from "../../services/axios";
+import {fetchOffers} from "../axios-actions";
+import {AxiosRoute} from "../../constants";
+
+const api = createAxios(() => {});
 
 describe(`Reducer 'offersData' work correctly.`, () => {
   it(`Reducer without additional parameters should return initial state.`, () => {
@@ -24,5 +30,21 @@ describe(`Reducer 'offersData' work correctly.`, () => {
   it(`Reducer must change the isOffersLoaded status to 'true'.`, () => {
     expect(offersData(initialState, loadOffersWithError()))
       .toEqual({...initialState, isOffersLoaded: true});
+  });
+});
+
+describe(`Async operation work correctly`, () => {
+  it(`Should make a correct API call to get /offers`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const offersLoader = fetchOffers();
+    apiMock
+      .onGet(AxiosRoute.OFFERS)
+      .reply(200, {offers: [], isOffersLoaded: true});
+    return offersLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, loadOffers({offers: [], isOffersLoaded: true}));
+      });
   });
 });

@@ -9,9 +9,10 @@ const initialState = {
 const userData = createReducer(initialState, (builder) => {
   builder.addCase(saveUserInfo, (state, {payload}) => {
     state.userInfo = payload;
+    state.isAuth = true;
   });
-  builder.addCase(changeAuthStatus, (state, {payload}) => {
-    state.isAuth = payload;
+  builder.addCase(changeAuthStatus, (state) => {
+    state.isAuth = false;
   });
 });
 
