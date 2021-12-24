@@ -1,6 +1,8 @@
 import React from "react";
+import {useSelector} from "react-redux";
 
 const EmptyMain = () => {
+  const {city} = useSelector((state) => state.CITY);
   return (
     <div className="cities">
       <div className="cities__places-container cities__places-container--empty container">
@@ -8,7 +10,7 @@ const EmptyMain = () => {
           <div className="cities__status-wrapper tabs__content">
             <b className="cities__status">No places to stay available</b>
             <p className="cities__status-description">We could not find any property available at the moment in
-              Dusseldorf</p>
+              {city}</p>
           </div>
         </section>
         <div className="cities__right-section"/>
