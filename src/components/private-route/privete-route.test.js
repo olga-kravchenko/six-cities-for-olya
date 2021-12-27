@@ -5,13 +5,14 @@ import {render, screen} from "@testing-library/react";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import PrivateRoute from "./private-route";
+import {AppRoute} from "../../constants";
 
 const mockStore = configureStore({});
 let history;
 describe(`Test PrivateRouter`, () => {
   beforeEach(() => {
     history = createMemoryHistory();
-    history.push(`/private`);
+    history.push(AppRoute.FAVORITES);
   });
 
   it(`Should be render component for public route, when user not authorized`, () => {
@@ -22,10 +23,10 @@ describe(`Test PrivateRouter`, () => {
     render(
         <Provider store={store}>
           <Router history={history}>
-            <Route exact path="/login"><h1>Public Route</h1></Route>
+            <Route exact path={AppRoute.LOGIN}><h1>Public Route</h1></Route>
             <PrivateRoute
               exact
-              path="/private"
+              path={AppRoute.FAVORITES}
               render={() => (<h1>Private Route</h1>)}
             />
           </Router>
@@ -43,10 +44,10 @@ describe(`Test PrivateRouter`, () => {
     render(
         <Provider store={store}>
           <Router history={history}>
-            <Route exact path="/login"><h1>Public Route</h1></Route>
+            <Route exact path={AppRoute.LOGIN}><h1>Public Route</h1></Route>
             <PrivateRoute
               exact
-              path="/favorites"
+              path={AppRoute.FAVORITES}
               render={() => (<h1>Private Route</h1>)}
             />
           </Router>
