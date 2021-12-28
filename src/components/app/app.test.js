@@ -6,7 +6,6 @@ import configureStore from 'redux-mock-store';
 import App from "./app";
 import {Router} from "react-router-dom";
 import {AppRoute, DEFAULT_CITY, DEFAULT_SORTING_TYPE} from "../../constants";
-import {Namespace} from "../../store/root-reducer";
 import {Provider} from "react-redux";
 
 const mockOffers = [
@@ -149,20 +148,24 @@ const mockOffers = [
 ];
 
 const mockStore = configureStore({});
+let history;
 
 describe(`Test routing`, () => {
   jest.spyOn(redux, `useSelector`);
   jest.spyOn(redux, `useDispatch`);
 
+  beforeEach(() => {
+    history = createMemoryHistory();
+  });
+
   it(`Render 'Main' when user navigate to '/' url`, () => {
-    const history = createMemoryHistory();
     const store = mockStore({
-      [Namespace.USER]: {isAuth: false},
-      [Namespace.CITY]: {city: DEFAULT_CITY},
-      [Namespace.ACTIVE_OFFER]: {activeOfferId: ``},
-      [Namespace.POPUP]: {isOpenSortingPopup: false},
-      [Namespace.SORTING_TYPE]: {sortingType: DEFAULT_SORTING_TYPE},
-      [Namespace.OFFERS]: {
+      USER: {isAuth: false},
+      CITY: {city: DEFAULT_CITY},
+      ACTIVE_OFFER: {activeOfferId: ``},
+      POPUP: {isOpenSortingPopup: false},
+      SORTING_TYPE: {sortingType: DEFAULT_SORTING_TYPE},
+      OFFERS: {
         offers: mockOffers,
         isOffersLoaded: true
       },
@@ -182,10 +185,9 @@ describe(`Test routing`, () => {
   });
 
   it(`Render 'Login' when user navigate to '/login' url`, () => {
-    const history = createMemoryHistory();
     history.push(AppRoute.LOGIN);
     const store = mockStore({
-      [Namespace.USER]: {isAuth: false},
+      USER: {isAuth: false},
     });
 
     render(
@@ -200,11 +202,10 @@ describe(`Test routing`, () => {
   });
 
   it(`Render 'Favorites' when user navigate to '/favorite' url`, () => {
-    const history = createMemoryHistory();
     history.push(AppRoute.FAVORITES);
     const store = mockStore({
-      [Namespace.USER]: {userInfo: {email: `some-email`, avatar_url: `img.svg`}, isAuth: true},
-      [Namespace.FAVORITES]: {favoriteOffers: [], isFavoritesLoaded: true}
+      USER: {userInfo: {email: `some-email`, avatar_url: `img.svg`}, isAuth: true},
+      FAVORITES: {favoriteOffers: [], isFavoritesLoaded: true}
     });
 
     render(
@@ -219,10 +220,9 @@ describe(`Test routing`, () => {
   });
 
   it(`Render 'PageNotFound' when user navigate to 'wrong address' url`, () => {
-    const history = createMemoryHistory();
     history.push(AppRoute.PAGE_NOT_FOUND);
     const store = mockStore({
-      [Namespace.USER]: {isAuth: false},
+      USER: {isAuth: false},
     });
 
     render(
