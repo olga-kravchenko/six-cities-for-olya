@@ -53,6 +53,7 @@ describe(`Test PrivateRouter`, () => {
           </Router>
         </Provider>
     );
+    expect(screen.getByText(/Private Route/i)).toBeInTheDocument();
     expect(screen.queryByText(/Public Route/i)).not.toBeInTheDocument();
   });
 });

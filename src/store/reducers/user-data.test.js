@@ -14,14 +14,15 @@ describe(`Reducer 'userData' should work correctly.`, () => {
   });
 
   it(`Reducer must update changeAuthStatus to 'true'.`, () => {
-    expect(userData(initialState, changeAuthStatus(true)))
-      .toEqual({...initialState, isAuth: true});
+    expect(userData(initialState, changeAuthStatus()))
+      .toEqual({...initialState, isAuth: false});
   });
 
   it(`Reducer must update userInfo.`, () => {
-    const expectedUserAuthInfo = {email: ``, avatar_url: ``};
-    expect(userData(initialState, saveUserInfo(expectedUserAuthInfo)))
-      .toEqual({...initialState, userInfo: expectedUserAuthInfo});
+    const state = {isAuth: true, userInfo: {email: ``, avatar_url: ``}};
+    const expectedUserAuthInfo = {email: `some-email`, avatar_url: `some-img`};
+    expect(userData(state, saveUserInfo(expectedUserAuthInfo)))
+      .toEqual({...state, userInfo: expectedUserAuthInfo});
   });
 });
 

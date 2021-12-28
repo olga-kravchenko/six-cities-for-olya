@@ -2,11 +2,10 @@ import React from "react";
 import {screen, render} from "@testing-library/react";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
-import Favorites from "./favorites";
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from "history";
 import {AppRoute} from "../../constants";
-
+import Favorites from "./favorites";
 
 it(`Favorites should render correctly`, () => {
   const mockStore = configureStore({});
