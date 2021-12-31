@@ -11,7 +11,7 @@ import {
   redirectToRoute,
   updateOffers
 } from "./actions";
-import {AxiosRoute, AppRoute} from "../constants";
+import {AxiosRoute, AppRoute} from "../../constants";
 
 const errorToast = (message) => {
   const toastContainer = document.createElement(`div`);

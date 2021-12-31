@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import {postComment} from "../../store/axios-actions";
+import {postComment} from "../../store/actions/axios-actions";
 import {useDispatch} from "react-redux";
 
 const ReviewForm = ({id}) => {

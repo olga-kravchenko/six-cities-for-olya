@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {changeSortingType, resetSortingType} from "../actions";
+import {changeSortingType, resetSortingType} from "../actions/actions";
 import {DEFAULT_SORTING_TYPE} from "../../constants";
 
 const initialState = {

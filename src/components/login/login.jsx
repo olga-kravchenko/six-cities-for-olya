@@ -1,6 +1,6 @@
 import React, {useRef, useEffect} from "react";
 import Header from "../header/header";
-import {login} from "../../store/axios-actions";
+import {login} from "../../store/actions/axios-actions";
 import {AppRoute} from "../../constants";
 import {useSelector, useDispatch} from "react-redux";
 import browserHistory from "../../browser-history";

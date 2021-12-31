@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import CommentForm from "../review-form/review-form";
 import PropTypes from "prop-types";
-import {fetchComments} from "../../store/axios-actions";
+import {fetchComments} from "../../store/actions/axios-actions";
 import Spinner from "../spinner/spinner";
 import Review from "../review/review";
 import {useSelector, useDispatch} from "react-redux";

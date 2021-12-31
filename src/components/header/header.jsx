@@ -1,7 +1,7 @@
 import React, {memo} from "react";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {logout} from "../../store/axios-actions";
+import {logout} from "../../store/actions/axios-actions";
 import {AppRoute} from "../../constants";
 
 const Header = () => {

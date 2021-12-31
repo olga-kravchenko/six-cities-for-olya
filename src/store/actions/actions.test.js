@@ -18,7 +18,7 @@ import {
   updateFavoritesOffers,
   redirectToRoute
 } from "./actions";
-import {DEFAULT_SORTING_TYPE} from "../constants";
+import {DEFAULT_SORTING_TYPE} from "../../constants";
 
 
 describe(`Action creators work correctly`, () => {

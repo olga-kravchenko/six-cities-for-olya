@@ -1,5 +1,5 @@
 import {initialState, sortingTypeData} from "./sorting-type-data";
-import {changeSortingType, resetSortingType} from "../actions";
+import {changeSortingType, resetSortingType} from "../actions/actions";
 
 describe(`Reducer 'sortingTypeData' work correctly.`, () => {
   it(`Reducer without additional parameters should return initial state.`, () => {

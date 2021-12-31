@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import OfferCard from "../offer-card/offer-card";
 import PropTypes from "prop-types";
-import {fetchNearbyOffer} from "../../store/axios-actions";
+import {fetchNearbyOffer} from "../../store/actions/axios-actions";
 import Spinner from "../spinner/spinner";
 import {useSelector, useDispatch} from "react-redux";
 

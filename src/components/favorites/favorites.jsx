@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import Header from "../header/header";
 import FavoritesEmpty from "../favorites-empty/favorites-empty";
 import OfferCard from "../offer-card/offer-card";
-import {fetchFavoriteOffers} from "../../store/axios-actions";
+import {fetchFavoriteOffers} from "../../store/actions/axios-actions";
 import Spinner from "../spinner/spinner";
 import {useSelector, useDispatch} from "react-redux";
 import {CityNames} from "../../constants";

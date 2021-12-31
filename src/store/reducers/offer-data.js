@@ -1,5 +1,5 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {loadOffer, loadComments, loadNearestOffers} from "../actions";
+import {loadOffer, loadComments, loadNearestOffers} from "../actions/actions";
 
 const initialState = {
   offer: {},

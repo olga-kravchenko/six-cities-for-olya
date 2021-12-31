@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {closePopup, openPopup} from "../actions";
+import {closePopup, openPopup} from "../actions/actions";
 
 const initialState = {
   isOpenSortingPopup: false,

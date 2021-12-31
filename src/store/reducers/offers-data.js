@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {loadOffers, updateOffers, loadOffersWithError} from "../actions";
+import {loadOffers, updateOffers, loadOffersWithError} from "../actions/actions";
 import {replaceElement} from "../../utils/utils";
 
 const initialState = {

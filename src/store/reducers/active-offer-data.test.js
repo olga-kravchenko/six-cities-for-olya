@@ -1,5 +1,5 @@
 import {initialState, activeOfferData} from "./active-offer-data";
-import {changeActiveOffer} from "../actions";
+import {changeActiveOffer} from "../actions/actions";
 
 describe(`Reducer 'activeOfferData' work correctly.`, () => {
   it(`Reducer without additional parameters should return initial state.`, () => {

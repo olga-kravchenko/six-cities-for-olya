@@ -1,5 +1,5 @@
 import {initialState, popupData} from "./popup-data";
-import {closePopup, openPopup} from "../actions";
+import {closePopup, openPopup} from "../actions/actions";
 
 describe(`Reducer 'popupData' work correctly.`, () => {
   it(`Reducer without additional parameters should return initial state.`, () => {

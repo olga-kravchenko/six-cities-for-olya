@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {changeActiveOffer} from "../actions";
+import {changeActiveOffer} from "../actions/actions";
 
 const initialState = {
   activeOfferId: ``,

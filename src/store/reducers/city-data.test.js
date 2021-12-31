@@ -1,5 +1,5 @@
 import {initialState, cityData} from "./city-data";
-import {changeCity} from "../actions";
+import {changeCity} from "../actions/actions";
 
 describe(`Reducer 'cityData' work correctly.`, () => {
   it(`Reducer without additional parameters should return initial state.`, () => {

@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {changeCity} from "../actions";
+import {changeCity} from "../actions/actions";
 import {DEFAULT_CITY} from "../../constants";
 
 const initialState = {

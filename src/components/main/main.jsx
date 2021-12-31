@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {fetchOffers} from "../../store/axios-actions";
+import {fetchOffers} from "../../store/actions/axios-actions";
 import SortingTypes from "../sorting-types/sorting-types";
 import Header from "../header/header";
 import Offers from "../offers/offers";

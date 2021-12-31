@@ -1,5 +1,5 @@
 import React, {memo} from "react";
-import {changeSortingType, closePopup, openPopup} from "../../store/actions";
+import {changeSortingType, closePopup, openPopup} from "../../store/actions/actions";
 import {SortingType} from "../../constants";
 import {useSelector, useDispatch} from "react-redux";
 

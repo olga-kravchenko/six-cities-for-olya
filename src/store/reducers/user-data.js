@@ -1,4 +1,4 @@
-import {saveUserInfo, changeAuthStatus} from "../actions";
+import {saveUserInfo, changeAuthStatus} from "../actions/actions";
 import {createReducer} from "@reduxjs/toolkit";
 
 const initialState = {

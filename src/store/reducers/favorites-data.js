@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {loadFavoriteOffers, updateFavoritesOffers} from "../actions";
+import {loadFavoriteOffers, updateFavoritesOffers} from "../actions/actions";
 import {addElement, removeElement} from "../../utils/utils";
 
 const initialState = {

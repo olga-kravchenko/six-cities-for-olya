@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import OfferProp from "../offer/offer.prop";
 import {useHistory} from "react-router-dom";
-import {changeCity, closePopup, resetSortingType} from "../../store/actions";
+import {changeCity, closePopup, resetSortingType} from "../../store/actions/actions";
 import {convertRatingToPercent} from "../../utils/utils";
 import {useDispatch} from "react-redux";
-import {postFavoriteOffer} from "../../store/axios-actions";
+import {postFavoriteOffer} from "../../store/actions/axios-actions";
 
 const OfferCard = ({offer, pageType}) => {
   const dispatch = useDispatch();

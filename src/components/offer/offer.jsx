@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {useParams} from "react-router-dom";
 import {convertRatingToPercent} from "../../utils/utils";
-import {fetchOffer, postFavoriteOffer} from "../../store/axios-actions";
+import {fetchOffer, postFavoriteOffer} from "../../store/actions/axios-actions";
 import Header from "../header/header";
 import Map from "../map/map";
 import Spinner from "../spinner/spinner";
