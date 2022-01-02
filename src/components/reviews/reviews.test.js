@@ -3,20 +3,15 @@ import {render, screen} from "@testing-library/react";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import Reviews from "./reviews";
+import MockAdapter from "axios-mock-adapter";
+import {fetchComments} from "../../store/actions/axios-actions";
+import {AxiosRoute} from "../../constants";
+import {loadComments} from "../../store/actions/actions";
+import createAxios from "../../services/axios";
 
-jest.mock(`../review/review`, () => {
-  const mockReview = () => <>mock Review</>;
-  mockReview.displayName = `Review`;
+const api = createAxios(() => {});
 
-  return {
-    __esModule: true,
-    default: () => {
-      return mockReview();
-    },
-  };
-});
-
-it(`Review should render correctly on Main page`, () => {
+it(`Reviews should render correctly on page`, () => {
   const id = `1`;
   const mockStore = configureStore({});
   const extendedComment = {
@@ -31,16 +26,25 @@ it(`Review should render correctly on Main page`, () => {
       "name": `Max`
     }
   };
-
   const store = mockStore({
     OFFER: {offer: {id: 1}, comments: [extendedComment]},
     USER: {userInfo: {email: `some-email`, avatar_url: `img.svg`}, isAuth: true},
   });
-  render(
-      <Provider store={store}>
-        <Reviews id={id}/>
-      </Provider>);
-
-  expect(screen.getByText(/Reviews/i)).toBeInTheDocument();
+  const apiMock = new MockAdapter(api);
+  const dispatch = jest.fn();
+  const fetchCommentsLoader = fetchComments(id);
+  apiMock
+    .onGet(`${AxiosRoute.COMMENTS}/1`)
+    .reply(200, [extendedComment]);
+  return fetchCommentsLoader(dispatch, () => {}, api)
+    .then(() => {
+      expect(dispatch).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenNthCalledWith(1, loadComments([extendedComment]));
+      render(
+          <Provider store={store}>
+            <Reviews id={id}/>
+          </Provider>);
+      expect(screen.getByText(/Reviews/i)).toBeInTheDocument();
+    });
 });
 
